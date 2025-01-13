@@ -44,4 +44,5 @@ export class LoginPage extends BasePage {
     await this.browserActions.waitForElement(this.addWarehouseButton, 20000);
     await this.browserActions.click(this.addWarehouseButton);
   }
+
 }
