@@ -4,14 +4,14 @@ import { BasePage } from './BasePage';
 
 
 export class AddWarehousePage extends BasePage {
-  private page:Page;
+  private page: Page;
   constructor(page: Page) {
     super(page)
-    this.page=page;
+    this.page = page;
   }
 
   // Basic elements
-  public noWarehouseText = 'p[_ngcontent-ng-c435294142]';
+  public noWarehouseText = `//h2[@class='text-center mb-3' and text()='No Warehouse Added']`;
   public addWarehouseButton = '//button[contains(@class, "button_add") and @type="button" and contains(., "Add Warehouse")]';
   public addWarehousePageHeader = 'h3.font-semibold.text-2xl.bg-color.m-0';
   public addLaterLink = 'a.text-center.mt-3[href="#/admin/warehouse"]';
@@ -19,14 +19,14 @@ export class AddWarehousePage extends BasePage {
 
   // Warehouse Form Inputs
   public warehouseNameInput = '#name';
-  public warehouseTypeSelect = '#Warehousetype';
-  public descriptionInput = '#inventoryDetails';
+  public warehouseTypeSelect = `//div[contains(@class, 'p-dropdown') and .//span[@aria-label='Select warehouse type']]`;
+  public descriptionInput = `//*[@formcontrolname='description']`;
   public warehouseAddressInput = '#warehouseAddress';
   public cityInput = '//*[@id="firstname2"][@placeholder="Enter City"]';
-  public stateInput = '#stateName';
-  public countryInput = '#Country';
+  public stateInput = 'input[formcontrolname="state"]';
+  public countryInput = `//span[@aria-label='Select Country']`;
   public postalCodeInput = '#postalCode';
-  public warehouseManagerSelect = 'body > app-root > app-layout > div > div > app-add-warehouse > form > div > div > div.form.col-12.p-0.column-gap-6 > div:nth-child(6) > div:nth-child(1) > div:nth-child(2)';
+  public warehouseManagerSelect = `//span[@aria-label='Select manager']`;
   public phoneNumberInput = '#contactPhone';
   public emailInput = '#email';
 
@@ -40,11 +40,11 @@ export class AddWarehousePage extends BasePage {
   public unitOfMeasurementSelect = "//p-multiselect[@optionlabel='name' and @optionvalue='id' and @formcontrolname='unit_of_measure_ids' and @placeholder='Select a unit of measurement' and @name='uom']";
   public pickTaskTypeSelect = 'p-dropdown[placeholder="Select pick task type"]';
   public statusTypeSelect = 'p-dropdown[placeholder="Select Status"]';
-
+  public MeasurementUnitsOfCapacity = `//ul[contains(@class, 'p-dropdown-items')]//li[@role='option' and @aria-label='Square Feet (sq.ft)']`;
   // Other inputs
   public capacityInput = '//*[@id="firstname2"][@placeholder="Enter capacity"]';
   public specialEquipmentInput = '#specialEquipment > div > ul > li > input';
-  public temperatureControlSelect = '#temperatureControl > div';
+  public temperatureControlSelect = `//span[@aria-label='Select temperature control']`;
   public dockCountInput = '#dockingStations';
   public securityFeaturesInput = "//*[@type='text'][@placeholder='Enter security features']";
 
@@ -75,6 +75,9 @@ export class AddWarehousePage extends BasePage {
     await this.browserActions.click(this.addLaterLink);
   }
 
+  public async isWarehouseListPageDisplayed(): Promise<boolean> {
+    return this.browserActions.isElementDisplayed(this.warehouseList);
+  }
   public async isAddWarehousePageDisplayed(): Promise<boolean> {
     return this.browserActions.isElementDisplayed(this.addWarehousePageHeader);
   }
@@ -90,10 +93,21 @@ export class AddWarehousePage extends BasePage {
   public async selectWarehouseType(type: string): Promise<void> {
 
     await this.browserActions.click(this.warehouseTypeSelect);
-    const typeOption = `//*[@id='Warehousetype_list']//li[@aria-label='${type}']`;
+    const typeOption = `//li[@role='option' and @aria-label='${type}']`;
     console.log(typeOption);
     await this.browserActions.click(typeOption);
     // await this.warehouseTypeSelect.selectByVisibleText(type);
+  }
+  public async selectStatus(status: string): Promise<void> {
+
+    await this.browserActions.click(this.statusTypeSelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+    // const statusOption = `//li[@role='option' and @aria-label='${status}']`;
+    // console.log(statusOption);
+    // await this.browserActions.click(statusOption);
+    // await this.warehouseTypeSelect.selectByVisibleText(type);
+
   }
 
   public async enterDescription(description: string): Promise<void> {
@@ -112,8 +126,12 @@ export class AddWarehousePage extends BasePage {
     await this.browserActions.inputText(this.stateInput, state);
   }
 
-  public async enterCountry(country: string): Promise<void> {
-    await this.browserActions.inputText(this.countryInput, country);
+  public async selectCountry(country: string): Promise<void> {
+    await this.browserActions.click(this.countryInput);
+    const countryOption = `//li[@role='option' and @aria-label='${country}']`;
+    console.log(countryOption);
+    await this.browserActions.click(countryOption);
+    // await this.countrySelect.selectByVisibleText(country);
   }
 
   public async enterPostalCode(postalCode: string): Promise<void> {
@@ -122,8 +140,10 @@ export class AddWarehousePage extends BasePage {
 
   public async selectWarehouseManager(manager: string): Promise<void> {
     await this.browserActions.click(this.warehouseManagerSelect);
-    const managerOption = `#manager_0`;  // Assuming a static manager option for simplicity
-    await this.browserActions.click(managerOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+    // const managerOption = `//li[@aria-label='${manager}']`;
+    // await this.browserActions.click(managerOption);
     //await this.warehouseManagerSelect.selectByVisibleText(manager);
 
   }
@@ -136,28 +156,44 @@ export class AddWarehousePage extends BasePage {
   }
 
   public async selectStartTime(startTime: string): Promise<void> {
-    await this.browserActions.inputText(this.startTimeSelect, startTime);
+    await this.browserActions.click(this.startTimeSelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectEndTime(endTime: string): Promise<void> {
-    await this.browserActions.inputText(this.endTimeSelect, endTime);
+    await this.browserActions.click(this.endTimeSelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+    await this.page.keyboard.press('Enter');
+
   }
 
 
   public async selectTimeZone(timeZone: string): Promise<void> {
     await this.browserActions.click(this.timeZoneSelect);
-    const timeZoneOption = `//*[@id='timeZone_list']//li[@aria-label='${timeZone}']`;
-    await this.browserActions.click(timeZoneOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+    // const timeZoneOption = `//li[@aria-label='${timeZone}']`;
+    // await this.browserActions.click(timeZoneOption);
   }
 
   public async selectMeasurementUnit(measurementUnit: string): Promise<void> {
     await this.browserActions.scrollToElement(this.selectMeasurementUnits);
     await this.browserActions.click(this.selectMeasurementUnits);
-    //await this.browserActions.selectOption(measurementUnit);  // Assuming `selectOption` works for dropdowns
+    const measurementUnitOption = `//ul[@role='listbox']//li[@aria-label='${measurementUnit}']`;
+    await this.browserActions.click(measurementUnitOption);
   }
 
   public async enterCapacity(capacity: string): Promise<void> {
     await this.browserActions.inputText(this.capacityInput, capacity);
+  }
+  public async selectMeasurementUnitsOfCapacity(MeasurementUnitsOfCapacity: string): Promise<void> {
+    await this.browserActions.scrollToElement(this.selectMeasurementUnits);
+    await this.browserActions.click(this.selectMeasurementUnits);
+    const MeasurementUnitsOfCapacityOption = `//ul[@role='listbox']//li[@aria-label='${MeasurementUnitsOfCapacity}']`;
+    await this.browserActions.click(MeasurementUnitsOfCapacityOption);
+
   }
 
   public async enterSpecialEquipment(equipment: string): Promise<void> {
@@ -166,8 +202,8 @@ export class AddWarehousePage extends BasePage {
 
   public async selectTemperatureControl(option: string): Promise<void> {
     await this.browserActions.click(this.temperatureControlSelect);
-    const temperatureControlOption = `//*[@id='temperatureControl_list']//li[@aria-label='${option}']`;
-    await this.browserActions.click(temperatureControlOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterDockCount(dockCount: string): Promise<void> {
@@ -180,17 +216,23 @@ export class AddWarehousePage extends BasePage {
 
   public async selectUnitOfMeasurement(unit: string): Promise<void> {
     await this.browserActions.click(this.unitOfMeasurementSelect);
-    const unitOption = `//ul[@role='listbox']//li[@aria-label='${unit}']`;
+    const unitOption = `//li[@aria-label='${unit}']`;
     await this.browserActions.click(unitOption);
   }
 
   public async selectPickTaskType(taskType: string): Promise<void> {
     await this.browserActions.click(this.pickTaskTypeSelect);
+    const taskTypeOption = `//ul[@role='listbox']//li[@aria-label='${taskType}']`;
+    await this.browserActions.click(taskTypeOption);
     //await this.browserActions.selectOption(taskType);  // Similar to above
   }
 
   public async selectStatusType(statusType: string): Promise<void> {
     await this.browserActions.click(this.statusTypeSelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('ArrowUp');
+    await this.page.keyboard.press('Enter');
+
     //await this.browserActions.selectOption(statusType);  // Same as above
   }
 
@@ -220,6 +262,7 @@ export class AddWarehousePage extends BasePage {
   public async addWarehouse(
     name: string,
     type: string,
+    status: string,
     description: string,
     address: string,
     city: string,
@@ -232,6 +275,7 @@ export class AddWarehousePage extends BasePage {
     startTime: string,
     endTime: string,
     timeZone: string,
+    MeasurementUnitsOfCapacity: string,
     capacity: string,
     equipment: string,
     temperatureControl: string,
@@ -242,11 +286,12 @@ export class AddWarehousePage extends BasePage {
   ): Promise<void> {
     await this.enterWarehouseName(name);
     await this.selectWarehouseType(type);
+    await this.selectStatusType(status);
     await this.enterDescription(description);
     await this.enterWarehouseAddress(address);
     await this.enterCity(city);
     await this.enterState(state);
-    await this.enterCountry(country);
+    await this.selectCountry(country);
     await this.enterPostalCode(postalCode);
     await this.selectWarehouseManager(manager);
     await this.enterPhoneNumber(phoneNumber);
@@ -254,6 +299,7 @@ export class AddWarehousePage extends BasePage {
     await this.selectStartTime(startTime);
     await this.selectEndTime(endTime);
     await this.selectTimeZone(timeZone);
+    await this.selectMeasurementUnitsOfCapacity(MeasurementUnitsOfCapacity);
     await this.enterCapacity(capacity);
     await this.enterSpecialEquipment(equipment);
     await this.selectTemperatureControl(temperatureControl);

@@ -30,7 +30,7 @@ test.afterEach(async () => {
 });
 
 test('TC001 Verify that after clicking on the add button the user should be able to add a new warehouse', async () => {
-  // select warehouse card
+  
   //await warehouseListPage.selectWarehouseCard();
 
   // Click the add button
@@ -43,7 +43,7 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await addWarehousePage.enterWarehouseAddress('123 Test Address');
   await addWarehousePage.enterCity('Test City');
   await addWarehousePage.enterState('Test State');
-  await addWarehousePage.enterCountry('Test Country');
+  //await addWarehousePage.enterCountry('Test Country');
   await addWarehousePage.enterPostalCode('12345');
   await addWarehousePage.selectWarehouseManager('SupriyaTester');
   await addWarehousePage.enterPhoneNumber('1234567890');

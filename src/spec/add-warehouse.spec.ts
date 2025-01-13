@@ -25,25 +25,25 @@ test.afterEach(async () => {
 });
 
 test('TC001 Verify that "No Warehouse Added" text should display initially', async () => {
- 
+
 
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
-  
-  await expect(await addWarehousePage.isNoWarehouseTextDisplayed()).toBeTruthy();
+
+  await expect(addWarehousePage.isNoWarehouseTextDisplayed()).toBeTruthy();
 });
 
 test('TC002 Verify that it should navigate to Add Warehouse page when "Add Warehouse" button is clicked', async () => {
- 
+
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
   await addWarehousePage.clickAddWarehouseButton();
   await expect(addWarehousePage.isAddWarehousePageDisplayed()).toBeTruthy();
 });
 
 test('TC003 Verify that it should display the sidebar when "Add Later" link is clicked', async () => {
-  
-  await logInPage.login('tester@gmail.com', 'Supriya@12');
-  
-//  await expect(addWarehousePage.isAddLaterLinkDisplayed()).toBeTruthy();
+
+  await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
+
+  //  await expect(addWarehousePage.isAddLaterLinkDisplayed()).toBeTruthy();
   await addWarehousePage.clickAddLaterLink();
 
   await expect(addWarehousePage.isSideBarDisplayed()).toBeTruthy();
@@ -51,101 +51,60 @@ test('TC003 Verify that it should display the sidebar when "Add Later" link is c
 
 test('TC004 Verify that it should successfully add a warehouse', async () => {
 
-  await logInPage.login('tester@gmail.com', 'Supriya@12');
-  
-  await addWarehousePage.clickAddWarehouseButton();
-  await expect(addWarehousePage.isAddWarehousePageDisplayed()).toBeTruthy();
-
-
-  await addWarehousePage.addWarehouse({
-    
-    name: 'Test Warehouse A',
-    type: 'Storage',
-    description: 'This is a test warehouse',
-    address: '123 Test Street',
-    city: 'Test City',
-    state: 'Test State',
-    country: 'Test Country',
-    postalCode: '12345',
-    manager: 'Supriya Sahoo',
-    phone: '1234567890',
-    email: 'supriyasahoo1399@gmail.com',
-    startTime: '12:30',
-    endTime: '12:40',
-    timeZone: '(UTC-05:00) Eastern Time (US & Canada)',
-    // measurementUnit: 'Square Feet (sq.ft)',
-    capacity: '100',
-    specialEquipment: 'Test Equipment',
-    temperatureControl: 'Yes',
-    dockCount: '5',
-    securityFeatures: 'Test Security',
-    unitOfMeasurement: 'Meter',
-    pickTaskType: 'FIFO',
-    statusType: 'Active'
-  });
-
-  await addWarehousePage.clickAddButton();
-
-  await expect(addWarehousePage.isWarehouseListDisplayed()).toBeTruthy();
-});
-
-test('TC005 Verify that it should display the warehouse list after adding a warehouse', async () => {
-  await logInPage.open();
-  await logInPage.login('tester@gmail.com', 'Supriya@12');
-  
-  await addWarehousePage.clickAddWarehouseButton();
-  await expect(addWarehousePage.isAddWarehousePageDisplayed()).toBeTruthy();
-
-  // Fill in the warehouse details
-//   await addWarehousePage.enterWarehouseDetails({
-//     name: 'Test Warehouse A',
-//     type: 'Distribution Center',
-//     description: 'This is a test warehouse',
-//     address: '123 Test Street',
-//     city: 'Test City',
-//     state: 'Test State',
-//     country: 'India',
-//     postalCode: '12345',
-//     manager: 'Test Manager',
-//     phone: '1234567890',
-//     email: 'supriyasahoo1399@gmail.com',
-//     startTime: '10:00 AM',
-//     endTime: '06:00 PM',
-//     timeZone: '(UTC-05:00) Eastern Time (US & Canada)',
-//     measurementUnit: 'Square Feet (sq.ft)',
-//     capacity: '100',
-//     specialEquipment: 'Test Equipment',
-//     temperatureControl: 'Yes',
-//     dockCount: '5',
-//     securityFeatures: 'Test Security',
-//     unitOfMeasurement: 'Meter',
-//     pickTaskType: 'FIFO',
-//     statusType: 'Active'
-//   });
-
-  await addWarehousePage.clickAddButton();
-  await expect(addWarehousePage.isWarehouseListDisplayed()).toBeTruthy();
-});
-
-test('TC006 Verify that it should navigate back without adding a warehouse when "Back" button is clicked', async () => {
-  await logInPage.open();
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
+
+  await addWarehousePage.clickAddWarehouseButton();
+  await addWarehousePage.addWarehouse(
+    'Test Warehouse A',
+    'Storage',
+    'Active',
+    'This is a test warehouse',
+    '123 Test Street',
+    'Test City',
+    'Test State',
+    'India',
+    '12345',
+    'NameA',
+    '1234567890',
+    'supriyasahoo1399@gmail.com',
+    '18:38',
+    '18:50',
+    '(UTC-05:00) Eastern Time (US & Canada)',
+    'Square Feet (sq.ft)',
+    '100',
+    'Test Equipment',
+    'No',
+    '5',
+    'Test Security',
+    'Box',
+    'FIFO',
+
+  );
+
+  await addWarehousePage.clickAddButton();
+
+  await expect(addWarehousePage.isWarehouseListDisplayed()).toBeTruthy();
+});
+
+
+
+test('TC005 Verify that it should navigate back without adding a warehouse when "Back" button is clicked', async () => {
   
+  await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
+
   await addWarehousePage.clickAddWarehouseButton();
   await expect(addWarehousePage.isAddWarehousePageDisplayed()).toBeTruthy();
-  
+
   await addWarehousePage.clickBackButton();
-  
+
   await expect(addWarehousePage.isNoWarehouseTextDisplayed()).toBeTruthy();
 });
 
-test('TC007 Verify that the add warehouse button is disabled when the mandatory fields are not filled', async () => {
-  await logInPage.open();
-  await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
+test('TC006 Verify that the add warehouse button is disabled when the mandatory fields are not filled', async () => {
   
-  await addWarehousePage.clickAddWarehouseButton();
-  await expect(addWarehousePage.isAddWarehousePageDisplayed()).toBeTruthy();
+  await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
 
+  await addWarehousePage.clickAddWarehouseButton();
   // Verify that the "Add" button is disabled
   expect(await addWarehousePage.isAddButtonEnabled()).toBeFalsy();
 });
