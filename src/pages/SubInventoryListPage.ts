@@ -17,20 +17,21 @@ export class SubInventoryListPage extends BasePage {
   public subInventoryAddButton = '//span[@class="p-button-label" and normalize-space(text())="Add"]';
   public subInventoryNameInput = '//input[@id="firstname2" and @type="text" and @placeholder="Enter sub-inventory name" and @formcontrolname="name" and @name="name"]';
   public descriptionInput = '//textarea[@id="inventoryDetails" and @formcontrolname="description" and @placeholder="Enter description" and @name="inventoryDetails"]';
-  public subInventoryTypeSelect = '//p-dropdown[@placeholder="Select sub-inventory type"]';
+  public subInventoryTypeSelect =`//span[@aria-label='Select sub-inventory type']`;
   public capacityInput = '//*[@formcontrolname="capacity"]';
-  public dimensionSelect = '//span[@aria-label="Select unit"]';
+  public measurementUnits = `//span[@aria-label='Select measurement Units']`;
+  public dimensionSelect = `//span[@aria-label='Select  unit']`;
   public lengthInput = '//input[@type="number" and @placeholder="Length" and @formcontrolname="length" and @name="length"]';
   public widthInput = '//input[@type="number" and @placeholder="Width" and @formcontrolname="width" and @name="Width"]';
   public heightInput = '//input[@type="number" and @placeholder="Height" and @formcontrolname="height" and @name="height"]';
-  public statusSelect = '//span[@role="combobox" and normalize-space(text())="Select status"]';
+  public statusSelect = `//span[@role='combobox' and @aria-label='Select status']`;
   public temperatureControlledSelect = '//span[@role="combobox" and normalize-space(text())="Select temperature control"]';
   public addButton = '//div[@class="field col-12 md:col-2"]//button[@type="submit" and normalize-space(text())="Add"]';
   public backButton = '//button[@type="button" and normalize-space(text())="Back"]';
   public successMessage = '';
-  public editSubInventoryButton = '//i[contains(@class, "pi-pencil")]';
+  public editSubInventoryButton = `(//i[contains(@class, "pi-pencil")])[1]`;
   public updateButton = 'button[type="submit"]';
-  public deleteButton = 'i[_ngcontent-ng-c435294142].pi.pi-trash';
+  public deleteButton = `(//button[@type='button' and contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-trash')]])[1]`;
 
   // Methods
 
@@ -39,9 +40,12 @@ export class SubInventoryListPage extends BasePage {
   }
 
   public async clickSubInventorySidebar(): Promise<void> {
-    await this.browserActions.click(this.subInventorySidebar);
-  }
+  // Using nth() method to select the first element
+await this.page.locator('a[href="#/admin/warehouse/subinventory"]').nth(0).click();
 
+// Alternatively, if the text content is unique, use it to refine the locator
+await this.page.locator('a:has-text("Sub-Inventories")').click();
+  }
   public async clickSubInventoryPage(): Promise<void> {
     await this.browserActions.click(this.subInventoryPage);
   }
@@ -64,21 +68,26 @@ export class SubInventoryListPage extends BasePage {
 
   public async selectSubInventoryType(type: string): Promise<void> {
     await this.browserActions.click(this.subInventoryTypeSelect);
-   // await this.browserActions.pause(2000);
-    //await this.browserActions.keys('ArrowDown');
-   // await this.browserActions.keys('Enter');
+    await this.page.keyboard.press('ArrowDown');
+   await this.page.keyboard.press('Enter');
   }
 
   public async enterCapacity(capacity: string): Promise<void> {
     await this.browserActions.inputText(this.capacityInput, capacity);
   }
 
+  public async selectMeasurementUnits(units: string): Promise<void> {
+    await this.browserActions.scrollToElement(this.measurementUnits);
+    await this.browserActions.click(this.measurementUnits);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+  }
+
   public async selectDimension(dimension: string): Promise<void> {
     await this.browserActions.scrollToElement(this.dimensionSelect);
     await this.browserActions.click(this.dimensionSelect);
-   // await this.browserActions.pause(2000);
-    //await this.browserActions.keys('ArrowDown');
-    //await this.browserActions.keys('Enter');
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterLength(length: string): Promise<void> {
@@ -95,17 +104,15 @@ export class SubInventoryListPage extends BasePage {
 
   public async selectStatus(status: string): Promise<void> {
     await this.browserActions.click(this.statusSelect);
-  //  await this.browserActions.pause(2000);
-   // await this.browserActions.keys('ArrowDown');
-    //await this.browserActions.keys('ArrowUp');
-    //await this.browserActions.keys('Enter');
+   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('ArrowUp');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectTemperatureControlled(temperatureControlled: string): Promise<void> {
     await this.browserActions.click(this.temperatureControlledSelect);
-  //  await this.browserActions.pause(2000);
-   // await this.browserActions.keys('ArrowDown');
-   // await this.browserActions.keys('Enter');
+   await this.page.keyboard.press('ArrowDown');
+   await this.page.keyboard.press('Enter');
   }
 
   public async clickAddButton(): Promise<void> {
@@ -148,6 +155,8 @@ export class SubInventoryListPage extends BasePage {
  //   await this.browserActions.pause(2000);
     const option = `//label[contains(text(), '${type}')]`;
     await this.browserActions.click(option);
+    const applyButton =`//span[contains(@class, 'p-button-label') and text()='Apply']`;
+    await this.browserActions.click(applyButton);
   }
 
   public async filterStatus(status: string): Promise<void> {
@@ -157,6 +166,8 @@ export class SubInventoryListPage extends BasePage {
     //await this.browserActions.pause(2000);
     const statusOption = `//label[contains(text(), '${status}')]`;
     await this.browserActions.click(statusOption);
+    const applyButton =`//span[contains(@class, 'p-button-label') and text()='Apply']`;
+    await this.browserActions.click(applyButton);
   }
 }
 

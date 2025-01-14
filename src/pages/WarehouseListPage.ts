@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { LoginPage } from './LoginPage';
 import { BasePage } from './BasePage';
 
 export class WarehouseListPage extends BasePage {
@@ -9,19 +10,22 @@ export class WarehouseListPage extends BasePage {
   }
 
   // Selectors
+  public warehouseManagementSideBar = "//span[contains(@class, 'p-menuitem-text') and text()='Warehouse Management']";
+  public warehouseList = "//span[contains(@class, 'ml-2') and text()='List']";
+  public warehouseSubMenu = "//span[contains(@class, 'p-menuitem-text') and contains(@class, 'ng-star-inserted') and text() = 'Warehouses']";
   public addWarehouseButton = 'button[label="Add"]';
   public editWarehouseButton = 'button.dropdown-item .pi.pi-pencil';
   public selectWarehouseCardName = '//span[contains(@class, "warehouse-title") and contains(text(), "Test Warehouse ")]';
   public warehouseName = '#name';
-  public warehouseType = '#Warehousetype';
+  public warehouseType = `//span[@role='combobox' and @aria-label='Select warehouse type' and text() = 'Select warehouse type']`;
   public description = '#inventoryDetails';
   public warehouseAddress = '#warehouseAddress';
-  public city = "//*[@id='firstname2'][@placeholder='Enter City']";
-  public stateProvince = '#stateName';
-  public country = '#Country';
-  public postalCode = '#postalCode';
-  public warehouseManager = '#warehouseManager';
-  public phoneNumber = '#contactPhone';
+  public city = `//*[@id="firstname2"][@placeholder="Enter City"]`;
+  public stateProvince = `input[formcontrolname="state"]`;
+  public country = `//span[@role='combobox' and @aria-label='Select Country' and text() = 'Select Country']`;
+  public postalCode = `//*[@formcontrolname="pincode"]`;
+  public warehouseManager = `//span[@aria-label='Select manager']`;
+  public phoneNumber = `#contactPhone`;
   public contactEmail = '#email';
   public startTimeSelect = "//input[@type='text' and @role='combobox' and @placeholder='Select start time' and @id='calendar-timeonly']";
   public endTimeSelect = "//input[@type='text' and @role='combobox' and @placeholder='Select end time' and @id='calendar-timeonly']";
@@ -41,12 +45,27 @@ export class WarehouseListPage extends BasePage {
   public statusUpdateButton = "//div[@class='p-dropdown p-component p-inputwrapper' and @id='pn_id_48']//span[@role='combobox' and text()='Active']";
 
   // Methods
-
+ public async clickWarehouseManagementSideBar(): Promise<void> {
+  try {
+    await this.browserActions.waitForElement(this.warehouseManagementSideBar, 30000);
+    await this.browserActions.click(this.warehouseManagementSideBar);
+  } catch (error) {
+    console.error('Error clicking Warehouse Management SideBar:', error);
+  }
+ }
+ public async isWarehouseListPageDisplayed(): Promise<boolean> {
+   return await this.browserActions.isElementDisplayed(this.warehouseList);
+   
+ }
+ public async clickWarehouseSubMenu(): Promise<void> {
+   await this.browserActions.waitForElement(this.warehouseSubMenu, 20000);
+   await this.browserActions.click(this.warehouseSubMenu);
+ }
   public async clickStatusDropdown(status: string): Promise<void> {
     await this.browserActions.waitForElement(this.statusUpdateButton, 20000);
     await this.browserActions.click(this.statusUpdateButton);
-  //  await this.browserActions.typeKeys('ArrowDown');
-   // await this.browserActions.typeKeys('Enter');
+    await this.page.keyboard.press('ArrowDown');
+   await this.page.keyboard.press('Enter');
   }
 
   public async clickAddWarehouseButton(): Promise<void> {
@@ -65,8 +84,8 @@ export class WarehouseListPage extends BasePage {
 
   public async selectWarehouseType(type: string): Promise<void> {
     await this.browserActions.click(this.warehouseType);
-    const typeOption = `//*[@id='Warehousetype_list']//li[@aria-label='${type}']`;
-    await this.browserActions.click(typeOption);
+   await this.page.keyboard.press('ArrowDown');
+   await this.page.keyboard.press('Enter');
   }
 
   public async setDescription(description: string): Promise<void> {
@@ -85,8 +104,10 @@ export class WarehouseListPage extends BasePage {
     await this.browserActions.inputText(this.stateProvince, state);
   }
 
-  public async setCountry(country: string): Promise<void> {
-    await this.browserActions.inputText(this.country, country);
+  public async selectCountry(country: string): Promise<void> {
+    await this.browserActions.click(this.country);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async setPostalCode(postalCode: string): Promise<void> {
@@ -95,8 +116,8 @@ export class WarehouseListPage extends BasePage {
 
   public async selectWarehouseManager(manager: string): Promise<void> {
     await this.browserActions.click(this.warehouseManager);
-    const managerOption = `//*[@id='warehouseManager_list']//li[@aria-label='${manager}']`;
-    await this.browserActions.click(managerOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async setPhoneNumber(phone: string): Promise<void> {
@@ -109,27 +130,29 @@ export class WarehouseListPage extends BasePage {
 
   public async selectStarttime(hours: string): Promise<void> {
     await this.browserActions.click(this.startTimeSelect);
-    const hoursOption = `//input[@value='${hours}']`;  // Adjust based on actual selector
-    await this.browserActions.click(hoursOption);
+  await this.page.keyboard.press('ArrowDown');
+  await this.page.keyboard.press('Enter');
+ 
   }
 
   public async selectEndtime(hours: string): Promise<void> {
     await this.browserActions.click(this.endTimeSelect);
-    const hoursOption = `//input[@value='${hours}']`;  // Adjust based on actual selector
-    await this.browserActions.click(hoursOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+
   }
 
   public async selectTimeZone(timeZone: string): Promise<void> {
     await this.browserActions.click(this.timeZoneSelect);
-    const timeZoneOption = `//*[@id='timeZone_list']//li[@aria-label='${timeZone}']`;
-    await this.browserActions.click(timeZoneOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectMeasurementUnit(measurementUnits: string): Promise<void> {
-  //  await this.browserActions.scrollIntoView(this.selectMeasurementUnits);
     await this.browserActions.click(this.selectMeasurementUnits);
-   // await this.browserActions.typeKeys('ArrowDown');
-  //  await this.browserActions.typeKeys('Enter');
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async setCapacity(capacity: string): Promise<void> {
@@ -138,14 +161,15 @@ export class WarehouseListPage extends BasePage {
 
   public async selectSpecialEquipment(equipment: string): Promise<void> {
     await this.browserActions.click(this.specialEquipment);
-    const equipmentOption = `//*[@id='specialEquipment_list']//li[@aria-label='${equipment}']`;
-    await this.browserActions.click(equipmentOption);
+  await this.page.keyboard.press('ArrowDown');
+  await this.page.keyboard.press('Enter');
   }
 
   public async selectTemperatureControl(control: string): Promise<void> {
     await this.browserActions.click(this.temperatureControl);
-    const controlOption = `//*[@id='temperatureControl_list']//li[@aria-label='${control}']`;
-    await this.browserActions.click(controlOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async setDockingStation(station: string): Promise<void> {
@@ -158,20 +182,20 @@ export class WarehouseListPage extends BasePage {
 
   public async selectUnitOfMeasurement(unit: string): Promise<void> {
     await this.browserActions.click(this.unitOfMeasurement);
-    const unitOption = `//*[@id='unitOfMeasurement_list']//li[@aria-label='${unit}']`;
-    await this.browserActions.click(unitOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectDefaultPickTaskType(taskType: string): Promise<void> {
     await this.browserActions.click(this.defaultPickTaskType);
-    const taskTypeOption = `//*[@id='defaultPickTaskType_list']//li[@aria-label='${taskType}']`;
-    await this.browserActions.click(taskTypeOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async setStatus(status: string): Promise<void> {
     await this.browserActions.click(this.status);
-    const statusOption = `//*[@id='status_list']//li[@aria-label='${status}']`;
-    await this.browserActions.click(statusOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickUpdateButton(): Promise<void> {
@@ -182,12 +206,20 @@ export class WarehouseListPage extends BasePage {
   public async clickDeleteButton(): Promise<void> {
     await this.browserActions.waitForElement(this.deleteButton, 20000);
     await this.browserActions.click(this.deleteButton);
-  }
+    const reasonInput = await this.page.locator(`//*[@id='name']`);
+    await reasonInput.fill('Test Reason');
+    const yesButton = await this.page.locator(`//button[contains(@class, 'button_yes') and text() = ' Yes ']`);
+    await yesButton.click();
 
+ 
+  }
   public async clickBackButton(): Promise<void> {
     await this.browserActions.waitForElement(this.backButton, 20000);
     await this.browserActions.click(this.backButton);
+ 
   }
+
+
 
   public async warehouseCard(name: string): Promise<void> {
     const warehouseCardSelector = `//span[contains(@class, 'warehouse-title') and contains(text(), '${name}')]`;

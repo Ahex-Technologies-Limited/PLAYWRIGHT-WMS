@@ -28,14 +28,16 @@ test.afterEach(async () => {
   await driver.closeBrowser();
 });
 
-test('TC001 Verify that after clicking on the add button the user should be able to add a new sub-inventory', async () => {
-  //await warehouseListPage.selectWarehouseCard();
+test.only('TC001 Verify that after clicking on the add button the user should be able to add a new sub-inventory', async () => {
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.clickSubInventoryAddButton();
-  await subInventoryListPage.enterSubInventoryName('Subinventory5');
+  await subInventoryListPage.enterSubInventoryName('Subinventory4');
   await subInventoryListPage.enterDescription('Test Description');
   await subInventoryListPage.selectSubInventoryType('Raw Materials');
   await subInventoryListPage.enterCapacity('100');
+  await subInventoryListPage.selectMeasurementUnits('Cubic Feet (cu.ft)'); ``
   await subInventoryListPage.selectDimension('Inches (in)');
   await subInventoryListPage.enterLength('10');
   await subInventoryListPage.enterWidth('10');
@@ -43,50 +45,49 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await subInventoryListPage.selectStatus('Active');
   await subInventoryListPage.selectTemperatureControlled('No');
   await subInventoryListPage.clickAddButton();
-
+  await browserActions.waitForTimeout(5000);
   await expect(await subInventoryListPage.isSubInventoryListDisplayed()).toBeTruthy();
 });
 
 test('TC002 Verify that after clicking on the edit button the user should be able to edit the selected sub-inventory', async () => {
-  //await warehouseListPage.selectWarehouseCard();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.clickEditSubInventoryButton();
-
   const nameInput = await page.locator(`//input[@placeholder='Enter sub-inventory name']`);
   const descriptionInput = await page.locator(`#inventoryDetails`);
-  
   await nameInput.fill('SubInventory');
   await descriptionInput.fill('Updated Address');
-
   await subInventoryListPage.clickUpdateButton();
-
+  await browserActions.waitForTimeout(5000);
   await expect(await subInventoryListPage.isSubInventoryListDisplayed()).toBeTruthy();
 });
 
 test('TC003 Verify that after clicking on the delete button the user should be able to delete the selected sub-inventory', async () => {
-  //await warehouseListPage.selectWarehouseCard();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.clickDeleteButton();
-
   const reasonInput = await page.locator(`//input[@placeholder='Enter']`);
   await reasonInput.fill('Test Reason');
-
   const yesButton = await page.locator(`button.button_yes`);
   await yesButton.click();
-
+  await browserActions.waitForTimeout(5000);
   await expect(await subInventoryListPage.isSubInventoryListDisplayed()).toBeTruthy();
 });
 
 test('TC004 Verify that the search functionality is working as expected', async () => {
-  //await warehouseListPage.selectWarehouseCard();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
-  await subInventoryListPage.searchSubInventory('Subinventory1');
-
+  await subInventoryListPage.searchSubInventory('Subinventory4');
+  await browserActions.waitForTimeout(5000);
   await expect(await subInventoryListPage.isSubInventoryListDisplayed()).toBeTruthy();
 });
 
 test('TC005 Verify that the filter functionality is working as expected based on type', async () => {
-  //await warehouseListPage.selectWarehouseCard();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.filterSubInventoryType('Raw Materials');
 
@@ -94,7 +95,8 @@ test('TC005 Verify that the filter functionality is working as expected based on
 });
 
 test('TC006 Verify that the filter functionality is working as expected based on status', async () => {
-  //await warehouseListPage.selectWarehouseCard();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.filterStatus('Active');
 

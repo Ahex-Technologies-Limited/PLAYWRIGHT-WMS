@@ -93,9 +93,8 @@ export class AddWarehousePage extends BasePage {
   public async selectWarehouseType(type: string): Promise<void> {
 
     await this.browserActions.click(this.warehouseTypeSelect);
-    const typeOption = `//li[@role='option' and @aria-label='${type}']`;
-    console.log(typeOption);
-    await this.browserActions.click(typeOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
     // await this.warehouseTypeSelect.selectByVisibleText(type);
   }
   public async selectStatus(status: string): Promise<void> {
@@ -128,10 +127,8 @@ export class AddWarehousePage extends BasePage {
 
   public async selectCountry(country: string): Promise<void> {
     await this.browserActions.click(this.countryInput);
-    const countryOption = `//li[@role='option' and @aria-label='${country}']`;
-    console.log(countryOption);
-    await this.browserActions.click(countryOption);
-    // await this.countrySelect.selectByVisibleText(country);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterPostalCode(postalCode: string): Promise<void> {
@@ -181,8 +178,8 @@ export class AddWarehousePage extends BasePage {
   public async selectMeasurementUnit(measurementUnit: string): Promise<void> {
     await this.browserActions.scrollToElement(this.selectMeasurementUnits);
     await this.browserActions.click(this.selectMeasurementUnits);
-    const measurementUnitOption = `//ul[@role='listbox']//li[@aria-label='${measurementUnit}']`;
-    await this.browserActions.click(measurementUnitOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterCapacity(capacity: string): Promise<void> {
