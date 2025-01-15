@@ -41,7 +41,7 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await zoneListPage.enterDescription('Test Description');
   await zoneListPage.selectZoneType('Storage');
   await zoneListPage.selectStatus('Active');
-  await zoneListPage.selectSubInventoryAssociation('Subinventory2');
+  await zoneListPage.selectSubInventoryAssociation('Subinventory6');
   await zoneListPage.selectCapacity('Square Feet (sq.ft)');
   await zoneListPage.enterCapacity('100');
   await zoneListPage.selectDimension('Meters (m)');
@@ -103,7 +103,7 @@ test('TC005 Verify that the filter functionality is working correctly based on t
   await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });
 
-test.only('TC006 Verify that the filter functionality is working correctly based on the status', async () => {
+test('TC006 Verify that the filter functionality is working correctly based on the status', async () => {
   await warehouseListPage.warehouseCard('Test Warehouse');
   await warehouseListPage.clickWarehouseManagementSideBar();
   await zoneListPage.clickZoneSidebar();

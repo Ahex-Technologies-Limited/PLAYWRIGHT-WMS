@@ -13,7 +13,7 @@ export class ZoneListPage extends BasePage {
   public zoneSidebar = 'a[href="#/admin/warehouse/zone"].p-menuitem-link';
   public addZoneButton = 'button span:text("Add")';
   public zonePage = 'span.ml-2:text("Zone")';
-  public zoneList = 'span.ml-2:text("List")';
+  public zoneList = `//span[normalize-space(text())='List']`;
   public zoneAddButton = 'button.p-button span.pi-plus';
   public zoneName = 'input[formcontrolname="name"]';
   public description = 'textarea#address';

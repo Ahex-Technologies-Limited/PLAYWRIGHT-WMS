@@ -41,7 +41,7 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await warehouseListPage.clickWarehouseManagementSideBar();
   await warehouseListPage.clickWarehouseSubMenu();
   await warehouseListPage.clickAddWarehouseButton();
-  await warehouseListPage.setWarehouseName('Warehouse 4');
+  await warehouseListPage.setWarehouseName('Warehouse 10');
   await warehouseListPage.selectWarehouseType('Distribution Center');
   await warehouseListPage.setDescription('Test Description');
   await warehouseListPage.setWarehouseAddress(' Test Address');

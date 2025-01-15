@@ -34,7 +34,7 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await warehouseListPage.clickWarehouseManagementSideBar();
   await locatorListPage.clickLocatorSidebar();
   await locatorListPage.clickLocatorAddButton();
-  await locatorListPage.enterLocatorName('Locator3');
+  await locatorListPage.enterLocatorName('Locator10');
   await locatorListPage.selectLocatorType('Level');
   await locatorListPage.enterDescription('Test Description');
   await locatorListPage.selectStatus('Active');

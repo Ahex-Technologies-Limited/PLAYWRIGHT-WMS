@@ -25,34 +25,29 @@ test.afterEach(async () => {
 });
 
 test('TC001 Verify that "No Warehouse Added" text should display initially', async () => {
-
-
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
-
+  await browserActions.waitForTimeout(3000);
   await expect(addWarehousePage.isNoWarehouseTextDisplayed()).toBeTruthy();
 });
 
 test('TC002 Verify that it should navigate to Add Warehouse page when "Add Warehouse" button is clicked', async () => {
-
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
   await addWarehousePage.clickAddWarehouseButton();
+  await browserActions.waitForTimeout(3000);
   await expect(addWarehousePage.isAddWarehousePageDisplayed()).toBeTruthy();
 });
 
 test('TC003 Verify that it should display the sidebar when "Add Later" link is clicked', async () => {
 
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
-
-  //  await expect(addWarehousePage.isAddLaterLinkDisplayed()).toBeTruthy();
+  await browserActions.waitForTimeout(3000);
   await addWarehousePage.clickAddLaterLink();
-
+  await browserActions.waitForTimeout(3000);
   await expect(addWarehousePage.isSideBarDisplayed()).toBeTruthy();
 });
 
 test('TC004 Verify that it should successfully add a warehouse', async () => {
-
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
-
   await addWarehousePage.clickAddWarehouseButton();
   await addWarehousePage.addWarehouse(
     'Test Warehouse A',
@@ -82,29 +77,27 @@ test('TC004 Verify that it should successfully add a warehouse', async () => {
   );
 
   await addWarehousePage.clickAddButton();
-
+  await browserActions.waitForTimeout(3000);
   await expect(addWarehousePage.isWarehouseListDisplayed()).toBeTruthy();
 });
 
 
 
 test('TC005 Verify that it should navigate back without adding a warehouse when "Back" button is clicked', async () => {
-  
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
-
   await addWarehousePage.clickAddWarehouseButton();
+  await browserActions.waitForTimeout(3000);
   await expect(addWarehousePage.isAddWarehousePageDisplayed()).toBeTruthy();
-
+  await browserActions.waitForTimeout(3000);
   await addWarehousePage.clickBackButton();
-
+  await browserActions.waitForTimeout(3000);
   await expect(addWarehousePage.isNoWarehouseTextDisplayed()).toBeTruthy();
 });
 
 test('TC006 Verify that the add warehouse button is disabled when the mandatory fields are not filled', async () => {
-  
-  await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
 
+  await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
   await addWarehousePage.clickAddWarehouseButton();
-  // Verify that the "Add" button is disabled
-  expect(await addWarehousePage.isAddButtonEnabled()).toBeFalsy();
+  await browserActions.waitForTimeout(3000);
+  await expect(await addWarehousePage.isAddButtonEnabled()).toBeFalsy();
 });

@@ -18,8 +18,8 @@ export class AttributesListPage extends BasePage {
   public attributeDescription = '//textarea[@type="text" and @rows="6" and @formcontrolname="description" and @placeholder="Enter description"]';
   public addAttribute = '//button[@type="submit" and contains(@class, "button_add") and text()[normalize-space()="Add"]]';
   public backButton = '//button[@type="button" and contains(@class, "button_back") and text()[normalize-space()="Back"]]';
-  public editButton = '//*[contains(text(),"Attribute3")]//ancestor::td/following-sibling::td//*[@class="pi pi-pencil text-success"]';
-  public deleteButton = '//*[contains(text()," Attribute ")]//ancestor::td/following-sibling::td//*[@class="pi pi-trash text-danger"]';
+  public editButton = `(//button[i[contains(@class, 'pi-pencil') and contains(@class, 'text-success')]])[1]`;
+  public deleteButton = `(//button[i[contains(@class, 'pi-trash') and contains(@class, 'text-danger')]])[1]`;
   public updateButton = '//button[@type="submit" and contains(@class, "button_add") and text()[normalize-space()="Update"]]';
   public searchAttribute = '//input[@type="text" and @placeholder="Search..." and contains(@class, "search-input")]';
   public yesButton = '//*[@type="button"  and contains(@class, "p-element button_yes")]';
