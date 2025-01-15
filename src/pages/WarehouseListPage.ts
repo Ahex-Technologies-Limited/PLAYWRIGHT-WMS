@@ -14,7 +14,8 @@ export class WarehouseListPage extends BasePage {
   public warehouseList = "//span[contains(@class, 'ml-2') and text()='List']";
   public warehouseSubMenu = "//span[contains(@class, 'p-menuitem-text') and contains(@class, 'ng-star-inserted') and text() = 'Warehouses']";
   public addWarehouseButton = 'button[label="Add"]';
-  public editWarehouseButton = 'button.dropdown-item .pi.pi-pencil';
+  public addButton= `(//div[contains(@class, 'field')]//button[contains(text(), 'Add') and contains(@class, 'button_add')])[1]`;
+  public editWarehouseButton = `(//button[contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-pencil') and contains(@class, 'text-success')]])[1]`;
   public selectWarehouseCardName = '//span[contains(@class, "warehouse-title") and contains(text(), "Test Warehouse ")]';
   public warehouseName = '#name';
   public warehouseType = `//span[@role='combobox' and @aria-label='Select warehouse type' and text() = 'Select warehouse type']`;
@@ -33,7 +34,7 @@ export class WarehouseListPage extends BasePage {
   public selectMeasurementUnits = "//p-dropdown[@formcontrolname='measurement_unit']";
   public capacity = "//*[@id='firstname2'][@placeholder='Enter capacity']";
   public specialEquipment = '#specialEquipment > div > ul > li > input';
-  public temperatureControl = '#temperatureControl > div';
+  public temperatureControl = `//div[@id='temperatureControl']//span[contains(text(), 'Select temperature control')]`;
   public dockingStation = '#dockingStations';
   public securityFeatures = "//*[@type='text'][@placeholder='Enter security features']";
   public unitOfMeasurement = "//p-multiselect[@optionlabel='name' and @optionvalue='id' and @formcontrolname='unit_of_measure_ids' and @placeholder='Select a unit of measurement' and @name='uom']";
@@ -41,10 +42,13 @@ export class WarehouseListPage extends BasePage {
   public status = 'p-dropdown[placeholder="Select Status"]';
   public updateButton = 'button[type="submit"].button_add';
   public backButton = 'button[type="button"].button_back';
-  public deleteButton = "//button[i[contains(@class, 'pi-trash')]]";
+  public deleteButton = `(//button[contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-trash') and contains(@class, 'text-danger')]])[1]`;
   public statusUpdateButton = "//div[@class='p-dropdown p-component p-inputwrapper' and @id='pn_id_48']//span[@role='combobox' and text()='Active']";
 
   // Methods
+  public async clickAddButton(): Promise<void> {
+    await this.browserActions.click(this.addButton);
+  }
  public async clickWarehouseManagementSideBar(): Promise<void> {
   try {
     await this.browserActions.waitForElement(this.warehouseManagementSideBar, 30000);
@@ -138,7 +142,7 @@ export class WarehouseListPage extends BasePage {
   public async selectEndtime(hours: string): Promise<void> {
     await this.browserActions.click(this.endTimeSelect);
     await this.page.keyboard.press('ArrowDown');
-    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
     await this.page.keyboard.press('Enter');
 
   }
@@ -159,10 +163,9 @@ export class WarehouseListPage extends BasePage {
     await this.browserActions.inputText(this.capacity, capacity);
   }
 
-  public async selectSpecialEquipment(equipment: string): Promise<void> {
-    await this.browserActions.click(this.specialEquipment);
-  await this.page.keyboard.press('ArrowDown');
-  await this.page.keyboard.press('Enter');
+  public async enterSpecialEquipment(equipment: string): Promise<void> {
+    await this.browserActions.inputText(this.specialEquipment, equipment);
+  
   }
 
   public async selectTemperatureControl(control: string): Promise<void> {
@@ -195,6 +198,7 @@ export class WarehouseListPage extends BasePage {
   public async setStatus(status: string): Promise<void> {
     await this.browserActions.click(this.status);
     await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('ArrowUp');
     await this.page.keyboard.press('Enter');
   }
 
@@ -237,31 +241,22 @@ export class WarehouseListPage extends BasePage {
   }
 
   public async filterWarehouseType(warehouseName: string): Promise<void> {
-    const filterButton = '//span[text()="Filters"]';
-    await this.browserActions.click(filterButton);
-
     const warehouseType = '//li[span[text()="Warehouse Type"]]';
     await this.browserActions.click(warehouseType);
-    
-    const warehouseTypeSearch = `//input[@type='text' and @placeholder='Search...']`;
-    await this.browserActions.inputText(warehouseTypeSearch, warehouseName);
-
+    const warehouseTypeOption = `//label[normalize-space(text())='Distribution Center']`;
+    await this.page.click(warehouseTypeOption);
     const applyButton = '//button[@label="Apply"]';
-    await this.browserActions.click(applyButton);
+    await this.page.click(applyButton);
   }
 
   public async filterStatus(statusValue: string): Promise<void> {
     const status = '//li[span[text()="Status"]]';
     await this.browserActions.click(status);
-    
-    const statusSearch = `//input[@placeholder='Search...']`;
-    await this.browserActions.inputText(statusSearch, statusValue);
-
+    const statusOption = `//label[normalize-space(text())='${statusValue}']`;
+    await this.browserActions.click(statusOption);
     const applyButton = '//button[@label="Apply"]';
     await this.browserActions.click(applyButton);
-
-    const closeButton = '//button[@label="Clear"]';
-    await this.browserActions.click(closeButton);
+ 
   }
 }
 
