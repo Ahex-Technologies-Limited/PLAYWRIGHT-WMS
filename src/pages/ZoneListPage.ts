@@ -51,7 +51,7 @@ export class ZoneListPage extends BasePage {
   public operationHoursStartTimeUpdate = 'input[placeholder="Select start time"]';
   public operationHoursEndTimeUpdate = 'input[placeholder="Select end time"]';
   public temperatureControlledUpdate = 'p-dropdown[formcontrolname="temperature_controlled"]';
-  public updateButton = 'button:text("Update")';
+  public updateButton = `//button[contains(@class, 'button_add') and normalize-space(text())='Update']`;
   public backUpdateButton = 'button:text("Back")';
   public successfullMessageUpdate = 'div:text("Zone updated successfully.")';
 
@@ -62,8 +62,9 @@ export class ZoneListPage extends BasePage {
   public searchZone = 'input[placeholder="Search..."]';
 
   // Filter zone based on zone type and status
-  public zoneTypeFilter = 'li span:text("Zone Type") i.pi-angle-right';
-  public statusFilter = 'li span:text("Status") i.pi-angle-right';
+  public filter=`//span[@class='p-button-label ng-star-inserted' and text()='Filters']`;
+  public zoneTypeFilter = `//span[normalize-space(text())='Zone Type']`;
+  public statusFilter = `//span[normalize-space(text())='Status']`;
 
   // Pagination selectors
   public rowsPerPage = 'span:text("5").p-dropdown-label';
@@ -103,22 +104,26 @@ export class ZoneListPage extends BasePage {
 
   public async selectZoneType(zoneType: string): Promise<void> {
     await this.page.click(this.zoneType);
-    await this.page.locator(`//li[@aria-label='${zoneType}']`).click();
+   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectStatus(status: string): Promise<void> {
     await this.page.click(this.status);
-    await this.page.locator(`//li[@aria-label="${status}"]`).click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectSubInventoryAssociation(subInventoryAssociation: string): Promise<void> {
     await this.page.click(this.subInventoryAssociation);
-    await this.page.locator(`//li[@aria-label="${subInventoryAssociation}"]`).click();
+   await this.page.keyboard.press('ArrowDown');
+   await this.page.keyboard.press('Enter');
   }
 
   public async selectCapacity(capacity: string): Promise<void> {
     await this.page.click(this.capacity);
-    await this.page.locator(`//li[@aria-label="${capacity}"]`).click();
+   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterCapacity(enterCapacity: string): Promise<void> {
@@ -127,7 +132,8 @@ export class ZoneListPage extends BasePage {
 
   public async selectDimension(dimension: string): Promise<void> {
     await this.page.click(this.dimension);
-    await this.page.locator(`//li[@aria-label="${dimension}"]`).click();
+   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterLength(length: string): Promise<void> {
@@ -146,17 +152,23 @@ export class ZoneListPage extends BasePage {
     await this.page.fill(this.cycleCountFrequency, cycleCountFrequency);
   }
 
-  public async enterOperationHoursStartTime(operationHoursStartTime: string): Promise<void> {
-    await this.page.fill(this.operationHoursStartTime, operationHoursStartTime);
+  public async selectOperationHoursStartTime(operationHoursStartTime: string): Promise<void> {
+    await this.page.click(this.operationHoursStartTime);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
-  public async enterOperationHoursEndTime(operationHoursEndTime: string): Promise<void> {
-    await this.page.fill(this.operationHoursEndTime, operationHoursEndTime);
+  public async selectOperationHoursEndTime(operationHoursEndTime: string): Promise<void> {
+ await this.page.click(this.operationHoursEndTime);
+ await this.page.keyboard.press('ArrowDown');
+ await this.page.keyboard.press('ArrowDown');
+ await this.page.keyboard.press('Enter');
   }
 
   public async selectTemperatureControlled(temperatureControlled: string): Promise<void> {
     await this.page.click(this.temperatureControlled);
-    await this.page.locator(`//li[@aria-label="${temperatureControlled}"]`).click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickAddButton(): Promise<void> {
@@ -199,15 +211,33 @@ export class ZoneListPage extends BasePage {
     await this.page.waitForTimeout(2000);
   }
 
+  public async clickFilter(): Promise<void> {
+    await this.page.click(this.filter);
+    await this.page.waitForTimeout(2000);
+  }
+
   // Methods for filter zone based on zone type and status
   public async selectZoneTypeFilter(zoneTypeFilter: string): Promise<void> {
     await this.page.click(this.zoneTypeFilter);
-    await this.page.locator(`//label[contains(text(),'${zoneTypeFilter}')]`).click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+    const zoneTypeOption = `//label[@class='p-checkbox-label ng-star-inserted' and normalize-space(text())='Receiving']`;
+    await this.page.click(zoneTypeOption);
+    const applyButton = `(//span[@class='p-button-label' and text()='Apply'])[1]`;
+    await this.page.click(applyButton);
+
   }
 
   public async selectStatusFilter(statusFilter: string): Promise<void> {
     await this.page.click(this.statusFilter);
-    await this.page.locator(`//label[contains(text(),'${statusFilter}')]`).click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+    const statusOption = `//label[contains(@class, 'p-checkbox-label') and contains(@class, 'ng-star-inserted') and normalize-space(text())='Active']`;
+    await this.page.click(statusOption);
+    const applyButton = `(//span[@class='p-button-label' and text()='Apply'])[1]`;
+    await this.page.click(applyButton);
+
   }
 
   // Methods for pagination

@@ -33,80 +33,82 @@ test.afterEach(async () => {
 });
 
 test('TC001 Verify that after clicking on the add button the user should be able to add a new zone', async () => {
- // await warehouseListPage.selectWarehouseCardName(page);
-//   await zoneListPage.clickZoneSidebar(page);
-//   await zoneListPage.clickAddZoneButton(page);
-
-//   await zoneListPage.enterZoneName(page, 'Zone5');
-//   await zoneListPage.enterDescription(page, 'Test Description');
-//   await zoneListPage.selectZoneType(page, 'Storage');
-//   await zoneListPage.selectStatus(page, 'Active');
-//   await zoneListPage.selectSubInventoryAssociation(page, 'Subinventory2');
-//   await zoneListPage.selectCapacity(page, 'Square Feet (sq.ft)');
-//   await zoneListPage.enterCapacity(page, '100');
-//   await zoneListPage.selectDimension(page, 'Meters (m)');
-//   await zoneListPage.enterLength(page, '10');
-//   await zoneListPage.enterWidth(page, '10');
-//   await zoneListPage.enterHeight(page, '10');
-//   await zoneListPage.enterCycleCountFrequency(page, '5');
-//   await zoneListPage.enterOperationHoursStartTime(page, '08:00');
-//   await zoneListPage.enterOperationHoursEndTime(page, '17:00');
-//   await zoneListPage.selectTemperatureControlled(page, 'No');
-//   await zoneListPage.clickAddButton(page);
-
-  //await expect(await zoneListPage.isZoneListDisplayed(page)).toBeTruthy();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
+  await zoneListPage.clickZoneSidebar();
+  await zoneListPage.clickAddZoneButton();
+  await zoneListPage.enterZoneName('Zone5');
+  await zoneListPage.enterDescription('Test Description');
+  await zoneListPage.selectZoneType('Storage');
+  await zoneListPage.selectStatus('Active');
+  await zoneListPage.selectSubInventoryAssociation('Subinventory2');
+  await zoneListPage.selectCapacity('Square Feet (sq.ft)');
+  await zoneListPage.enterCapacity('100');
+  await zoneListPage.selectDimension('Meters (m)');
+  await zoneListPage.enterLength('10');
+  await zoneListPage.enterWidth('10');
+  await zoneListPage.enterHeight('10');
+  await zoneListPage.enterCycleCountFrequency('5');
+  await zoneListPage.selectOperationHoursStartTime('09:00');
+  await zoneListPage.selectOperationHoursEndTime('17:00');
+  await zoneListPage.selectTemperatureControlled('No');
+  await zoneListPage.clickAddButton();
+  await browserActions.waitForTimeout(5000);
+  await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });
 
 test('TC002 Verify that after clicking on the edit button the user should be able to edit the selected zone', async () => {
-//   await warehouseListPage.selectWarehouseCardName(page);
-//   await zoneListPage.clickZoneSidebar(page);
-//   await zoneListPage.clickEditZoneIcon(page);
-
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
+  await zoneListPage.clickZoneSidebar();
+  await zoneListPage.clickEditZoneIcon();
   const nameInput = await page.locator('[formcontrolname="name"]');
   const descriptionInput = await page.locator('[formcontrolname="description"]');
-  
   await nameInput.fill('Zone5');
   await descriptionInput.fill('Updated Address');
-  
-//  await zoneListPage.clickUpdateButton(page);
-
-  //await expect(await zoneListPage.isZoneListDisplayed(page)).toBeTruthy();
+  await zoneListPage.clickUpdateButton();
+  await browserActions.waitForTimeout(5000);
+  await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });
 
 test('TC003 Verify that after clicking on the delete button the user should be able to delete the selected zone', async () => {
- // await warehouseListPage.selectWarehouseCardName(page);
-//   await zoneListPage.clickZoneSidebar(page);
-//   await zoneListPage.clickDeleteZoneIcon(page);
-
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
+  await zoneListPage.clickZoneSidebar();
+  await zoneListPage.clickDeleteZoneIcon();
   const reasonInput = await page.locator('//input[@placeholder="Enter"]');
   await reasonInput.fill('Test Reason');
-  
   const yesButton = await page.locator('//button[contains(@class, "button_yes")]');
   await yesButton.click();
-
-  //await expect(await zoneListPage.isZoneListDisplayed(page)).toBeTruthy();
+  await browserActions.waitForTimeout(5000);
+  await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });
 
 test('TC004 Verify that the search functionality is working correctly', async () => {
- // await warehouseListPage.selectWarehouseCardName(page);
-//   await zoneListPage.clickZoneSidebar(page);
-//   await zoneListPage.enterSearchZone(page, 'Zone1');
-
- // await expect(await zoneListPage.isZoneListDisplayed(page)).toBeTruthy();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
+  await zoneListPage.clickZoneSidebar();
+  await zoneListPage.enterSearchZone('Zone1');
+  await browserActions.waitForTimeout(5000);
+  await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });
 
 test('TC005 Verify that the filter functionality is working correctly based on the type', async () => {
-//   await warehouseListPage.selectWarehouseCardName(page);
-//   await zoneListPage.clickZoneSidebar(page);
-  //await zoneListPage.selectZoneTypeFilter(page, 'Storage');
-
-  //await expect(await zoneListPage.isZoneListDisplayed(page)).toBeTruthy();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
+  await zoneListPage.clickZoneSidebar();
+  await zoneListPage.clickFilter();
+  await zoneListPage.selectZoneTypeFilter('Storage');
+  await browserActions.waitForTimeout(5000);
+  await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });
 
-test('TC006 Verify that the filter functionality is working correctly based on the status', async () => {
-  //await warehouseListPage.selectWarehouseCardName(page);
-//   await zoneListPage.clickZoneSidebar(page);
- // await zoneListPage.selectStatusFilter(page, 'Active');
-
-  //await expect(await zoneListPage.isZoneListDisplayed(page)).toBeTruthy();
+test.only('TC006 Verify that the filter functionality is working correctly based on the status', async () => {
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
+  await zoneListPage.clickZoneSidebar();
+  await zoneListPage.clickFilter();
+  await zoneListPage.selectStatusFilter('Active');
+  await browserActions.waitForTimeout(5000);
+  await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });

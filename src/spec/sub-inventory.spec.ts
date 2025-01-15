@@ -33,7 +33,7 @@ test.only('TC001 Verify that after clicking on the add button the user should be
   await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.clickSubInventoryAddButton();
-  await subInventoryListPage.enterSubInventoryName('Subinventory4');
+  await subInventoryListPage.enterSubInventoryName('Subinventory8');
   await subInventoryListPage.enterDescription('Test Description');
   await subInventoryListPage.selectSubInventoryType('Raw Materials');
   await subInventoryListPage.enterCapacity('100');
