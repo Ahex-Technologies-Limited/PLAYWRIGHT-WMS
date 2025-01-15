@@ -11,7 +11,7 @@ export class LocatorListPage extends BasePage {
 
   // Selectors
   public warehouseCardName = '//span[@class="warehouse-title" and normalize-space(text())="Supriya1"]';
-  public locatorSidebar = "//li[@role='treeitem']//span[text()='Locator']";
+  public locatorSidebar = `//a[@href='#/admin/warehouse/locator' and .//span[normalize-space(text())='Locators']]`;
   public locatorPage = "//div[@class='table-parents']";
   public locatorList = "//span[text()='List']";
   public locatorAddButton = "//button[.//span[text()='Add']]";
@@ -25,7 +25,7 @@ export class LocatorListPage extends BasePage {
   public locatorDimensionSelect = "//*[@formcontrolname='unit']";
   public locatorLengthInput = "//*[@formcontrolname='length']";
   public locatorWidthInput = "//*[@formcontrolname='width']";
-  public locatorHeightInput = "//input[@type='number' and @formcontrolname='height' and @placeholder='Height']";
+  public locatorHeight = "//input[@formcontrolname='height' and @type='number' and @placeholder='Height']";
   public associatedInventorySelect = "//*[@formcontrolname='sub_inventory_id']";
   public associatedZonesSelect = "//*[@formcontrolname='zone_id']";
   public groundSlotInput = "//*[@formcontrolname='ground_slots']";
@@ -37,10 +37,11 @@ export class LocatorListPage extends BasePage {
   public endingRange01Input = "//*[@formcontrolname='to_suffix']";
   public addButton = "//button[contains(@class, 'button_add') and contains(@class, 'p-button')]";
   public backButton = "//button[@routerlink='/admin/warehouse/locator']";
-  public editLocatorButton = "//button[contains(@class, 'dropdown-item')]//i[contains(@class, 'pi pi-pencil')]";
+  public editLocatorButton = "(//button[@tooltipposition='top' and contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-pencil') and contains(@class, 'text-success')]])[1]";
   public updateButton = "//button[normalize-space(text()) = 'Update']";
-  public deleteButton = "//button[@type='button' and contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-trash')]]";
-  public locatorListDisplayed = "//span[text()='List']";
+  public deleteButton = "(//button[@type='button' and contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-trash')]])[1]";
+  public locatorListDisplayed = `//span[@class='ml-2' and normalize-space(text())='List']`;
+  public successMessageAddingLocator = "//div[@class='p-toast-message-content ng-tns-c3576075022-120 ng-star-inserted' and .//div[text()='Locator added successfully.']]";
   public locatorTypeFilter = "//li[span[text()='Locator Type']]";
   public statusFilter = "//li[span[text()='Status']]";
   public searchBar = "//input[@type='text' and @placeholder='Search...' and contains(@class, 'search-input')]";
@@ -72,8 +73,8 @@ export class LocatorListPage extends BasePage {
 
   public async selectLocatorType(locatorType: string): Promise<void> {
     await this.browserActions.click(this.locatorTypeSelect);
-    const locatorTypeOption = `//li[@aria-label='${locatorType}']`;
-    await this.browserActions.click(locatorTypeOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterDescription(description: string): Promise<void> {
@@ -82,20 +83,20 @@ export class LocatorListPage extends BasePage {
 
   public async selectStatus(status: string): Promise<void> {
     await this.browserActions.click(this.locatorStatusSelect);
-    const statusOption = `//li[@aria-label='${status}']`;
-    await this.browserActions.click(statusOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectAssociatedLocator(associatedLocator: string): Promise<void> {
     await this.browserActions.click(this.associatedLocatorSelect);
-    const associatedLocatorOption = `//li[@aria-label='${associatedLocator}']`;
-    await this.browserActions.click(associatedLocatorOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectLocatorCapacityUnit(locatorCapacityUnit: string): Promise<void> {
     await this.browserActions.click(this.locatorCapacityUnitSelect);
-    const locatorCapacityUnitOption = `//li[@aria-label='${locatorCapacityUnit}']`;
-    await this.browserActions.click(locatorCapacityUnitOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterLocatorCapacity(locatorCapacity: string): Promise<void> {
@@ -104,8 +105,8 @@ export class LocatorListPage extends BasePage {
 
   public async selectDimension(dimension: string): Promise<void> {
     await this.browserActions.click(this.locatorDimensionSelect);
-    const dimensionOption = `//li[@aria-label='${dimension}']`;
-    await this.browserActions.click(dimensionOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterLength(length: string): Promise<void> {
@@ -117,7 +118,7 @@ export class LocatorListPage extends BasePage {
   }
 
   public async enterHeight(height: string): Promise<void> {
-    await this.browserActions.inputText(this.locatorHeightInput, height);
+    await this.browserActions.inputText(this.locatorHeight, height);
   }
 
   public async selectAssociatedInventory(associatedInventory: string): Promise<void> {
@@ -128,8 +129,8 @@ export class LocatorListPage extends BasePage {
 
   public async selectAssociatedZones(associatedZones: string): Promise<void> {
     await this.browserActions.click(this.associatedZonesSelect);
-    const associatedZonesOption = `//li[@aria-label='${associatedZones}']`;
-    await this.browserActions.click(associatedZonesOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterGroundSlot(groundSlot: string): Promise<void> {
@@ -186,19 +187,21 @@ export class LocatorListPage extends BasePage {
 
   public async selectLocatorTypeFilter(locatorTypeFilter: string): Promise<void> {
     await this.browserActions.click(this.locatorTypeFilter);
-    const filterOption = `//label[contains(text(),'${locatorTypeFilter}')]`;
-    await this.browserActions.click(filterOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectStatusFilter(statusFilter: string): Promise<void> {
     await this.browserActions.click(this.statusFilter);
-    const filterOption = `//label[contains(text(),'${statusFilter}')]`;
-    await this.browserActions.click(filterOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterSearchBar(searchBar: string): Promise<void> {
     await this.browserActions.inputText(this.searchBar, searchBar);
   }
+  public async issuccessMessageAddingLocatorDisplayed(): Promise<boolean> {
+    return await this.browserActions.isElementDisplayed(this.successMessageAddingLocator);
+  }
 
 }
-

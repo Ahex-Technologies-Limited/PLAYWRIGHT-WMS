@@ -29,8 +29,9 @@ test.afterEach(async () => {
   await driver.closeBrowser();
 });
 
-test.only('TC001 Verify that after clicking on the add button the user should be able to add a new locator', async () => {
-  //await warehouseListPage.selectWarehouseCardName();
+test('TC001 Verify that after clicking on the add button the user should be able to add a new locator', async () => {
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await locatorListPage.clickLocatorSidebar();
   await locatorListPage.clickLocatorAddButton();
   await locatorListPage.enterLocatorName('Locator3');
@@ -43,70 +44,73 @@ test.only('TC001 Verify that after clicking on the add button the user should be
   await locatorListPage.selectDimension('Meters (m)');
   await locatorListPage.enterLength('10');
   await locatorListPage.enterWidth('10');
-  //await locatorListPage.enterLocatorHeight('10');
+  await locatorListPage.enterHeight('10');
   await locatorListPage.enterGroundSlot('5');
-  await locatorListPage.enterHeight('5');
+  await locatorListPage.enterHeightInput('5');
   await locatorListPage.enterNumberOfLevelsOrRows('5');
   await locatorListPage.enterStartingRangeAB('AB');
   await locatorListPage.enterStartingRange01('01');
   await locatorListPage.enterEndingRangeAB('CD');
   await locatorListPage.enterEndingRange01('05');
   await locatorListPage.clickAddButton();
-
-  await expect(locatorListPage.isLocatorListDisplayed()).toBeTruthy();
+  await browserActions.waitForTimeout(5000);
+  await expect(locatorListPage.issuccessMessageAddingLocatorDisplayed()).toBeTruthy();
 });
 
 test('TC002 Verify that after clicking on the edit button the user should be able to edit the selected locator', async () => {
-  //await warehouseListPage.selectWarehouseCardName();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await locatorListPage.clickLocatorSidebar();
   await locatorListPage.clickEditLocatorButton();
-
   const nameInput = page.locator(`//*[@formcontrolname="name"]`);
-  const descriptionInput = page.locator(`//*[@formcontrolname="description"]`);
-  await nameInput.fill('');
   await nameInput.fill('Locator');
-  await descriptionInput.fill('');
+  const descriptionInput = page.locator(`//*[@formcontrolname="description"]`);
   await descriptionInput.fill('Updated Address');
-
   await locatorListPage.clickUpdateButton();
-
+  await browserActions.waitForTimeout(5000);
   await expect(locatorListPage.isLocatorListDisplayed()).toBeTruthy();
 });
 
 test('TC003 Verify that after clicking on the delete button the user should be able to delete the selected locator', async () => {
-  //await warehouseListPage.selectWarehouseCardName();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await locatorListPage.clickLocatorSidebar();
   await locatorListPage.clickDeleteButton();
-
   const reasonInput = page.locator(`//input[@placeholder='Enter']`);
   await reasonInput.fill('Test Reason');
-  
   const yesButton = page.locator(`//button[contains(@class, 'button_yes')]`);
   await yesButton.click();
-
+  await browserActions.waitForTimeout(5000);
   await expect(locatorListPage.isLocatorListDisplayed()).toBeTruthy();
 });
 
 test('TC004 Verify that search functionality is working as expected', async () => {
-  //await warehouseListPage.selectWarehouseCardName();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await locatorListPage.clickLocatorSidebar();
   await locatorListPage.enterSearchBar('Locator');
-
+  await browserActions.waitForTimeout(5000);
   await expect(locatorListPage.isLocatorListDisplayed()).toBeTruthy();
 });
 
 test('TC005 Verify that the filter functionality is working as expected based on the locator type', async () => {
-  //await warehouseListPage.selectWarehouseCardName();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await locatorListPage.clickLocatorSidebar();
+  const filterButton = page.locator(`//span[@class='p-button-label ng-star-inserted' and text()='Filters']`);
+  await filterButton.click();
   await locatorListPage.selectLocatorTypeFilter('Level');
-
+  await browserActions.waitForTimeout(5000);
   await expect(locatorListPage.isLocatorListDisplayed()).toBeTruthy();
 });
 
 test('TC006 Verify that the filter functionality is working as expected based on the status', async () => {
-  //await warehouseListPage.selectWarehouseCardName();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await warehouseListPage.clickWarehouseManagementSideBar();
   await locatorListPage.clickLocatorSidebar();
+  const filterButton = page.locator(`//span[@class='p-button-label ng-star-inserted' and text()='Filters']`);
+  await filterButton.click();
   await locatorListPage.selectStatusFilter('Active');
-
+await browserActions.waitForTimeout(5000);
   await expect(locatorListPage.isLocatorListDisplayed()).toBeTruthy();
 });
