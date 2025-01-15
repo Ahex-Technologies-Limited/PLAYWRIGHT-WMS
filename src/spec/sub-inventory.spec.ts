@@ -28,12 +28,12 @@ test.afterEach(async () => {
   await driver.closeBrowser();
 });
 
-test.only('TC001 Verify that after clicking on the add button the user should be able to add a new sub-inventory', async () => {
+test('TC001 Verify that after clicking on the add button the user should be able to add a new sub-inventory', async () => {
   await warehouseListPage.warehouseCard('Test Warehouse');
   await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.clickSubInventoryAddButton();
-  await subInventoryListPage.enterSubInventoryName('Subinventory8');
+  await subInventoryListPage.enterSubInventoryName('Subinventory11');
   await subInventoryListPage.enterDescription('Test Description');
   await subInventoryListPage.selectSubInventoryType('Raw Materials');
   await subInventoryListPage.enterCapacity('100');
@@ -90,7 +90,7 @@ test('TC005 Verify that the filter functionality is working as expected based on
   await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.filterSubInventoryType('Raw Materials');
-
+await browserActions.waitForTimeout(5000);
   await expect(await subInventoryListPage.isSubInventoryListDisplayed()).toBeTruthy();
 });
 
@@ -99,6 +99,6 @@ test('TC006 Verify that the filter functionality is working as expected based on
   await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.filterStatus('Active');
-
+await browserActions.waitForTimeout(5000);
   await expect(await subInventoryListPage.isSubInventoryListDisplayed()).toBeTruthy();
 });

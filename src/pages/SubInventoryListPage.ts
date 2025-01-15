@@ -3,7 +3,7 @@ import { BasePage } from './BasePage';
 
 export class SubInventoryListPage extends BasePage {
   private page: Page;
-  
+
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -13,11 +13,11 @@ export class SubInventoryListPage extends BasePage {
   public warehouseCardName = '//span[@class="warehouse-title" and normalize-space(text())="Supriya1"]';
   public subInventorySidebar = 'a[href="#/admin/warehouse/subinventory"]';
   public subInventoryPage = '//span[@class="ml-2" and normalize-space(text())="Sub Inventory"]';
-  public subInventoryList = '.table-parents .sub-inventory-table';
+  public subInventoryList = `//span[@class='ml-2' and text()='Sub Inventory']`;
   public subInventoryAddButton = '//span[@class="p-button-label" and normalize-space(text())="Add"]';
   public subInventoryNameInput = '//input[@id="firstname2" and @type="text" and @placeholder="Enter sub-inventory name" and @formcontrolname="name" and @name="name"]';
   public descriptionInput = '//textarea[@id="inventoryDetails" and @formcontrolname="description" and @placeholder="Enter description" and @name="inventoryDetails"]';
-  public subInventoryTypeSelect =`//span[@aria-label='Select sub-inventory type']`;
+  public subInventoryTypeSelect = `//span[@aria-label='Select sub-inventory type']`;
   public capacityInput = '//*[@formcontrolname="capacity"]';
   public measurementUnits = `//span[@aria-label='Select measurement Units']`;
   public dimensionSelect = `//span[@aria-label='Select  unit']`;
@@ -40,11 +40,11 @@ export class SubInventoryListPage extends BasePage {
   }
 
   public async clickSubInventorySidebar(): Promise<void> {
-  // Using nth() method to select the first element
-await this.page.locator('a[href="#/admin/warehouse/subinventory"]').nth(0).click();
+    // Using nth() method to select the first element
+    await this.page.locator('a[href="#/admin/warehouse/subinventory"]').nth(0).click();
 
-// Alternatively, if the text content is unique, use it to refine the locator
-await this.page.locator('a:has-text("Sub-Inventories")').click();
+    // Alternatively, if the text content is unique, use it to refine the locator
+    await this.page.locator('a:has-text("Sub-Inventories")').click();
   }
   public async clickSubInventoryPage(): Promise<void> {
     await this.browserActions.click(this.subInventoryPage);
@@ -69,7 +69,7 @@ await this.page.locator('a:has-text("Sub-Inventories")').click();
   public async selectSubInventoryType(type: string): Promise<void> {
     await this.browserActions.click(this.subInventoryTypeSelect);
     await this.page.keyboard.press('ArrowDown');
-   await this.page.keyboard.press('Enter');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterCapacity(capacity: string): Promise<void> {
@@ -104,15 +104,15 @@ await this.page.locator('a:has-text("Sub-Inventories")').click();
 
   public async selectStatus(status: string): Promise<void> {
     await this.browserActions.click(this.statusSelect);
-   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('ArrowUp');
     await this.page.keyboard.press('Enter');
   }
 
   public async selectTemperatureControlled(temperatureControlled: string): Promise<void> {
     await this.browserActions.click(this.temperatureControlledSelect);
-   await this.page.keyboard.press('ArrowDown');
-   await this.page.keyboard.press('Enter');
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickAddButton(): Promise<void> {
@@ -144,29 +144,30 @@ await this.page.locator('a:has-text("Sub-Inventories")').click();
   }
 
   public async searchSubInventory(subInventoryName: string): Promise<void> {
-    const searchInput = 'input.search-input';
+    const searchInput = `//input[contains(@class, 'search-input') and @placeholder='Search...']`;
     await this.browserActions.inputText(searchInput, subInventoryName);
   }
 
   public async filterSubInventoryType(type: string): Promise<void> {
     const filterButton = 'button.p-button span.p-button-icon.pi-filter';
     await this.browserActions.click(filterButton);
-    await this.browserActions.click(this.subInventoryTypeSelect);
- //   await this.browserActions.pause(2000);
-    const option = `//label[contains(text(), '${type}')]`;
+    const filterType = `//span[normalize-space(text())='Sub Inventory Type']`;
+    await this.browserActions.click(filterType);
+    await this.browserActions.waitForTimeout(2000);
+    const option = `//p-checkbox//label[normalize-space(text())='Raw Materials']`;
     await this.browserActions.click(option);
-    const applyButton =`//span[contains(@class, 'p-button-label') and text()='Apply']`;
+    const applyButton = `//span[contains(@class, 'p-button-label') and text()='Apply']`;
     await this.browserActions.click(applyButton);
   }
 
   public async filterStatus(status: string): Promise<void> {
     const filterButton = 'button.p-button span.p-button-icon.pi-filter';
     await this.browserActions.click(filterButton);
-    await this.browserActions.click(this.statusSelect);
-    //await this.browserActions.pause(2000);
-    const statusOption = `//label[contains(text(), '${status}')]`;
+    const filterStatus = `//span[normalize-space(text())='Status']`;
+    await this.browserActions.click(filterStatus);
+    const statusOption = `//p-checkbox//label[normalize-space(text())='Active']`;
     await this.browserActions.click(statusOption);
-    const applyButton =`//span[contains(@class, 'p-button-label') and text()='Apply']`;
+    const applyButton = `//span[contains(@class, 'p-button-label') and text()='Apply']`;
     await this.browserActions.click(applyButton);
   }
 }
