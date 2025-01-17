@@ -25,20 +25,20 @@ export class CarriersListPage extends BasePage {
   public safetyRating = '//*[@formcontrolname="safety_ratings"]';
   public equipmentType = '//*[@formcontrolname="equipment_types"]';
   public capacity = '//*[@formcontrolname="capacity"]';
-  public nextButton = '//*[@_ngcontent-ng-c4204489659]/div/form/div[@class="block md:flex justify-content-center items-center"]/div[@class="field col-12 md:col-2"]/button[contains(@class, "button_add")]';
+  public nextButton = '//button[@type="submit" and contains(@class, "button_add")]';
   public backButton = '//*[@_ngcontent-ng-c4204489659]/div/form/div[@class="block md:flex justify-content-center items-center"]/div[@class="field col-12 md:col-2"]/button[contains(@class, "button_back")]';
   public nextButtonInDocument = '//*[@_ngcontent-ng-c4204489659]/div/form/div[@class="block md:flex justify-content-center items-center mt-4"]/div[@class="field col-12 md:col-2"]/button[contains(@class, "button_add")]';
   public backButtonInDocument = '//*[@_ngcontent-ng-c4204489659]/div/form/div[@class="block md:flex justify-content-center items-center mt-4"]/div[@class="field col-12 md:col-2"]/button[contains(@class, "button_back")]';
-  public editButton = '//*[contains(text()," Carrier ")]//ancestor::td/following-sibling::td//*[@class="pi pi-pencil text-success"]';
-  public deleteButton = '//*[contains(text()," Carrier ")]//ancestor::td/following-sibling::td//*[@class="pi pi-trash text-danger"]';
-  public viewButton = '//*[contains(text()," Carrier ")]//ancestor::td/following-sibling::td//*[@class="pi pi-eye"]';
+  public editButton = `(//td[contains(@class, 'actions-cell')]/div[@class='dropdown-menu']/button[@tooltipposition='top' and i[contains(@class, 'pi-pencil')]])[1]`;
+  public deleteButton = `(//td[contains(@class, 'actions-cell')]/div[@class='dropdown-menu']/button[@tooltipposition='top' and i[contains(@class, 'pi-trash')]])[1]`;
+  public viewButton = `(//button[@tooltipposition='top' and contains(@class, 'dropdown-item') and i[contains(@class, 'pi-eye')]])[1]`;
   public updateCarriersButton = '//button[@type="submit" and contains(@class, "button_add")]';
-  public nextButtonInUpdateCarrier = '//app-carrier-documents[@_ngcontent-ng-c4204489659]/div/form/div[@class="block md:flex justify-content-center items-center mt-4"]/div[@class="field col-12 md:col-2"]/button[contains(@class, "button_add")]';
+  public nextButtonInUpdateCarrier = `(//button[@type='button' and contains(@class, 'button_add') and normalize-space(text())='Update'])[2]`;
   public yesButton = '//button[@type="button" and contains(@class, "button_yes")]';
   public noButton = '//button[@type="button" and contains(@class, "button_no")]';
   public deleteMessage = '//div[contains(@class, "p-toast-message-text") and contains(., "Success") and contains(., "Carrier deleted successfully.")]';
   public searchCarriers = '//input[contains(@class, "search-input") and @placeholder="Search..."]';
-  public status = '//*[contains(text()," Carrier ")]//ancestor::td/following-sibling::td//*[@class="p-dropdown p-component p-inputwrapper"]';
+  public status = `(//p-dropdown[@placeholder='Select Status']//div[@class='p-dropdown-trigger'])[1]`;
   public viewCarriers = '//span[contains(@class, "ml-2") and text()="View Carriers"]';
   public editButtonInViewPage = '//button[contains(@class, "p-button") and contains(@class, "p-button-contrast") and contains(@class, "p-button-rounded")]';
 
@@ -65,8 +65,9 @@ export class CarriersListPage extends BasePage {
 
   public async selectCarrierType(carrierType: string): Promise<void> {
     await this.browserActions.click(this.carrierType);
-    const carrierTypeOption = await this.page.locator(`//li[@aria-label="${carrierType}"]`);
-    await carrierTypeOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+
   }
 
   public async enterContactPerson(contactPerson: string): Promise<void> {
@@ -91,20 +92,20 @@ export class CarriersListPage extends BasePage {
 
   public async selectInsuranceType(insuranceType: string): Promise<void> {
     await this.browserActions.click(this.insuranceType);
-    const insuranceTypeOption = await this.page.locator(`//li[contains(@class, "p-ripple p-element p-dropdown-item") and @aria-label="${insuranceType}"]`);
-    await insuranceTypeOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectSafetyRating(safetyRating: string): Promise<void> {
     await this.browserActions.click(this.safetyRating);
-    const safetyRatingOption = await this.page.locator(`//li[contains(@class, "p-ripple p-element p-dropdown-item") and @aria-label="${safetyRating}"]`);
-    await safetyRatingOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectEquipmentType(equipmentType: string): Promise<void> {
     await this.browserActions.click(this.equipmentType);
-    const equipmentTypeOption = await this.page.locator(`//li[contains(@class, "p-ripple p-element p-multiselect-item") and @aria-label="${equipmentType}"]`);
-    await equipmentTypeOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterCapacity(capacity: string): Promise<void> {
@@ -185,8 +186,8 @@ export class CarriersListPage extends BasePage {
 
   public async changeStatus(status: string): Promise<void> {
     await this.browserActions.click(this.status);
-    const statusOption = await this.page.locator(`//li[contains(@class, "p-ripple p-element p-dropdown-item") and @aria-label="${status}"]`);
-    await statusOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickEditButtonInViewPage(): Promise<void> {
