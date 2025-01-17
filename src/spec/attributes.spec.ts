@@ -49,7 +49,7 @@ test('TC002 Verify that the user should be able to search for an attribute', asy
   await expect(attributesListPage.isAttributeDisplayed()).toBeTruthy();
 });
 
-test.only('TC003 Verify that the user should be able to edit the selected attribute', async () => {
+test('TC003 Verify that the user should be able to edit the selected attribute', async () => {
   await warehouseListPage.warehouseCard('Test Warehouse');
   await attributesListPage.clickOperationSideBar();
   await attributesListPage.clickAttributesSideBar();
