@@ -22,18 +22,20 @@ export class ContractsListPage extends BasePage {
   public deliveryMode = '//*[@formcontrolname="delivery_mode"]';
   public nextButtonContractInfo = '//div[@class="block md:flex justify-content-center items-center"]//button[contains(@class, "button_add") and normalize-space(text())="Next"]';
   public searchBar = '//span[contains(@class, "p-input-icon-left")]//input[@placeholder="Search..."]';
-  public editIconButton = '//*[contains(text()," Carrier3 ")]//ancestor::td/following-sibling::td//*[@class="pi pi-pencil text-success"]';
-  public viewButton = '//*[contains(text()," Carrier3 ")]//ancestor::td/following-sibling::td//*[@class="pi pi-eye"]';
+  public editIconButton = `(//i[contains(@class, 'pi-pencil') and contains(@class, 'text-success')])[1]`;
+  public viewButton = `(//button[@tooltipposition='top' and contains(@class, 'dropdown-item') and i[contains(@class, 'pi-eye')]])[1]`;
   public updateContractsNextButton = '//div[@class="block md:flex justify-content-center items-center"]//button[contains(text(),"Next")]';
   public updateContractsBackButton = '//div[@class="block md:flex justify-content-center items-center"]//button[contains(text()," Back ")]';
   public nextButtonInDocument = '//div[@class="block md:flex justify-content-center items-center mt-4"]//button[contains(text(),"Next")]';
   public backButtonInDocument = '//div[@class="block md:flex justify-content-center items-center mt-4"]//button[contains(text(),"Back")]';
   public editIconInViewContract = '//button[span[@aria-hidden="false" and text()="Edit"]]';
-  public clickToViewInDocuments = ''; // Placeholder if you have a selector
-  public clickToViewInCarrierRateSheet = ''; // Placeholder if you have a selector
-  public clickToViewInInsuranceCertificate = ''; // Placeholder if you have a selector
-  public clickToviewInLegalDocuments = ''; // Placeholder if you have a selector
-  public status = '//*[contains(text()," Carrier ")]//ancestor::td/following-sibling::td//*[@class="p-dropdown p-component p-inputwrapper"]';
+  public  createbuttonInContractAttachment = `//button[normalize-space(text())='Create']`;
+  public updatebuttonInContractAttachment = `(//button[normalize-space(text())='Update'])[2]`;
+  public clickToViewInDocuments = ''; 
+  public clickToViewInCarrierRateSheet = '';
+  public clickToViewInInsuranceCertificate = ''; 
+  public clickToviewInLegalDocuments = '';
+  public status = `(//span[normalize-space(text())='Active'])[1]`;
   public yesButton = '//button[contains(@class, "button_yes") and text()=" Yes "]';
   public noButton = '//button[contains(@class, "button_no") and text()=" No "]';
 
@@ -56,36 +58,39 @@ export class ContractsListPage extends BasePage {
 
   public async selectStartDate(startDate: string): Promise<void> {
     await this.browserActions.click(this.startDate);
-    await this.browserActions.inputText(this.startDate, startDate);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectEndDate(endDate: string): Promise<void> {
     await this.browserActions.click(this.endDate);
-    await this.browserActions.inputText(this.endDate, endDate);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+   
   }
 
   public async selectCarrierName(carrierName: string): Promise<void> {
     await this.browserActions.click(this.carrierName);
-    const carrierNameOption = await this.page.locator(`//li[@aria-label="${carrierName}"]`);
-    await carrierNameOption.click();
+    await this.page.keyboard.press('Enter');
+
   }
 
   public async selectContractType(contractType: string): Promise<void> {
     await this.browserActions.click(this.contractType);
-    const contractTypeOption = await this.page.locator(`//li[@aria-label="${contractType}"]`);
-    await contractTypeOption.click();
+ //   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectDeliveryType(deliveryType: string): Promise<void> {
     await this.browserActions.click(this.deliveryType);
-    const deliveryTypeOption = await this.page.locator(`//li[@aria-label="${deliveryType}"]`);
-    await deliveryTypeOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectDeliveryMode(deliveryMode: string): Promise<void> {
     await this.browserActions.click(this.deliveryMode);
-    const deliveryModeOption = await this.page.locator(`//li[@aria-label="${deliveryMode}"]`);
-    await deliveryModeOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickNextButtonContractInfo(): Promise<void> {
@@ -105,6 +110,8 @@ export class ContractsListPage extends BasePage {
   }
 
   public async clickViewButton(): Promise<void> {
+    await this.browserActions.waitForTimeout(5000);
+    await this.browserActions.scrollToElement(this.viewButton);
     await this.browserActions.click(this.viewButton);
   }
 
@@ -138,8 +145,10 @@ export class ContractsListPage extends BasePage {
 
   public async changeStatus(status: string): Promise<void> {
     await this.browserActions.click(this.status);
-    const statusOption = await this.page.locator(`//li[contains(@class, "p-ripple p-element p-dropdown-item") and @aria-label="${status}"]`);
-    await statusOption.click();
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+    const yesButton = await this.page.locator(`//button[normalize-space(text())='Yes']`);
+    await yesButton.click();
   }
 
   public async clickYesButton(): Promise<void> {
@@ -148,6 +157,12 @@ export class ContractsListPage extends BasePage {
 
   public async clickNoButton(): Promise<void> {
     await this.browserActions.click(this.noButton);
+  }
+  public async clickCreateButtonInContractAttachment(): Promise<void> {
+    await this.browserActions.click(this.createbuttonInContractAttachment);
+  }
+  public async clickUpdateButtonInContractAttachment(): Promise<void> {
+    await this.browserActions.click(this.updatebuttonInContractAttachment);
   }
 }
 

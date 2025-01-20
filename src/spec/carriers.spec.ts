@@ -112,7 +112,7 @@ test('TC007 Verify that the user should be able to update the status of the sele
   await expect(await carriersListPage.isCarrierListDisplayed()).toBeTruthy();
 });
 
-test.only('TC008 Verify that the user should be able to update the carrier details in the carrier view page', async () => {
+test('TC008 Verify that the user should be able to update the carrier details in the carrier view page', async () => {
   await warehouseListPage.warehouseCard('Test Warehouse');
   await carriersListPage.clickOperationSideBar();
   await carriersListPage.clickCarriersSideBar();
