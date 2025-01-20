@@ -52,9 +52,8 @@ export class InventoryListPage extends BasePage {
 
   public async selectSku(sku: string) {
     await this.browserActions.click(this.sku);
-    const skuOption = `//li[@role="option" and span[contains(text(), "${sku}")]]`;
-    console.log(skuOption);
-    await this.browserActions.click(skuOption);
+ await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterShipmentId(shipmentId: string) {
@@ -70,7 +69,9 @@ export class InventoryListPage extends BasePage {
   }
 
   public async selectExpiryDate(expiryDate: string) {
-    await this.browserActions.inputText(this.expiryDate, expiryDate);
+    await this.page.click(this.expiryDate);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterCost(cost: string) {
@@ -107,16 +108,14 @@ export class InventoryListPage extends BasePage {
 
   public async selectUomInFilter(uom: string) {
     await this.browserActions.click(this.uomInFilter);
-    const uomOption = `//label[contains(normalize-space(text()), "${uom}")]`;
-    console.log(uomOption);
-    await this.browserActions.click(uomOption);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectCatagoryInFilter(catagory: string) {
     await this.browserActions.click(this.catagoryInFilter);
-    const catagoryOption = `//label[contains(normalize-space(text()), "${catagory}")]`;
-    console.log(catagoryOption);
-    await this.browserActions.click(catagoryOption);
+   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickApplyButton() {
