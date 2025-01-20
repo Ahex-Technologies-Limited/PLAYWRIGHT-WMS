@@ -10,9 +10,9 @@ export class ProductListPage extends BasePage {
   }
 
   // Selectors
-  public productList = "//span[contains(@class, 'ml-2') and text()='List']";
+  public productList = "//span[@class='ml-2' and text()='Products']";
   public productManagementSubMenu = "//span[contains(text(), 'Product Management')]";
-  public productSideBar = "//span[contains(@class, 'p-menuitem-text') and text()='Product']";
+  public productSideBar = "//span[contains(@class, 'p-menuitem-text') and text()='Products']";
   public swapIconForlistView = "//button[.//barsicon]";
   public swapIconForgridView = "//button[.//thlargeicon]";
   public addProductButton = "//div[@class='flex gap-2']//button[contains(@class, 'button_add')]";
@@ -48,6 +48,9 @@ export class ProductListPage extends BasePage {
   public backButton = "//button[contains(text(),'Back')]";
   public yesButton = "//button[contains(text(),'Yes')]";
   public noButton = "//button[contains(text(),'No')]";
+  public skuInput = "//input[@formcontrolname='sku' and @id='name' and @name='name' and @type='text' and @placeholder='Enter']";
+  public brand= `//span[@role='combobox' and @aria-label='Select Brand']`;
+  public manufacturer = `//span[@role='combobox' and @aria-label='Select Manufacturer']`;
 
   // Methods to interact with elements
   public async clickOnProductList(): Promise<void> {
@@ -79,15 +82,21 @@ export class ProductListPage extends BasePage {
   }
 
   public async selectProductCategory(productCategory: string): Promise<void> {
-    //await this.browserActions.selectFromDropdown(this.productCategorySelect, productCategory);
+    await this.page.click(this.productCategorySelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectSubCategory(subCategory: string): Promise<void> {
-   // await this.browserActions.selectFromDropdown(this.subCategorySelect, subCategory);
+    await this.page.click(this.subCategorySelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async selectUOM(uom: string): Promise<void> {
-   // await this.browserActions.selectFromDropdown(this.uomSelect, uom);
+    await this.page.click(this.uomSelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterDescription(description: string): Promise<void> {
@@ -99,7 +108,9 @@ export class ProductListPage extends BasePage {
   }
 
   public async selectAttributes(attributes: string): Promise<void> {
-   // await this.browserActions.selectFromDropdown(this.attributesSelect, attributes);
+    await this.page.click(this.attributesSelect);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async enterValues(values: string): Promise<void> {
@@ -172,7 +183,9 @@ export class ProductListPage extends BasePage {
   }
 
   public async selectCategoryInFilter(categoryInFilterOption: string): Promise<void> {
-   // await this.browserActions.selectFromDropdown(this.categoryInFilter, categoryInFilterOption);
+    await this.page.click(this.categoryInFilter);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickApplyButtonInFilter(): Promise<void> {
@@ -210,6 +223,19 @@ export class ProductListPage extends BasePage {
 
   public async isProductDetailsPageDisplayed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.productDetailsPage);
+  }
+  public async entersku(sku: string): Promise<void> {
+    await this.browserActions.inputText(this.skuInput, sku);
+  }
+  public async selectBrand(brand: string): Promise<void> {
+    await this.page.click(this.brand);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+  }
+  public async selectManufacturer(manufacturer: string): Promise<void> {
+    await this.page.click(this.manufacturer);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 }
 
