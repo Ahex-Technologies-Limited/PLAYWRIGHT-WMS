@@ -29,51 +29,51 @@ test.afterEach(async () => {
 });
 
 test('TC001 Verify that after clicking on the add button the user should be able to add a new user', async () => {
-//   await warehouseListPage.selectWarehouseCard();
-//   await userManagementListPage.clickUserManagementSidebar();
-//   await userManagementListPage.clickManageUserSidebar();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await userManagementListPage.clickUserManagementSideBar();
+  await userManagementListPage.clickMangeuserSideBar();
   await userManagementListPage.clickInviteUserButton();
   await userManagementListPage.enterUsername('TestUser');
-  await userManagementListPage.selectUserRole('manager');
+  await userManagementListPage.selectUserRole('New Role');
   await userManagementListPage.enterEmailId('supriyasahoo1399@gmail.com');
   await userManagementListPage.clickInviteUser();
-
+  await browserActions.waitForTimeout(5000);
   await expect(await userManagementListPage.isInvitationSent()).toBeTruthy();
 });
 
 test('TC002 Verify that after clicking on the view button the user should be able to view the details of the user', async () => {
-//   await warehouseListPage.selectWarehouseCard();
-//   await userManagementListPage.clickUserManagementSidebar();
-//   await userManagementListPage.clickManageUserSidebar();
-//   await userManagementListPage.clickViewUserButton();
-
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await userManagementListPage.clickUserManagementSideBar();
+  await userManagementListPage.clickMangeuserSideBar();
+  await userManagementListPage.clickViewUserButton();
+  await browserActions.waitForTimeout(5000);
   await expect(await userManagementListPage.isViewUserDisplayed()).toBeTruthy();
 });
 
 test('TC003 Verify that after clicking on the resend button the user should be able to resend the invitation to the user', async () => {
-//   await warehouseListPage.selectWarehouseCard();
-//   await userManagementListPage.clickUserManagementSidebar();
-//   await userManagementListPage.clickManageUserSidebar();
-//   await userManagementListPage.clickResendInviteButton();
-
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await userManagementListPage.clickUserManagementSideBar();
+  await userManagementListPage.clickMangeuserSideBar();
+  await userManagementListPage.clickResendInviteButton();
+  await browserActions.waitForTimeout(5000);
   await expect(await userManagementListPage.isInvitationSent()).toBeTruthy();
 });
 
 test('TC004 Verify that after searching for a user the user should be able to view the user details', async () => {
-//   await warehouseListPage.selectWarehouseCard();
-//   await userManagementListPage.clickUserManagementSidebar();
-//   await userManagementListPage.clickManageUserSidebar();
-//   await userManagementListPage.searchUserInSidebar('TestUser');
-
-  await expect(await userManagementListPage.isViewUserDisplayed()).toBeTruthy();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await userManagementListPage.clickUserManagementSideBar();
+  await userManagementListPage.clickMangeuserSideBar();
+  await userManagementListPage.searchUserInSideBar('TestUser');
+  await browserActions.waitForTimeout(5000);
+  await expect(await userManagementListPage.isuserListDisplayed()).toBeTruthy();
 });
 
 test('TC005 Verify that after clicking on the cancel button the user should be able to cancel the invitation', async () => {
-//   await warehouseListPage.selectWarehouseCard();
-//   await userManagementListPage.clickUserManagementSidebar();
-//   await userManagementListPage.clickManageUserSidebar();
-//   await userManagementListPage.clickInviteUserButton();
+  await warehouseListPage.warehouseCard('Test Warehouse');
+  await userManagementListPage.clickUserManagementSideBar();
+  await userManagementListPage.clickMangeuserSideBar();
+  await userManagementListPage.clickInviteUserButton();
   await userManagementListPage.clickCancelInviteButton();
-
-  await expect(await userManagementListPage.isInvitationSent()).toBeFalsy();
+  await browserActions.waitForTimeout(5000);
+  await expect(await userManagementListPage.isuserListDisplayed()).toBeTruthy();
 });

@@ -9,18 +9,19 @@ export class UserManagementListPage extends BasePage {
   }
 
   // Selectors
-  public manageUserList = '//*[@class="table-parents user-list"]';
+  public manageUserList = `//span[contains(@class, 'ml-2') and text()='Manage User']`;
   public userManagementSideBar = '//span[contains(@class, "p-menuitem-text") and text()="User Management"]';
-  public mangeuserSideBar = '//span[contains(@class, "p-menuitem-text") and text()="Manage User"]';
+  public mangeuserSideBar = '//span[contains(@class, "p-menuitem-text") and text()="Manage Users"]';
   public inviteUserButton = '//button[contains(@class, "p-button") and .//span[text()="Invite User"]]';
-  public viewUserButton = '//i[contains(@class, "pi pi-eye")]';
-  public resendInviteButton = '//button[@tooltipposition="top" and contains(@class, "p-element") and contains(@class, "dropdown-item") and contains(@class, "ng-star-inserted")]//i[@class="pi pi-refresh"]';
+  public viewUserButton = `(//button[contains(@class, 'dropdown-item') and contains(@class, 'ng-star-inserted') and contains(@tooltipposition, 'top')])[1]`;
+  public resendInviteButton = '(//button[@tooltipposition="top" and contains(@class, "p-element") and contains(@class, "dropdown-item") and contains(@class, "ng-star-inserted")]//i[@class="pi pi-refresh"])[1]';
   public searchUser = '//input[@type="text" and @placeholder="Search..." and contains(@class, "search-input")]';
   public username = '//input[@type="text" and @placeholder="Enter name" and @formcontrolname="name" and contains(@class, "focus:border-none")]';
   public selectRole = '//*[@formcontrolname="roleId"]';
   public emailId = '//*[@formcontrolname="email"]';
   public inviteUser = '//button[contains(text(), "Invite User")]';
   public cancelInviteButton = '//button[contains(text(),"Cancel")]';
+  public userDetails = `//span[contains(@class, 'ml-2') and text()='View User']`;
 
   // Methods
 
@@ -58,7 +59,6 @@ export class UserManagementListPage extends BasePage {
 
   public async selectUserRole(role: string): Promise<void> {
     await this.browserActions.click(this.selectRole);
-   // await this.browserActions.pause(2000); // Optional, wait for dropdown to appear
     const roleOption = `//li[contains(@class, "p-dropdown-item") and @aria-label="${role}"]`;
     await this.browserActions.click(roleOption);
   }
@@ -81,8 +81,12 @@ export class UserManagementListPage extends BasePage {
   }
 
   public async isViewUserDisplayed(): Promise<boolean> {
-    const userDetails = await this.browserActions.isElementDisplayed(this.manageUserList);
+    const userDetails = await this.browserActions.isElementDisplayed(this.userDetails);
     return userDetails;
+  }
+  public async isuserListDisplayed(): Promise<boolean> {
+    const userList = await this.browserActions.isElementDisplayed(this.manageUserList);
+    return userList;
   }
 }
 
