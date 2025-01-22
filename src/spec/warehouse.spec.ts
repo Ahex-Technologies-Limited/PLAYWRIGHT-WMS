@@ -17,15 +17,10 @@ let page: Page;
 test.beforeEach(async () => {
   driver = new DriverActions();
   page = await driver.launchBrowser();
-  browserActions = new BrowserActions(page)
-    ;
-  loginPage = new LoginPage(page)
-    ;
-  warehouseListPage = new WarehouseListPage(page)
-    ;
-  addWarehousePage = new AddWarehousePage(page)
-    ;
-
+  browserActions = new BrowserActions(page);
+  loginPage = new LoginPage(page);
+  warehouseListPage = new WarehouseListPage(page);
+  addWarehousePage = new AddWarehousePage(page);
   await browserActions.openUrl('http://143.244.132.143:8200/#/auth/login');
   await loginPage.login('tester@gmail.com', 'Supriya@12');
   await browserActions.openUrl('http://143.244.132.143:8200/#/admin/warehouse/list');

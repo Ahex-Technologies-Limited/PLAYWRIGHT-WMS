@@ -11,20 +11,29 @@ export class IncomingShipmentsListPage extends BasePage {
 
   // Selectors
   public incomingShipmentsList = '//a[span[contains(@class, "ml-2") and text()="List"]]';
-  public shipmentsSideBar = '//span[@class="p-menuitem-text ng-tns-c147418153-4 ng-star-inserted" and text()="Shipments"]';
-  public incomingshipmentssideBar = '//span[@class="p-menuitem-text ng-tns-c2900264064-12 ng-star-inserted" and text()="Incoming Shipment"]';
+  public shipmentsSideBar = `(//span[contains(@class, 'p-menuitem-text') and text()='Shipments'])[1]`;
+  public incomingshipmentssideBar = `(//span[contains(@class, 'p-menuitem-text') and text()="Incoming Shipments"])[1]`;
+ public editIncomingShipmentButton = `(//i[contains(@class, 'pi-pencil') and contains(@class, 'text-success')])[1]`;
   public addIncomingShipmentButton = '//div[contains(@class, "zone") and contains(@class, "align-items-center")]//button[@label="Add"]';
   public expectedArrivalDate = '//input[@type="text" and @role="combobox" and @placeholder="Select date"]';
   public carrierName = '//input[@name="name" and @formcontrolname="carrier_name"]';
   public assignTo = '(//span[@role="combobox" and text()="Select"])[1]';
-  public countryCode = '(//span[@role="combobox" and text()="Select"])[2]';
+  public countryCode = `(//span[@role="combobox" and @aria-label="Select"])[1]`;
   public carrierContactNumber = '//*[@formcontrolname="carrier_contact_number"]';
-  public dockDoor = '(//span[@role="combobox" and text()="Select"])[3]';
+  public dockDoor = '(//span[@role="combobox" and text()="Select"])[1]';
   public trackingNumber = '//*[@formcontrolname="tracking_number"]';
-  public supplier = '(//span[@role="combobox" and text()="Select"])[4]';
+  public supplier = '(//span[@role="combobox" and text()="Select"])[1]';
   public nextButtonInShipmentDetails = '//app-shipment-detail-form//form//button[contains(@class, "button_add") and normalize-space(text())="Next"]';
   public BackButtonInShipmentDetails = '//div[@class="block md:flex justify-content-center items-center"]/div[1]/button';
-
+  public  nextButtonInItems=``;
+public sku =`(//span[@role="combobox" and @aria-label="Select"])[1]`;
+public orderQuantity=`//input[@formcontrolname="quantity" and contains(@class, 'p-inputtext') and @type="number" and @placeholder="Enter"]`;
+public billOfLandingUploadButton=`(//span[normalize-space(text())="Upload"])[1]`;
+public viewButton=`//button[@type="button" and contains(@class, 'dropdown-item')]//i[@class="pi pi-eye"]`;
+public addButtonInDocumentations=`//button[@type="submit" and contains(@class, 'button_add') and text()=" Add "]`;
+public searchbar=`//input[@type="text" and @placeholder="Search"]`; 
+public detailsPage=``;
+public status=``;  
   // Methods
   public async clickOnShipmentsSideBar() {
     await this.browserActions.click(this.shipmentsSideBar);
@@ -33,6 +42,9 @@ export class IncomingShipmentsListPage extends BasePage {
   public async clickOnIncomingShipmentsSideBar() {
     await this.browserActions.click(this.incomingshipmentssideBar);
   }
+  public async clickOnEditIncomingShipmentButton() {
+    await this.browserActions.click(this.editIncomingShipmentButton);
+  }
 
   public async clickOnAddIncomingShipmentButton() {
     await this.browserActions.click(this.addIncomingShipmentButton);
@@ -40,9 +52,8 @@ export class IncomingShipmentsListPage extends BasePage {
 
   public async selectExpectedArrivalDate(date: string) {
     await this.browserActions.click(this.expectedArrivalDate);
-    const dateElement = `//td[@aria-label='${date}']`;
-    console.log(dateElement);
-    await this.browserActions.click(dateElement);
+   await this.page.keyboard.press('ArrowDown');
+   await this.page.keyboard.press('Enter');
   }
 
   public async enterCarrierName(carrierName: string) {
@@ -58,7 +69,7 @@ export class IncomingShipmentsListPage extends BasePage {
 
   public async selectCountryCode(countryCode: string) {
     await this.browserActions.click(this.countryCode);
-    const countryCodeOption = `//span[@class="ng-star-inserted" and text()="${countryCode}"]`;
+    const countryCodeOption = `//li[@role="option" and @aria-label="${countryCode}"]`;
     console.log(countryCodeOption);
     await this.browserActions.click(countryCodeOption);
   }
@@ -80,9 +91,8 @@ export class IncomingShipmentsListPage extends BasePage {
 
   public async selectSupplier(supplier: string) {
     await this.browserActions.click(this.supplier);
-    const supplierOption = `//li[contains(@class, "p-dropdown-empty-message") and normalize-space(text()) = "${supplier}"]`;
-    console.log(supplierOption);
-    await this.browserActions.click(supplierOption);
+   await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
   }
 
   public async clickNextButtonInShipmentDetails() {
@@ -95,6 +105,40 @@ export class IncomingShipmentsListPage extends BasePage {
 
   public async isIncomingShipmentsListPageDisplayed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.incomingShipmentsList);
+  }
+  public async selectSku(sku: string) {
+    await this.browserActions.click(this.sku);
+    const skuOption = `//li[@role="option" and @aria-label="${sku}"]`;
+    console.log(skuOption);
+    await this.browserActions.click(skuOption);
+  }
+  public async enterOrderQuantity (orderQuantity: string) {
+    await this.browserActions.inputText(this.orderQuantity,orderQuantity);
+  }
+  public async clickNextButtonInItems(){
+    await this.browserActions.click(this.nextButtonInItems);
+
+  }
+  public async clickBillOfLandigUploadButton(){
+    await this.browserActions.click (this.billOfLandingUploadButton);
+  }
+  public async clickAddButtonInDocumentations(){
+    await this.browserActions.click(this.addButtonInDocumentations);
+  }
+  public async clickViewButton(){
+    await this.browserActions.click(this.viewButton);
+  }
+  public async clickOnsearchBar(){
+    await this.browserActions.click(this.searchbar);
+  }
+  public async isDetailsPageDispalyed(): Promise<boolean>{
+ return await this.browserActions.isElementDisplayed(this.detailsPage);
+  }
+  public async selectStatus(status: string){
+    await this.browserActions.click(this.status);
+    const statusOption = `//li[@role="option" and @aria-label="${status}"]`;
+    console.log(statusOption);
+    await this.browserActions.click(statusOption);
   }
 }
 

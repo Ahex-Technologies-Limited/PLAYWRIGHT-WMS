@@ -80,5 +80,6 @@ export class ManageRolesListPage extends BasePage {
   public async clickPermissionCheckbox(): Promise<void> {
     await this.browserActions.click(this.selectPermission);
   }
+  
 }
 
