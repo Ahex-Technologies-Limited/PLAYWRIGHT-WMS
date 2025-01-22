@@ -6,6 +6,7 @@ export class SupplierManagementPage  extends BasePage {
     constructor(page: Page) {
         super(page);
         this.page = page;
+
   }
 
   // Selectors

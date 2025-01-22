@@ -35,7 +35,7 @@ test.afterEach(async ({ page }) => {
 
 test('TC001 Verify that Supplier Management page is displayed', async ({ page }) => {
     await supplierManagementPage.clickOnSupplierManagementSideBar();
-    await page.waitForTimeout(5000); 
+    await page.waitForTimeout(5000);
     expect(await supplierManagementPage.isSupplierPageDisplayed()).toBeTruthy();
 });
 
@@ -96,14 +96,14 @@ test('TC003 Verify that after clicking on the edit button the user should be abl
     await supplierManagementPage.clickOnEditIcon();
     await supplierManagementPage.enterSupplierName('Updated Supplier');
     await supplierManagementPage.clickOnUpdateButton();
-    await page.waitForTimeout(5000); 
+    await page.waitForTimeout(5000);
     expect(await supplierManagementPage.isSupplierPageDisplayed()).toBeTruthy();
 });
 
 test('TC004 Verify that after clicking on the view button the user should be able to view the selected supplier details', async ({ page }) => {
     await supplierManagementPage.clickOnSupplierManagementSideBar();
     await supplierManagementPage.clickOnViewIcon();
-    await page.waitForTimeout(5000); 
+    await page.waitForTimeout(5000);
     expect(await supplierManagementPage.isSupplierPageDisplayed()).toBeTruthy();
 });
 
