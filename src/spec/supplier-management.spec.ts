@@ -47,8 +47,9 @@ test('TC002 Verify that after clicking on the Add button the user should be able
     await supplierManagementPage.selectCountryCode('+91');
     await supplierManagementPage.enterSupplierPhoneNumber('1234567890');
     await supplierManagementPage.enterTaxId('1234567890');
-    await supplierManagementPage.selectCurrency('Saudi Riyal');
+    await supplierManagementPage.selectCurrency('Indian Rupee');
     await supplierManagementPage.selectPaymentMethods('Credit Card');
+    await browserActions.waitForTimeout(3000);
     await supplierManagementPage.clickOnMarkAsPrimaryCheckbox();
     await supplierManagementPage.enterPrimaryContactName('Test Contact');
     await supplierManagementPage.enterPrimaryContactEmail('test@gmail.com');
@@ -79,8 +80,8 @@ test('TC002 Verify that after clicking on the Add button the user should be able
     await supplierManagementPage.selectStartDate('2025-0-7');
     await supplierManagementPage.selectEndDate('2025-0-23');
     await supplierManagementPage.enterDescription('Test Description');
-    await supplierManagementPage.selectSku('MmRaTzXEqs');
-    await supplierManagementPage.enterDiscount('10%');
+    await supplierManagementPage.selectSku('cK3tCOYuLp');
+    await supplierManagementPage.enterDiscount('10');
     await supplierManagementPage.clickOnUploadButton();
     await supplierManagementPage.clickOnUploadAnnexuresOrAttachments('path/to/annexure.jpg');
     await supplierManagementPage.clickOnUploadProofOfSigningAuthority('path/to/proof.jpg');
@@ -94,17 +95,18 @@ test('TC002 Verify that after clicking on the Add button the user should be able
 test('TC003 Verify that after clicking on the edit button the user should be able to edit the Supplier details', async ({ page }) => {
     await supplierManagementPage.clickOnSupplierManagementSideBar();
     await supplierManagementPage.clickOnEditIcon();
-    await supplierManagementPage.enterSupplierName('Updated Supplier');
+    await supplierManagementPage.enterSupplierName('Test Supplier Updated');
     await supplierManagementPage.clickOnUpdateButton();
     await page.waitForTimeout(5000);
     expect(await supplierManagementPage.isSupplierPageDisplayed()).toBeTruthy();
+
 });
 
 test('TC004 Verify that after clicking on the view button the user should be able to view the selected supplier details', async ({ page }) => {
     await supplierManagementPage.clickOnSupplierManagementSideBar();
     await supplierManagementPage.clickOnViewIcon();
     await page.waitForTimeout(5000);
-    expect(await supplierManagementPage.isSupplierPageDisplayed()).toBeTruthy();
+    expect(await supplierManagementPage.isSupplierDetailsDisplayed()).toBeTruthy();
 });
 
 test('TC005 Verify that after clicking on the search bar the user should be able to search for a supplier', async ({ page }) => {
