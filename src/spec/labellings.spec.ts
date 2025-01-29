@@ -84,7 +84,7 @@ test('TC005 Verify that the filter functionality is working correctly', async ()
   await expect(await labellingsPage.isLabelPageDisplayed()).toBeTruthy();
 });
 
-test.only('TC006 Verify that the user should be able to clear the filter', async () => {
+test('TC006 Verify that the user should be able to clear the filter', async () => {
   await warehouseListPage.warehouseCard('Test Warehouse');
   await labellingsPage.clickOnLabelSideBar();
   await labellingsPage.clickOnFilterButton();

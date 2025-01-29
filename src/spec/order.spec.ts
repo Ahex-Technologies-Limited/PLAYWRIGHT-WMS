@@ -4,7 +4,7 @@ import { WarehouseListPage } from '../pages/WarehouseListPage';
 import { AddWarehousePage } from '../pages/AddWarehousePage';
 import { DriverActions } from '../helpers/DriverActions';
 import { BrowserActions } from '../helpers/BrowserActions';
-import { OrderListPage } from '../pages/OrdrListPage';  
+import { OrderListPage } from '../pages/OrderListPage';  
 
 
 
@@ -38,7 +38,7 @@ test('TC001 Verify that Order List page is displayed', async ({ page }) => {
     await page.waitForTimeout(5000);
     await expect(await orderListPage.isOrderListPageDisplayed()).toBeTruthy();
 });
-test('TC002 Verify that after clicking on the Add button the user should be able to add a new order', async ({ page }) => {
+test.only('TC002 Verify that after clicking on the Add button the user should be able to add a new order', async ({ page }) => {
     await orderListPage.clickOnOrderManagementSubMenu();
     await orderListPage.clickOnOrderSideBar();
     await orderListPage.clickOnOrderAddButton();
@@ -75,7 +75,7 @@ test('TC003 Verify that the user should be able to search for an order', async (
     await page.waitForTimeout(3000);
     await expect(await orderListPage.isOrderListPageDisplayed()).toBeTruthy();
 });
-test.only('TC004 Verify that the user should be able to view the order details', async ({ page }) => {
+test('TC004 Verify that the user should be able to view the order details', async ({ page }) => {
     await orderListPage.clickOnOrderManagementSubMenu();
     await orderListPage.clickOnOrderSideBar();
     await orderListPage.clickOnViewIcon();
