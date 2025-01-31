@@ -81,9 +81,9 @@ public async clickOnOrderEditButton() {
 public async clickOnViewIcon() {
   await this.browserActions.click(this.orderDetailsIcon);
 }
-public async selectStatus (status: string) {
+public async selectStatus (statusoption: string) {
   await this.page.click(this.status);
-  const statusElement = `//li[@data-p-focused='false' and @aria-setsize='13']//span[text()='${status}']`;
+  const statusElement = `//li[@data-p-focused='false' and @aria-setsize='13']//span[text()='${statusoption}']`;
   await this.page.click(statusElement);
 }
 public async selectOrderDate (date: string) {
@@ -105,14 +105,16 @@ public async selectPaymentMethod (paymentMethod: string) {
   const paymentMethodElement = `//li[@aria-label='UPI']`;
   await this.page.click(paymentMethodElement);
 }
-public async selectOrderType (orderType: string) {
+public async selectOrderType (order: string) {
   await this.page.click(this.orderType);
-  const orderTypeElement = `//li[@aria-label='${orderType}']`;
-  await this.page.click(orderTypeElement);
+  await this.page.keyboard.press('ArrowDown');
+  await this.page.keyboard.press('Enter');
+  // const orderTypeElement = `//li[@aria-label='${order}']`;
+  // await this.page.click(orderTypeElement);
 }
-public async selectOrderPriority (orderPriority: string) {
+public async selectOrderPriority (Priority: string) {
   await this.page.click(this.orderPriority);
-  const orderPriorityElement = `//li[@aria-label='${orderPriority}']`;
+  const orderPriorityElement = `//li[@aria-label='${Priority}']`;
   await this.page.click(orderPriorityElement);
 }
 public async clickNextButtonInOrderDetailsPage() {
@@ -121,10 +123,14 @@ public async clickNextButtonInOrderDetailsPage() {
 public async enterAddress(value: string) {
   await this.browserActions.inputText(this.address, value);
 }
-public async selectCountry (country: string) {
+public async selectCountry (countryoption: string) {
   await this.page.click(this.country);
-  const countryElement = `//li[ @aria-label='${country}']`;
-  await this.page.click(countryElement);
+  await this.page.keyboard.press('ArrowDown');
+  await this.page.keyboard.press('ArrowDown');
+  await this.page.keyboard.press('ArrowDown');
+  await this.page.keyboard.press('Enter');
+  // const countryElement = `//li[ @aria-label='${countryoption}']`;
+  // await this.page.click(countryElement);
 }
 public async enterCity(value: string) {
   await this.browserActions.inputText(this.city, value);
@@ -141,9 +147,9 @@ public async clickSameAsShippingAddressLink() {
 public async clickNextButtonInAddress() {
   await this.browserActions.click(this.nextButtonnInAddress);
 }
-public async selectSku (sku: string) {
+public async selectSku (skuoption: string) {
   await this.page.click(this.sku);
-  const skuElement = `//li[@aria-label='${sku}']`;
+  const skuElement = `//li[@aria-label='${skuoption}']`;
   await this.page.click(skuElement);
 
 }

@@ -53,6 +53,7 @@ test('TC003 Verify that the user should be able to change the status of the pack
     await packListPage.clickOnPackListSideBar();
     await packListPage.clickOnStatus('');
     await page.waitForTimeout(5000);
+    await expect(await packListPage.isPackListPageDisplayed()).toBeTruthy();
 });
 test('TC004 Verify that the user should be able to view the pack list details', async ({ page }) => {
     await packListPage.clickOnOrderManagementSubMenu();
