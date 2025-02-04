@@ -38,6 +38,8 @@ test.only('TC001 Verify adding a new incoming shipment', async () => {
     await incomingShipmentsListPage.clickOnIncomingShipmentsSideBar();
     await incomingShipmentsListPage.clickOnAddIncomingShipmentButton();
     await incomingShipmentsListPage.selectExpectedArrivalDate('12/31/2024 10:03');
+    await incomingShipmentsListPage.selectStartTime('10:03');
+    await incomingShipmentsListPage.selectendTime('11:03');
     await incomingShipmentsListPage.enterCarrierName('Carrier1');
     await incomingShipmentsListPage.selectAssignTo('SupriyaTester');
     await incomingShipmentsListPage.selectCountryCode('India (+91)');
