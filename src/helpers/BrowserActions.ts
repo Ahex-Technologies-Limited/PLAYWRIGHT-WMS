@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { PlaywrightBrowserHelper } from './lib/PlaywrightBrowserHelper';
 
 export class BrowserActions  {
@@ -53,6 +53,10 @@ export class BrowserActions  {
 
   public async waitForTimeout(timeout: number): Promise<void> {
     await this.helper.waitForTimeout(timeout);
+ }
+   async getLocator(selectorOrElement: string | Locator): Promise<Locator> {
+   return await this.helper.getLocator(selectorOrElement);
+    
  }
 
 }

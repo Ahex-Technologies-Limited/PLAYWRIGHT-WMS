@@ -6,7 +6,7 @@ import { DriverActions } from '../helpers/DriverActions';
 import { BrowserActions } from '../helpers/BrowserActions';
 import { IncomingShipmentsListPage } from '../pages/IncomingShipmentsListPage';
 import { OutgoingShipmentPage } from '../pages/OutgoingShipmentPage';
-import { OrderListPage } from '../pages/OrderListPage';  
+import { OrderListPage } from '../pages/OrderListPage';
 
 let driver: DriverActions;
 let browserActions: BrowserActions;
@@ -32,9 +32,8 @@ test.beforeEach(async ({ page }) => {
     await loginPage.login('tester@gmail.com', 'Supriya@12');
     await browserActions.openUrl('http://143.244.132.143:8200/#/admin/warehouse/list');
     await warehouseListPage.warehouseCard('Test Warehouse');
-    await outgoingshipmentListPage.clickOnShipmentsSideBar();
-    await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
- 
+    
+
 });
 
 test.afterEach(async ({ page }) => {
@@ -43,18 +42,19 @@ test.afterEach(async ({ page }) => {
 
 
 test('TC001 verify that user can add an outgoing shipment', async () => {
+    await outgoingshipmentListPage.clickOnShipmentsSideBar();
+    await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
     await outgoingshipmentListPage.clickOnAddOutgoingShipmentButton();
-    await outgoingshipmentListPage.selectShippingDate('2023-10-10');
-    await outgoingshipmentListPage.selectExpectedDeliveryDate('2023-10-15');
+    await outgoingshipmentListPage.selectShippingDate('2025-2-12');
+    await outgoingshipmentListPage.selectExpectedDeliveryDate('2025-2-18');
     await outgoingshipmentListPage.selectLoadingStartTime('11:00');
     await outgoingshipmentListPage.selectLoadingEndTime('14:00');
-    await outgoingshipmentListPage.selectOrderNo('ORD-241209090508');
-    await outgoingshipmentListPage.enterCustomerName('John Doe');
+    await outgoingshipmentListPage.selectOrderNo('ORD-250204054916');
     await outgoingshipmentListPage.enterTrackingNumber('123456789');
-    await outgoingshipmentListPage.selectCarrierName('carrier2'); 
+    await outgoingshipmentListPage.selectCarrierName('Carrier 1');
     await outgoingshipmentListPage.enterShipmentNumber('SHIP123');
     await outgoingshipmentListPage.enterNumberOfPackages('5');
-    await outgoingshipmentListPage.selectDockDoor('DockDoor1'); 
+    await outgoingshipmentListPage.selectDockDoor('Dock Door 2');
     await outgoingshipmentListPage.enterAddress('123 Main St');
     await outgoingshipmentListPage.selectCountry('India');
     await outgoingshipmentListPage.enterCity('New York');
@@ -63,12 +63,14 @@ test('TC001 verify that user can add an outgoing shipment', async () => {
     await outgoingshipmentListPage.enterRemarks('Handle with care');
     await outgoingshipmentListPage.clickNextButtonInShipmentDetails();
     await outgoingshipmentListPage.clickNextButtonInPackage();
-
+    await outgoingshipmentListPage.uploadPackagingList('./src/resources/packing-slip.png');
     await outgoingshipmentListPage.clickSaveButton();
     expect(await outgoingshipmentListPage.successMessageForAddOutgoingShipment()).toBeTruthy();
 });
 
 test('TC002 verify that user can edit an outgoing shipment', async () => {
+    await outgoingshipmentListPage.clickOnShipmentsSideBar();
+    await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
     await outgoingshipmentListPage.clickOnOutgoingShipmentsList();
     await outgoingshipmentListPage.clickEditButton();
     await outgoingshipmentListPage.enterRemarks('Updated remarks');
@@ -78,6 +80,8 @@ test('TC002 verify that user can edit an outgoing shipment', async () => {
 });
 
 test('TC003 verify that user can delete an outgoing shipment', async () => {
+    await outgoingshipmentListPage.clickOnShipmentsSideBar();
+    await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
     await outgoingshipmentListPage.clickOnOutgoingShipmentsList();
     await outgoingshipmentListPage.clickDeleteButton();
     await outgoingshipmentListPage.clickYesButton();
@@ -86,6 +90,8 @@ test('TC003 verify that user can delete an outgoing shipment', async () => {
 });
 
 test('TC004 verify that user can view incoming shipment details', async () => {
+    await outgoingshipmentListPage.clickOnShipmentsSideBar();
+    await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
     await outgoingshipmentListPage.clickOnOutgoingShipmentsList();
     await outgoingshipmentListPage.clickViewButton();
     await browserActions.waitForTimeout(5000);
@@ -93,12 +99,16 @@ test('TC004 verify that user can view incoming shipment details', async () => {
 });
 
 test('TC005 verify that user can search for an outgoing shipment', async () => {
+    await outgoingshipmentListPage.clickOnShipmentsSideBar();
+    await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
     await outgoingshipmentListPage.clickonSearchBar('SHIP123');
     await browserActions.waitForTimeout(5000);
     expect(await outgoingshipmentListPage.isOutgoingShipmentListPageDisplayed()).toBeTruthy();
 });
 
 test('TC006 verify that user can change the status of an outgoing shipment', async () => {
+    await outgoingshipmentListPage.clickOnShipmentsSideBar();
+    await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
     await outgoingshipmentListPage.clickOnOutgoingShipmentsList()
     await outgoingshipmentListPage.selectStatus('Delivered');
     await browserActions.waitForTimeout(5000);
