@@ -31,6 +31,7 @@ export class RoutesPage extends BasePage {
     public assignProductCatagoryButton = `//button[contains(@class, 'button_assignvehicle')]`;
     public searchBar = `//span[contains(@class, 'p-input-icon-left')]//input`;
     public viewDetailsPage = `//a[contains(@class, 'no-underline') and normalize-space(span/text())='View Details']`;
+    public closeIcon = `//button[@aria-label='Close']`;
     //Methods
     public async clickOnOperationsSidebar() {
         await this.browserActions.click(this.operationsSidebar);
@@ -112,6 +113,9 @@ export class RoutesPage extends BasePage {
     }
     public async isViewDetailsPageDisplayed(): Promise<boolean> {
         return await this.browserActions.isElementDisplayed(this.viewDetailsPage);
+    }
+    public async clickonCloseicon() {
+        await this.browserActions.click(this.closeIcon);
     }
 
 

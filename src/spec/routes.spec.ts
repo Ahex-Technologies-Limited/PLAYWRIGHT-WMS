@@ -61,9 +61,11 @@ test('TC002 Verify that user is able to view details of a route', async ({ page 
     await browserActions.waitForTimeout(5000);
     await expect(await routesPage.isViewDetailsPageDisplayed()).toBeTruthy();
 });
-test.only ('TC003 Verify that user can assignProducts to a route', async ({ page }) => {
+test ('TC003 Verify that user can assignProducts to a route', async ({ page }) => {
     await routesPage.clickOnAssignProductIcon();
     await routesPage.ProductSelect('T-Shirts');
+    await routesPage.clickonCloseicon();
+    await browserActions.waitForTimeout(5000);
     await routesPage.clickOnAssignProductButton();
     await browserActions.waitForTimeout(5000);
     await expect(await routesPage.isRoutesListDisplayed()).toBeTruthy();
@@ -71,6 +73,8 @@ test.only ('TC003 Verify that user can assignProducts to a route', async ({ page
 test ('TC004Verify that user can assign product Catagory to a route', async ({ page }) => {
     await routesPage.clickOnAssignProductCatagoryIcon();
     await routesPage.ProductCatagorySelect('Fashion');
+     await routesPage.clickonCloseicon();  
+    await browserActions.waitForTimeout(5000);
     await routesPage.clickOnAssignProductCatagoryButton();
     await browserActions.waitForTimeout(5000);
     await expect(await routesPage.isRoutesListDisplayed()).toBeTruthy();
