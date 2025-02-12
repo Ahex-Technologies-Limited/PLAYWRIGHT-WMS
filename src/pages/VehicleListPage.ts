@@ -46,6 +46,7 @@ export class VehicleListPage extends BasePage {
     public submitButton = `//button[contains(@class, 'button_add') and text()=' Submit ']`;
     public detailsPage = `//span[text()='vehicle Details']`;
     public updateButtonInVehicleMaintainanceService = `//button[normalize-space(text())='Update']`;
+    public successMessageForUpdate= `//div[contains(@class, 'p-toast-detail') and text()='Vehicle updated successfully']`;
     //methods
     public async clickOnVehicleManagementSubMenu() {
         await this.browserActions.click(this.vehicleManagementSidebar);
@@ -105,12 +106,12 @@ export class VehicleListPage extends BasePage {
     }
     public async selectRegistrationExpiryDate(date: string) {
         await this.browserActions.click(this.registrationExpiryDate);
-        await this.page.keyboard.type(date);
+        await this.page.keyboard.press('ArrowDown');
         await this.page.keyboard.press('Enter');
     }
     public async selectFuelType(type: string) {
         await this.browserActions.click(this.fuelType);
-        const fuelTypeOption = `//label[contains(text(),'${type}')]`;
+        const fuelTypeOption = `//li[@aria-label='${type}']`;
         await this.browserActions.click(fuelTypeOption);
     }
     public async enterMileage(mileage: string) {
@@ -119,7 +120,7 @@ export class VehicleListPage extends BasePage {
 
     public async selectCapacityUnit(unit: string) {
         await this.browserActions.click(this.capacityUnit);
-        const capacityUnitOption = `//label[contains(text(),'${unit}')]`;
+        const capacityUnitOption = `//li[@aria-label='${unit}']`;
         await this.browserActions.click(capacityUnitOption);
     }
     public async enterCapacity(capacity: string) {
@@ -181,6 +182,9 @@ export class VehicleListPage extends BasePage {
     }
     public async clickOnUpdateButtonInVehicleMaintainanceService() {
         await this.browserActions.click(this.updateButtonInVehicleMaintainanceService);
+    }
+    public async isSuccessMessageForUpdateDisplayed(): Promise<boolean> {
+        return await this.browserActions.isElementDisplayed(this.successMessageForUpdate);
     }
 
 

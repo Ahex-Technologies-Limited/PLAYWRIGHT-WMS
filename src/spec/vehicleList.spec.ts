@@ -41,15 +41,15 @@ test('TC002 Verify that user is able to add a new vehicle ', async () => {
   await vehicleListPage.clickOnVehicleAddButton();
   await vehicleListPage.enterVehicleMaker('Honda');
   await vehicleListPage.enterVehicleModel('Civic');
-  await vehicleListPage.selectVehicleType('Hatchback');
+  await vehicleListPage.selectVehicleType('Hatchbacks');
   await vehicleListPage.enterVehicleColor('Black');
   await vehicleListPage.enterPlateNumber('KA-01A2345');
   await vehicleListPage.enterVin('WBA1234567890');
   await vehicleListPage.enterRegistrationNumber('1234567890');
   await vehicleListPage.selectRegistrationExpiryDate('2025-0-7');
-  await vehicleListPage.selectFuelType('Petrol');
+  await vehicleListPage.selectFuelType('Petrol (Gasoline)');
   await vehicleListPage.enterMileage('10000');
-  await vehicleListPage.selectCapacityUnit('Kilometers');
+  await vehicleListPage.selectCapacityUnit('Tons');
   await vehicleListPage.enterCapacity('10');
   await vehicleListPage.clickOnAddButton();
   await browserActions.waitForTimeout(5000);
@@ -61,15 +61,16 @@ test('TC003 Verify that user is able to edit a vehicle ', async () => {
   await vehicleListPage.enterPlateNumber('KA-02A2345');
   await vehicleListPage.clickOnUpdateButton();
   await browserActions.waitForTimeout(5000);
-  await expect(await vehicleListPage.isVehicleListPageDisplayed()).toBeTruthy();
+  await expect(await vehicleListPage.isSuccessMessageForUpdateDisplayed()).toBeTruthy();
 });
 
 test('TC004 Verify that user is able to see the vehicle list page with filter applied ', async () => {
     await vehicleListPage.clickOnFilterButton();
-    await vehicleListPage.selectStatusFilter('Active');
+    await vehicleListPage.selectStatusFilter(' Available');
     await vehicleListPage.clickOnFilterApplyButton();
     await expect(await vehicleListPage.isVehicleListPageDisplayed()).toBeTruthy();
-});
+
+  });
 
 test('TC005 Verify that user is able to see the vehicle list page with search applied ', async () => {
     await vehicleListPage.clickOnSearchBar('Honda');
