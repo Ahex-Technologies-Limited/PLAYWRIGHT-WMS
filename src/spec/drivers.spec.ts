@@ -36,9 +36,9 @@ test.afterEach(async () => {
     await driver.closeBrowser();
 });
 
-test('TC001 Verify that after clicking on the add button the user should be able to add a new driver', async () => {
+test.only('TC001 Verify that after clicking on the add button the user should be able to add a new driver', async () => {
     await driversPage.clickOnAddDriverButton();
-    await driversPage.enterDriverName('Test Driver');
+    await driversPage.enterDriverName('Test DriverA');
     await driversPage.selectJoiningDate('2022-12-31');
     await driversPage.enterDriverPhoneNumber('+919876543210');
     await driversPage.enterDriverEmail('testdriver@gmail.com');
@@ -48,9 +48,12 @@ test('TC001 Verify that after clicking on the add button the user should be able
     await driversPage.selectDriverLicenseExpiryDate('2023-12-31');
     await driversPage.enterEmergencyContactName('Test Emergency Contact');
     await driversPage.enterEmergencyContactPhoneNumber('+919876543210');
-    // await driversPage.selectIdProof();
-    // await driversPage.selectLicenceImageFront();
-    // await driversPage.selectLicenceImageBack();
+    await browserActions.waitForTimeout(5000)
+    await driversPage.selectIdProof();
+    await browserActions.waitForTimeout(5000)
+    await driversPage.selectLicenceImageFront();
+    await browserActions.waitForTimeout(5000)
+    await driversPage.selectLicenceImageBack();
     await driversPage.clickOnAddButton();
     await browserActions.waitForTimeout(5000);
     await expect(driversPage.isSuccessMessageAfterAddingDriverDisplayed()).toBeTruthy();
@@ -99,7 +102,7 @@ test('TC006 Verify that after clicking on the clear filter button the user shoul
     await expect(driversPage.isDriversListPageDisplayed()).toBeTruthy();
 });
 
-test.only('TC007 Verify that after clicking on the search bar the user can search for a particular driver', async () => {
+test('TC007 Verify that after clicking on the search bar the user can search for a particular driver', async () => {
     await driversPage.typeInSearchBar('Test Driver');
     await browserActions.waitForTimeout(5000);
     await expect(driversPage.isDriversListPageDisplayed()).toBeTruthy();
