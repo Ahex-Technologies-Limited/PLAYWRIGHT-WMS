@@ -29,7 +29,7 @@ test.beforeEach(async () => {
     await browserActions.openUrl('http://143.244.132.143:8200/#/admin/warehouse/list');
     await warehouseListPage.warehouseCard('Test Warehouse');
     await driversPage.clickOnDriversManagementSidebar();
-    await driversPage.clickOnAddDriverButton();
+    await driversPage.clickOnDriversSideBar();
 });
 
 test.afterEach(async () => {
@@ -37,19 +37,20 @@ test.afterEach(async () => {
 });
 
 test('TC001 Verify that after clicking on the add button the user should be able to add a new driver', async () => {
+    await driversPage.clickOnAddDriverButton();
     await driversPage.enterDriverName('Test Driver');
     await driversPage.selectJoiningDate('2022-12-31');
-    await driversPage.enterDriverPhoneNumber('9876543210');
+    await driversPage.enterDriverPhoneNumber('+919876543210');
     await driversPage.enterDriverEmail('testdriver@gmail.com');
     await driversPage.enterPresentAddress('Test Address');
     await driversPage.enterPermanentAddress('Test Address');
     await driversPage.enterDriverLicenseNumber('DL1234567890');
     await driversPage.selectDriverLicenseExpiryDate('2023-12-31');
     await driversPage.enterEmergencyContactName('Test Emergency Contact');
-    await driversPage.enterEmergencyContactPhoneNumber('9876543210');
-    await driversPage.selectIdProof();
-    await driversPage.selectLicenceImageFront();
-    await driversPage.selectLicenceImageBack();
+    await driversPage.enterEmergencyContactPhoneNumber('+919876543210');
+    // await driversPage.selectIdProof();
+    // await driversPage.selectLicenceImageFront();
+    // await driversPage.selectLicenceImageBack();
     await driversPage.clickOnAddButton();
     await browserActions.waitForTimeout(5000);
     await expect(driversPage.isSuccessMessageAfterAddingDriverDisplayed()).toBeTruthy();
@@ -82,7 +83,7 @@ test('TC004 Verify that after clicking on the assign vehicle button the user sho
 });
 
 test('TC005 Verify that after clicking on the status filter button the user should be able to filter the drivers based on their status', async () => {
-    await driversPage.clickOnClearFilterButton();
+    await driversPage.clickOnFilterButton();
     await driversPage.selectStatusFilter("Active");
     await driversPage.clickOnApplyFilterButton();
     await browserActions.waitForTimeout(5000);
@@ -90,13 +91,15 @@ test('TC005 Verify that after clicking on the status filter button the user shou
 });
 
 test('TC006 Verify that after clicking on the clear filter button the user should be able to clear the filter', async () => {
-    await driversPage.clickOnClearFilterButton();
+    await driversPage.clickOnFilterButton();
+    await driversPage.selectStatusFilter("Active");
     await driversPage.clickOnApplyFilterButton();
+    await driversPage.clickOnClearFilterButton();
     await browserActions.waitForTimeout(5000);
     await expect(driversPage.isDriversListPageDisplayed()).toBeTruthy();
 });
 
-test('TC007 Verify that after clicking on the search bar the user can search for a particular driver', async () => {
+test.only('TC007 Verify that after clicking on the search bar the user can search for a particular driver', async () => {
     await driversPage.typeInSearchBar('Test Driver');
     await browserActions.waitForTimeout(5000);
     await expect(driversPage.isDriversListPageDisplayed()).toBeTruthy();

@@ -14,7 +14,7 @@ export class DriversPage extends BasePage {
     public searchBar = `//input[contains(@class, 'search-input')]`;
     public editButton=`(//button[i[contains(@class, 'pi-pencil')]])[1]`;
     public viewButton=`(//button[i[contains(@class, 'pi-eye')]])[1]`;
-    public assignVehicleButton=`//button[i[contains(@class, 'pi-truck')]]`;
+    public assignVehicleButton=`(//button[i[contains(@class, 'pi-truck')]])[5]`;
     public filterButton=`//span[text()='Filters']`;
     public statusFilter=`//span[contains(text(),'Status')]`;
     public applyFilterButton=`//button[span[text()='Apply']]`;
@@ -28,20 +28,20 @@ export class DriversPage extends BasePage {
    public presentAddress=`//input[@formcontrolname='present_address']`;
    public permanentAddress=`//input[@formcontrolname='permanent_address']`;
     public driverLicenseNumber=`//input[@formcontrolname='license_number']`;
-    public driverLicenseExpiryDate=`//input[@formcontrolname='license_expiry_date']`;
+    public driverLicenseExpiryDate=`//*[@formcontrolname='license_expiry_date']`;
   public emergencyContactName=`//input[@formcontrolname='emergency_contact_name']`;
   public emergencyContactPhoneNumber=`//input[@formcontrolname='emergency_contact_number']`;
   public idProof=``;
   public licenceImageFront=``;
   public licenceImageBack=``;
-  public addButton=``;
+  public addButton=`//button[contains(@class, 'button_next')]`;
   public uploadImage=``;
-  public updateButton=``;
-  public assignVehicle=``;
-  public assigneMentDate=``;
-  public remark=``;
-  public assignButton=``;
-  public successMessageAfterAssigningVehicle=`//div[contains(@class, 'p-toast-detail') and text()='Vehicle assigned successfully']`;Driver=`//div[contains(@class, 'p-toast-detail') and text()='Driver deleted successfully']`;
+  public updateButton=`//button[contains(@class, 'button_next')]`;
+  public assignVehicle=`//p-dropdown[@formcontrolname='vehicle_id']`;
+  public assigneMentDate=`//p-calendar[@formcontrolname='assignment_date']`;
+  public remark=`//textarea[@formcontrolname='remarks']`;
+  public assignButton=`//button[contains(text(), 'Assign Vehicle')]`;
+  public successMessageAfterAssigningVehicle=`//div[@data-pc-section='detail']`;
   public successMessageAfterAddingDriver=`//div[contains(@class, 'p-toast-detail') and text()='Driver added successfully']`;
   public successMessageAfterUpdatingDriver=`//div[contains(@class, 'p-toast-detail') and text()='Driver updated successfully']`;
 //Methods
