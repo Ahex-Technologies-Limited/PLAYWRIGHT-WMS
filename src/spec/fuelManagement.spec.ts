@@ -41,14 +41,14 @@ test.afterEach(async () => {
 
 test('TC001 Verify that after clicking on the add button the user should be able to add a new fuel', async () => {
     await fuelManagementPage.clickOnAddFuelButton();
-    await fuelManagementPage.selectVehicle('Test Vehicle');
+    await fuelManagementPage.selectVehicle(' MH12AB123');
     await fuelManagementPage.enterFuelType('Diesel');
     await fuelManagementPage.enterMeterReading('1000');
     await fuelManagementPage.enterFuelConsumed('50');
-    await fuelManagementPage.selectCurrency('USD');
+    await fuelManagementPage.selectCurrency('Saudi Riyal');
     await fuelManagementPage.enterAmount('10');
     await fuelManagementPage.selectPurchaseDate('2022-01-01');
-    await fuelManagementPage.uploadReferenceImage('test.jpg');
+    await fuelManagementPage.uploadReferenceImage('src\resources\download.jpg');
     await fuelManagementPage.clickOnAddButton();
     await browserActions.waitForTimeout(5000);
     await expect(await fuelManagementPage.isSuccessMessageForAddFuelDisplayed()).toBeTruthy();
@@ -61,7 +61,7 @@ test('TC002 Verify that user can search for a fuel', async () => {
 });
 
 test('TC003 Verify that user can view fuel details', async () => {
-    await fuelManagementPage.clickOnViewButtonInListPage();
+    await fuelManagementPage.clickOnViewButton();
     await browserActions.waitForTimeout(5000);
     await expect(await fuelManagementPage.isDetailsPageDisplayed()).toBeTruthy();
 });
@@ -82,14 +82,14 @@ test('TC005 Verify that user can delete a fuel', async () => {
     await expect(await fuelManagementPage.isSuccessMessageForDeleteFuelDisplayed()).toBeTruthy();
 });
 
-test('TC005 Verify that by cicking on click to view in the list page the user can able to see the uploaded image', async () => {
+test('TC006 Verify that by cicking on click to view in the list page the user can able to see the uploaded image', async () => {
     await fuelManagementPage.clickOnViewButtonInListPage();
     await browserActions.waitForTimeout(5000);
     const image = await page.waitForSelector('src\resources\download (1).jpg');
     await expect(image).toBeTruthy();
 });
 
-test('TC006 Verify that by clicking on click to view in the update page the user can able to see the uploaded image', async () => {
+test('TC007 Verify that by clicking on click to view in the update page the user can able to see the uploaded image', async () => {
 
     await fuelManagementPage.clickOnViewButtonInUpdatePage();
     await browserActions.waitForTimeout(5000);
@@ -97,7 +97,7 @@ test('TC006 Verify that by clicking on click to view in the update page the user
     await expect(image).toBeTruthy();
 });
 
-test('TC007 Verify that by clicking on click to view in the details page the user can able to see the uploaded image', async () => {
+test('TC008 Verify that by clicking on click to view in the details page the user can able to see the uploaded image', async () => {
     await fuelManagementPage.clickOnViewButtonInDetailsPage();
     await browserActions.waitForTimeout(5000);
     const image = await page.waitForSelector('src\resources\download (1).jpg');

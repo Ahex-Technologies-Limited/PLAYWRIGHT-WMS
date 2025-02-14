@@ -11,7 +11,7 @@ export class FuelManagementPage extends BasePage {
   }
   // Selectors
   public fuelManagementSideBar = `//a[span[contains(text(), 'Fuel Management')]]`;
-  public addFuelButton = `//button[contains(@class, 'p-button') and normalize-space(text())='Add']`;
+  public addFuelButton = `//button[contains(@class, 'button_add')]`;
   public vehicle=`//p-dropdown[@formcontrolname='vehicle_id']`;
   public fuelType=`//*[@formcontrolname='fuel_type']`;
   public meterReading = `//*[@formcontrolname='meter_reading']`;
@@ -21,14 +21,14 @@ export class FuelManagementPage extends BasePage {
   public purchaseDate = `//*[@formcontrolname='purchase_date']`;
   public referenceImageUpload = `//input[@type='file' and @aria-label='Browse Files']`;
   public addButton = `//button[contains(@class, 'p-button') and normalize-space(text())='Add']`;
-  public clicktoViewLinkInListPage = `//a[text()='Click to View']`;
+  public clicktoViewLinkInListPage = `(//a[text()='Click to View'])[1]`;
   public clicktoViewLinkInUpdatePage = `//a[text()='Click to View']`;
   public clicktoviewLinkInDetailsPage = `//a[text()='Click to View']`;
-  public viewButton = `//div[contains(@class, 'dropdown-menu')]//button[contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-eye')]]`;
+  public viewButton = `(//div[contains(@class, 'dropdown-menu')]//button[contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-eye')]])[1]`;
   public detailsPage = `//span[text()='View Fuel Purchase Details']`;
-  public editButton = `//i[@class='pi pi-pencil text-success']`;
+  public editButton = `(//i[@class='pi pi-pencil text-success'])[1]`;
   public updateButton = `//button[text()=' Update ']`;
-  public deleteButton = `//button[contains(@class, 'dropdown-item')]//i[contains(@class, 'pi-trash')]`;
+  public deleteButton = `(//button[contains(@class, 'dropdown-item')]//i[contains(@class, 'pi-trash')])[1]`;
   public SearchBar = `//input[@placeholder='Search...']`;
   public fuelManagementListPage = `//a[@href='#/admin/fuel' and contains(@class, 'bredcrumb-text')]`;
   public successmessageForAddFuel = `//div[contains(@class, 'p-toast-detail') and text()='Fuel purchase added successfully.']`;
