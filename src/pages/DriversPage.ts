@@ -2,54 +2,54 @@ import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import path from 'path';
 export class DriversPage extends BasePage {
-    private page: Page;
-    constructor(page: Page) {
-        super(page);
-        this.page = page;
-    }
-    // Selectors
-    public driverManagementSidebar = `//span[text()='Driver Management']`;
-    public driversSidebar = `//a[span[text()='Drivers']]`;
-    public driversList = '//a[contains(@class, "bredcrumb-text") and .//span[text()="Driver List"]]';
-    public searchBar = `//input[contains(@class, 'search-input')]`;
-    public editButton=`(//button[i[contains(@class, 'pi-pencil')]])[1]`;
-    public viewButton=`(//button[i[contains(@class, 'pi-eye')]])[1]`;
-    public assignVehicleButton=`(//button[i[contains(@class, 'pi-truck')]])[5]`;
-    public filterButton=`//span[text()='Filters']`;
-    public statusFilter=`//span[contains(text(),'Status')]`;
-    public applyFilterButton=`//button[span[text()='Apply']]`;
-    public clearFilterButton=`//button[span[text()='Clear']]`;
-    public driversDetailsPage=`//span[contains(text(),'Driver Details')]`;
-    public addDriverButton=`//button[@label='Add']`;
-    public driverName=`//input[@formcontrolname='name']`;
-    public joiningDate=`//p-calendar[@formcontrolname='joining_date']`;
-    public driverPhoneNumber=`//input[@formcontrolname='phone']`;
-    public driverEmail=`//input[@formcontrolname='email']`;
-   public presentAddress=`//input[@formcontrolname='present_address']`;
-   public permanentAddress=`//input[@formcontrolname='permanent_address']`;
-    public driverLicenseNumber=`//input[@formcontrolname='license_number']`;
-    public driverLicenseExpiryDate=`//*[@formcontrolname='license_expiry_date']`;
-  public emergencyContactName=`//input[@formcontrolname='emergency_contact_name']`;
-  public emergencyContactPhoneNumber=`//input[@formcontrolname='emergency_contact_number']`;
-  public idProof=`(//label[contains(text(), 'ID Proof')]/following::p-fileupload//input[@type='file'])[1]`;
-  public licenceImageFront=`(//label[contains(text(), ' License Image Front')]/following::p-fileupload//input[@type='file'])[2]`;
-  public licenceImageBack=`(//label[contains(text(), ' License Image Back ')]/following::p-fileupload//input[@type='file'])[3]`;
-  public addButton=`//button[contains(@class, 'button_next')]`;
-  public uploadImage=``;
-  public updateButton=`//button[contains(@class, 'button_next')]`;
-  public assignVehicle=`//p-dropdown[@formcontrolname='vehicle_id']`;
-  public assigneMentDate=`//p-calendar[@formcontrolname='assignment_date']`;
-  public remark=`//textarea[@formcontrolname='remarks']`;
-  public assignButton=`//button[contains(text(), 'Assign Vehicle')]`;
-  public successMessageAfterAssigningVehicle=`//div[@data-pc-section='detail']`;
-  public successMessageAfterAddingDriver=`//div[contains(@class, 'p-toast-detail') and text()='Driver added successfully']`;
-  public successMessageAfterUpdatingDriver=`//div[contains(@class, 'p-toast-detail') and text()='Driver updated successfully']`;
+  private page: Page;
+  constructor(page: Page) {
+    super(page);
+    this.page = page;
+  }
+  // Selectors
+  public driverManagementSidebar = `//span[text()='Driver Management']`;
+  public driversSidebar = `//a[span[text()='Drivers']]`;
+  public driversList = '//a[contains(@class, "bredcrumb-text") and .//span[text()="Driver List"]]';
+  public searchBar = `//input[contains(@class, 'search-input')]`;
+  public editButton = `(//button[i[contains(@class, 'pi-pencil')]])[1]`;
+  public viewButton = `(//button[i[contains(@class, 'pi-eye')]])[1]`;
+  public assignVehicleButton = `(//button[i[contains(@class, 'pi-truck')]])[5]`;
+  public filterButton = `//span[text()='Filters']`;
+  public statusFilter = `//span[contains(text(),'Status')]`;
+  public applyFilterButton = `//button[span[text()='Apply']]`;
+  public clearFilterButton = `//button[span[text()='Clear']]`;
+  public driversDetailsPage = `//span[contains(text(),'Driver Details')]`;
+  public addDriverButton = `//button[@label='Add']`;
+  public driverName = `//input[@formcontrolname='name']`;
+  public joiningDate = `//p-calendar[@formcontrolname='joining_date']`;
+  public driverPhoneNumber = `//input[@formcontrolname='phone']`;
+  public driverEmail = `//input[@formcontrolname='email']`;
+  public presentAddress = `//input[@formcontrolname='present_address']`;
+  public permanentAddress = `//input[@formcontrolname='permanent_address']`;
+  public driverLicenseNumber = `//input[@formcontrolname='license_number']`;
+  public driverLicenseExpiryDate = `//*[@formcontrolname='license_expiry_date']`;
+  public emergencyContactName = `//input[@formcontrolname='emergency_contact_name']`;
+  public emergencyContactPhoneNumber = `//input[@formcontrolname='emergency_contact_number']`;
+  public idProof = `(//label[contains(text(), ' ID Proof')]/following::p-fileupload//input[@type='file'])[1]`;
+  public licenceImageFront = `(//label[contains(text(), ' License Image Front')]/following::p-fileupload//input[@type='file'])[2]`;
+  public licenceImageBack = `(//label[contains(text(), ' License Image Back ')]/following::p-fileupload//input[@type='file'])[3]`;
+  public addButton = `//button[contains(@class, 'button_next')]`;
+  public uploadImage = ``;
+  public updateButton = `//button[contains(@class, 'button_next')]`;
+  public assignVehicle = `//p-dropdown[@formcontrolname='vehicle_id']`;
+  public assigneMentDate = `//p-calendar[@formcontrolname='assignment_date']`;
+  public remark = `//textarea[@formcontrolname='remarks']`;
+  public assignButton = `//button[contains(text(), 'Assign Vehicle')]`;
+  public successMessageAfterAssigningVehicle = `//div[@data-pc-section='detail']`;
+  public successMessageAfterAddingDriver = `//div[contains(@class, 'p-toast-detail') and text()='Driver added successfully']`;
+  public successMessageAfterUpdatingDriver = `//div[contains(@class, 'p-toast-detail') and text()='Driver updated successfully']`;
   private async ensurePageIsOpen() {
     if (this.page.isClosed()) {
-        throw new Error('Page is closed');
+      throw new Error('Page is closed');
     }
-}
-//Methods
+  }
+  //Methods
   public async clickOnDriversManagementSidebar() {
     await this.browserActions.click(this.driverManagementSidebar);
   }
@@ -100,7 +100,7 @@ export class DriversPage extends BasePage {
     await this.browserActions.click(this.joiningDate);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
-    
+
   }
   public async enterDriverPhoneNumber(number: string) {
     await this.browserActions.inputText(this.driverPhoneNumber, number);
@@ -132,13 +132,13 @@ export class DriversPage extends BasePage {
     await this.browserActions.inputText(this.emergencyContactPhoneNumber, number);
   }
   public async selectIdProof() {
-   await this.browserActions.click(this.idProof);
+    await this.browserActions.click(this.idProof);
   }
   public async selectLicenceImageFront() {
-   await this.browserActions.click(this.licenceImageFront);
+    await this.browserActions.click(this.licenceImageFront);
   }
   public async selectLicenceImageBack() {
-   await this.browserActions.click(this.licenceImageBack);
+    await this.browserActions.click(this.licenceImageBack);
   }
   public async clickOnAddButton() {
     await this.browserActions.click(this.addButton);
@@ -170,20 +170,20 @@ export class DriversPage extends BasePage {
   public async isSuccessMessageAfterUpdatingDriverDisplayed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.successMessageAfterUpdatingDriver);
   }
-   public async isUploadImageButtonDisplayed(): Promise<boolean> {
+  public async isUploadImageButtonDisplayed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.uploadImage);
   }
   public async isUpdateButtonDisplayed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.updateButton);
   }
-   public async isAddButtonDisplayed(): Promise<boolean> {
+  public async isAddButtonDisplayed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.addButton);
   }
-  public async selectAssignVehicle (value: string){
+  public async selectAssignVehicle(value: string) {
     await this.browserActions.click(this.assignVehicle);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
-}
+  }
   public async selectAssigneMentDate(date: string) {
     await this.browserActions.click(this.assigneMentDate);
     await this.page.keyboard.press('ArrowDown');
@@ -199,29 +199,30 @@ export class DriversPage extends BasePage {
   public async isSuccessMessageAfterAssigningVehicleDisplayed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.successMessageAfterAssigningVehicle);
   }
-  public async uploadIdProof(idProof: string): Promise<void> {
+
+  public async uploadIdProof( fileName: string): Promise<void> {
     await this.ensurePageIsOpen();
     const locator = await this.browserActions.getLocator(this.idProof);
-    const filePath = path.join(__dirname, 'src/resources/download.jpg');
+    console.log('Locator:', locator.count);
+    console.log(await this.browserActions.isElementDisplayed('locator'));
+    const filePath = path.join(__dirname, fileName);
+    console.log('File Path:', filePath);
     await locator.setInputFiles(filePath);
-    await this.page.keyboard.press('Enter');
     await this.browserActions.waitForTimeout(5000);
-}
-  public async uploadLicenceImageFront(licenceImageFront: string): Promise<void> {
-    await this.ensurePageIsOpen();  // Ensure the page is open before trying to upload file.
-    const locator =  await this.browserActions.getLocator(this.licenceImageFront);
-    const filePath = path.join(__dirname, 'src/resources/download.jpg');
-    await locator.setInputFiles(filePath);
-    await this.page.keyboard.press('Enter');
-    await this .browserActions.waitForTimeout(5000);
   }
-  public async uploadLicenceImageBack(licenceImageBack: string): Promise<void> {
-    await this.ensurePageIsOpen(); 
-    const locator =  await this.browserActions.getLocator(this.licenceImageBack);
-    const filePath = path.join(__dirname, 'src/resources/download.jpg');
+  public async uploadLicenceImageFront(fileName: string): Promise<void> {
+    await this.ensurePageIsOpen();
+    const locator = await this.browserActions.getLocator(this.licenceImageFront);
+    const filePath = path.join(__dirname, fileName);
     await locator.setInputFiles(filePath);
-    await this.page.keyboard.press('Enter');
-    await this .browserActions.waitForTimeout(5000);
+    await this.browserActions.waitForTimeout(5000);
+  }
+  public async uploadLicenceImageBack(fileName: string): Promise<void> {
+    await this.ensurePageIsOpen();
+    const locator = await this.browserActions.getLocator(this.licenceImageBack);
+    const filePath = path.join(__dirname, fileName);
+    await locator.setInputFiles(filePath);
+    await this.browserActions.waitForTimeout(5000);
   }
 
 }

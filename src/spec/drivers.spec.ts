@@ -36,7 +36,7 @@ test.afterEach(async () => {
     await driver.closeBrowser();
 });
 
-test.only('TC001 Verify that after clicking on the add button the user should be able to add a new driver', async () => {
+test('TC001 Verify that after clicking on the add button the user should be able to add a new driver', async () => {
     await driversPage.clickOnAddDriverButton();
     await driversPage.enterDriverName('Test DriverA');
     await driversPage.selectJoiningDate('2022-12-31');
@@ -49,13 +49,10 @@ test.only('TC001 Verify that after clicking on the add button the user should be
     await driversPage.enterEmergencyContactName('Test Emergency Contact');
     await driversPage.enterEmergencyContactPhoneNumber('+919876543210');
     await browserActions.waitForTimeout(5000)
-    await driversPage.selectIdProof();
-    await browserActions.waitForTimeout(5000)
-    await driversPage.selectLicenceImageFront();
-    await browserActions.waitForTimeout(5000)
-    await driversPage.selectLicenceImageBack();
+    await driversPage.uploadIdProof('download.jpg');
+    await driversPage.uploadLicenceImageFront('download (2).jpg');
+    await driversPage.uploadLicenceImageBack('download (1).jpg');
     await driversPage.clickOnAddButton();
-    await browserActions.waitForTimeout(5000);
     await expect(driversPage.isSuccessMessageAfterAddingDriverDisplayed()).toBeTruthy();
 });
 
