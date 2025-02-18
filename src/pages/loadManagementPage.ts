@@ -11,6 +11,7 @@ export class LoadManagementPage extends BasePage {
     public loadManagementSideBar = `//a[span[contains(text(), 'Load Management')]]`;
     public noLoadAddedText = `//h2[@class='text-center mb-3' and text()='No Load Added']`;
     public loadListPage = `//a[@href='#/admin/load' and contains(@class, 'bredcrumb-text')]`;
+    public addButton = `//span[@class='p-button-label' and text()='Add']`;
     public selectLoadButton = `//button[contains(@class, 'button_add')]`; 
     public carrier = `//p-dropdown[@formcontrolname='carrier_id']`;
     public vheicle = `//p-dropdown[@formcontrolname='vehicle_id']`;
@@ -56,6 +57,9 @@ export class LoadManagementPage extends BasePage {
 //methods
     public async clickOnLoadManagementSubMenu() {
         await this.browserActions.click(this.loadManagementSideBar);
+    }
+    public async clickOnAddButton() {
+        await this.browserActions.click(this.addButton);
     }
     public async isLoadListPageDisplayed(): Promise<boolean> {
         return await this.browserActions.isElementDisplayed(this.loadListPage);

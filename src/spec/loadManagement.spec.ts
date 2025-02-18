@@ -70,6 +70,7 @@ test.only('TC002 Verify that user is able to create a load', async () => {
     await loadManagementPage.enterContactPersonforDelivery('Test Person');
     await loadManagementPage.enterContactNumberforDelivery('1234567890');
     await loadManagementPage.selectScheduledDeliveryDateandTime('20');
+    await browserActions.waitForTimeout(5000);
     await loadManagementPage.clickOnNextButtonInDeliveryInfoPage();
     await loadManagementPage.enterCostType('Flat Rate');
     await loadManagementPage.selectAmountUnit('INR');
