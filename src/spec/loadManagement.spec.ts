@@ -45,10 +45,10 @@ test('TC001 Verify that  befofe adding the Load the user should be able to view 
     await browserActions.waitForTimeout(5000);
     await expect(await loadManagementPage.isNoLoadAddedTextDisplayed()).toBeTruthy();
 });
-test.only('TC002 Verify that user is able to create a load', async () => {
+test('TC002 Verify that user is able to create a load', async () => {
     await loadManagementPage.clickOnSelectLoadButton();
     await loadManagementPage.selectCarrier('Carrier 1');
-    await loadManagementPage.selectVehicle(' MH12AB123');
+    await loadManagementPage.selectVehicle(`KA-01A2345`);
     await loadManagementPage.selectLoadDate('18');
     await loadManagementPage.enterName('Test Load');
     await loadManagementPage.enterReferenceNumber('123456');
@@ -72,15 +72,75 @@ test.only('TC002 Verify that user is able to create a load', async () => {
     await loadManagementPage.selectScheduledDeliveryDateandTime('20');
     await browserActions.waitForTimeout(5000);
     await loadManagementPage.clickOnNextButtonInDeliveryInfoPage();
+    await loadManagementPage.clickOnNextButtonInDeliveryInfoPage();
     await loadManagementPage.enterCostType('Flat Rate');
     await loadManagementPage.selectAmountUnit('INR');
     await loadManagementPage.enterAmount('100');
     await loadManagementPage.clickOnNextButtonInPricingandChargesPage();
     await loadManagementPage.enterTrackingNumber('ABC123');
-    await loadManagementPage.selectPackages('Package 1');
+    await loadManagementPage.selectPackages('PKG-250218074856');
     await loadManagementPage.clickOnAddButtonInTrackingInfoPage();
     await browserActions.waitForTimeout(5000);
     await expect (await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
+
+
+});
+test('TC003 Verify that user is able to view the added load data in the load list', async () => {
+    await loadManagementPage.clickOnLoadManagementSubMenu();
+    await browserActions.waitForTimeout(5000);
+    await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
+    await expect(await loadManagementPage.isLoadNumberDisplayed('LD-250218085922')).toBeTruthy();
+    await expect(await loadManagementPage.isTrackingNumberDisplayed('53534234')).toBeTruthy();
+    await expect(await loadManagementPage.isLoadDateDisplayed('Feb 20, 2025')).toBeTruthy();
+    await expect(await loadManagementPage.isTotalWeightDisplayed('34.00 kg')).toBeTruthy();
+    await expect(await loadManagementPage.isPickupAddressDisplayed('Test Address , Test City, Test State, AE, 12345')).toBeTruthy();
+    await expect(await loadManagementPage.isDeliveryAddressDisplayed('123 Test Address , Test City, Test State, AE, 1234')).toBeTruthy();
+    await expect(await loadManagementPage.isStatusDataDisplayed('Draft')).toBeTruthy();
+
+});
+test('TC004 Verify that user is able to edit the load', async () => {
+    await loadManagementPage.clickOnLoadManagementSubMenu();
+    await browserActions.waitForTimeout(5000);
+    await loadManagementPage.clickOnEditIcon();
+    await loadManagementPage.enterName('Test Load Edited');
+    await loadManagementPage.clickOnNextButtonInLoadDetailsPage();
+    await loadManagementPage.clickOnNextButtonInPickUpInfoPage();
+    await loadManagementPage.clickOnNextButtonInDeliveryInfoPage();
+    await loadManagementPage.clickOnNextButtonInPricingandChargesPage();
+    await loadManagementPage.clickOnUpdateButton();
+    await browserActions.waitForTimeout(5000);
+    await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
+    await expect(await loadManagementPage.isLoadNumberDisplayed('LD-250218085922')).toBeTruthy();
+    await expect(await loadManagementPage.isTrackingNumberDisplayed('53534234')).toBeTruthy();
+    await expect(await loadManagementPage.isLoadDateDisplayed('Feb 20, 2025')).toBeTruthy();
+    await expect(await loadManagementPage.isTotalWeightDisplayed('34.00 kg')).toBeTruthy();
+    await expect(await loadManagementPage.isPickupAddressDisplayed('Test Address, Test City, Test State, AE, 12345')).toBeTruthy();
+    await expect(await loadManagementPage.isDeliveryAddressDisplayed('123 Test Address, Test City, Test State, AE, 1234')).toBeTruthy();
+    await expect(await loadManagementPage.isStatusDataDisplayed('Draft')).toBeTruthy();
+    
+});
+test('TC005 Verify that user is able to search for a load', async () => {
+    await loadManagementPage.clickOnLoadManagementSubMenu();
+    await browserActions.waitForTimeout(5000);
+    await loadManagementPage.enterOnSearchBar('Test Load Edited');
+    await browserActions.waitForTimeout(5000);
+    await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
+});
+test('TC006 Verify that user is able to filter the load', async () => {
+    await loadManagementPage.clickOnLoadManagementSubMenu();
+    await browserActions.waitForTimeout(5000);
+    await loadManagementPage.clickOnFilterButton();
+    await loadManagementPage.selectStatusFilter('Draft');
+    await loadManagementPage.clickOnFilterApplyButton();
+    await browserActions.waitForTimeout(5000);
+    await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
+    await expect(await loadManagementPage.isStatusDataDisplayed('Draft')).toBeTruthy();
 });
 
+
+
+
+
+
+  
 
