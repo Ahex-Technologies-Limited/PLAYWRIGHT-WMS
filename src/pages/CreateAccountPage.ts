@@ -8,64 +8,112 @@ export class CreateAccountPage extends BasePage {
     super(page);
     this.page = page;
   }
-
-  // Selectors
-  public fullNameField = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(1) > div > input';
-  public companyNameField = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(2) > div > input';
-  public emailAddressField = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(3) > div > input';
-  public phoneNumberField = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(4) > div > div > input';
-  public domainNameField = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(5) > div > input';
-  public passwordField = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(6) > div > input';
-  public confirmPasswordField = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(7) > div.card.flex > input';
-
-  public successMessage = 'body > app-root > p-toast > div > p-toastitem > div > div > div > div.p-toast-detail.ng-tns-c3576075022-34';
-  public emailError = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(3) > app-validation-error > div > small';
-  public passwordError = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(6) > app-validation-error > div > small';
-  public confirmPasswordError = '#email';
-
-  public fullNameInput = '//input[ @formcontrolname="fullName" ]';
-  public companyNameInput = '//input[ @formcontrolname="companyName" ]';
-  public emailInput = '//input[ @formcontrolname="email" ]';
-  public phoneInput = '//input[@formcontrolname="phoneNumber" and @placeholder="Enter phone number"]';
-  public domainNameInput = '//input[@formcontrolname="domainName" and @placeholder="Enter domain name"]';
-  public passwordInput = '//input[@formcontrolname="password" and @placeholder="Enter your password"]';
-  public confirmPasswordInput = '//input[@formcontrolname="confirmPassword" and @placeholder="Confirm your password"]';
-
-  public selectModulePage = 'body > app-root';
-  public signUpButton = '//div[@class="field col-12"]//button[@type="submit" and contains(@class, "button_add")]';
-  public fullnameError = '';
-  public companyNameError = '/html/body/app-root/app-register/div/div[2]/div/form/div[1]/app-validation-error/div/small';
-  public emailAddressError = '//div[contains(@class, "error_message")]';
-  public phoneNumberError = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(4) > app-validation-error > div > small';
-  public domainNameError = 'body > app-root > app-register > div > div.register-right.relative > div > form > div:nth-child(5) > app-validation-error > div > small';
-  public selectModuleTitle = '//h2[text()="Select a Module"]';
-
-  // Methods
-  public async register(
-    fullName: string,
-    companyName: string,
-    email: string,
-    phone: string,
-    domain: string,
-    password: string,
-    confirmPassword: string
-  ): Promise<void> {
-    //await this.browserActions.waitForElement(this.signUpButton, { timeout: 10000 });
-    
-    await this.browserActions.inputText(this.fullNameInput, fullName);
-    await this.browserActions.inputText(this.companyNameInput, companyName);
-    await this.browserActions.inputText(this.emailInput, email);
-    await this.browserActions.inputText(this.phoneInput, phone);
-    await this.browserActions.inputText(this.domainNameInput, domain);
-    await this.browserActions.inputText(this.passwordInput, password);
-    await this.browserActions.inputText(this.confirmPasswordInput, confirmPassword);
-
-    await this.browserActions.click(this.signUpButton);
+  //selectors
+  public fullNameField = `//input[@formcontrolname='fullName']`;
+  public companyNameField = `//input[@formcontrolname='companyName']`;
+  public emailAddressField = `//input[@formcontrolname='email']`;
+  public phoneNumberField = `//input[@formcontrolname='phoneNumber']`;
+  public passwordField = `//input[@formcontrolname='password']`;
+  public confirmPasswordField = `//input[@formcontrolname='confirmPassword']`;
+  public signUpButton = `//button[@type='submit']`;
+  public logInLink = `//a[@href='#/auth/login']`;
+  public selectAModulePage=`//h2[text()='Select a Module']`;
+  public warehouseManagementCheckBox = `//label[text()=' Warehouse Management System']/preceding-sibling::div//input[@type='checkbox']`;
+  public transportManagementCheckBox = `//label[text()=' Transport Management System']/preceding-sibling::div//input[@type='checkbox']`;
+  public orderManagementCheckBox = `//label[text()=' Order Management System']/preceding-sibling::div//input[@type='checkbox']`;
+  public continueButton = `//button[text()=' Continue ']`;
+  public successMessageAfterAddingModule = `//div[text()='Modules added successfully.']`;
+  public monthlyTab=`//a[span[text()='MONTHLY']]`;
+  public yearlyTab=`//span[text()='YEARLY']`;
+  public quaterlyTab=`//span[text()='QUARTERLY']`;
+  public choosePlanINMonthly = `(//span[text()='Choose Plan'])[3]`;
+  public choosePlanINYearly = `(//button[span[contains(text(), 'Choose Plan')]])[11]`;
+  public choosePlanINQuaterly = `(//button[span[contains(text(), 'Choose Plan')]])[7]`;
+  public makeAPaymentButton = `//button[text()=' Make Payment ']`;
+  public continueToLoginbutton = `//button[text()=' Continue to Login ']`;
+  public logInPage = `//h2[text()='Log In']`;
+  public successMessageAfterplanSelect = `//h1[text()='Payment Successful']`;
+  public errorMessageForInvalidCredentials = `//div[contains(@class, 'p-toast-detail') and text()='Email already exists.']`;
+  //methods
+  public async enterFullName(fullName: string) {
+    await this.page.locator(this.fullNameField).fill(fullName);
+  }
+  public async enterCompanyName(companyName: string) {
+    await this.page.locator(this.companyNameField).fill(companyName);
+  }
+  public async enterEmailAddress(email: string) {
+    await this.page.locator(this.emailAddressField).fill(email);
+  }
+  public async enterPhoneNumber(phoneNumber: string) {
+    await this.page.locator(this.phoneNumberField).fill(phoneNumber);
+  }
+  public async enterPassword(password: string) {
+    await this.page.locator(this.passwordField).fill(password);
+  }
+  public async enterConfirmPassword(confirmPassword: string) {
+    await this.page.locator(this.confirmPasswordField).fill(confirmPassword);
+  }
+  public async clickSignUpButton() {
+    await this.page.locator(this.signUpButton).click();
+  }
+  public async clickLogInLink() {
+    await this.page.locator(this.logInLink).click();
+  }
+  public async isSelectAModulePageDisplayed(): Promise<boolean> {
+    return await this.browserActions.isElementDisplayed(this.selectAModulePage);
+  }
+  public async clickWarehouseManagementCheckBox() {
+    await this.page.locator(this.warehouseManagementCheckBox).click();
+  }
+  public async clickTransportManagementCheckBox() {
+    await this.page.locator(this.transportManagementCheckBox).click();
+  }
+  public async clickOrderManagementCheckBox() {
+    await this.page.locator(this.orderManagementCheckBox).click();
+  }
+  public async clickContinueButton() {
+    await this.page.locator(this.continueButton).click();
+  }
+  public async successMessageAfterAddingModuleIsDisplayed(): Promise<boolean> {
+    return await this.browserActions.isElementDisplayed(this.successMessageAfterAddingModule);
   }
 
-  // Override the open method to point to the registration page
-  public async open(): Promise<void> {
-    await this.page.goto('http://143.244.132.143:8200/#/auth/register');
+  public async clickMonthlyTab() {
+    await this.page.locator(this.monthlyTab).click();
   }
+  public async clickYearlyTab() {
+    await this.page.locator(this.yearlyTab).click();
+  }
+  public async clickQuaterlyTab() {
+    await this.page.locator(this.quaterlyTab).click();
+  }
+  public async clickChoosePlanINMonthly() {
+    await this.page.locator(this.choosePlanINMonthly).click();
+  }
+  public async clickChoosePlanINYearly() {
+    await this.page.locator(this.choosePlanINYearly).click();
+  }
+  public async clickChoosePlanINQuaterly() {
+    await this.page.locator(this.choosePlanINQuaterly).click();
+  }
+  public async clickMakeAPaymentButton() {
+    await this.page.locator(this.makeAPaymentButton).click();
+  }
+  public async clickContinueToLoginButton() {
+    await this.page.locator(this.continueToLoginbutton).click();
+  }
+
+  public async isLogInPageDisplayed(): Promise<boolean> {
+    return await this.browserActions.isElementDisplayed(this.logInPage);
+  }
+  public async successMessageAfterPlanSelectIsDisplayed(): Promise<boolean> {
+    return await this.browserActions.isElementDisplayed(this.successMessageAfterplanSelect);
+  }
+  public async errorMessageForInvalidCredentialsIsDisplayed(): Promise<boolean> {
+    return await this.browserActions.isElementDisplayed(this.errorMessageForInvalidCredentials);
+  }
+
+
+
+
 }
-
