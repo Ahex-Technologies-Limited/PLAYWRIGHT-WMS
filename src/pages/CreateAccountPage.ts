@@ -13,14 +13,15 @@ export class CreateAccountPage extends BasePage {
   public companyNameField = `//input[@formcontrolname='companyName']`;
   public emailAddressField = `//input[@formcontrolname='email']`;
   public phoneNumberField = `//input[@formcontrolname='phoneNumber']`;
+  public domainNameField = `//input[@formcontrolname='domainName']`;
   public passwordField = `//input[@formcontrolname='password']`;
   public confirmPasswordField = `//input[@formcontrolname='confirmPassword']`;
   public signUpButton = `//button[@type='submit']`;
   public logInLink = `//a[@href='#/auth/login']`;
   public selectAModulePage=`//h2[text()='Select a Module']`;
-  public warehouseManagementCheckBox = `//label[text()=' Warehouse Management System']/preceding-sibling::div//input[@type='checkbox']`;
-  public transportManagementCheckBox = `//label[text()=' Transport Management System']/preceding-sibling::div//input[@type='checkbox']`;
-  public orderManagementCheckBox = `//label[text()=' Order Management System']/preceding-sibling::div//input[@type='checkbox']`;
+  public warehouseManagementCheckBox = `//label[contains(text(),'Warehouse Management System')]/preceding-sibling::div//div[@class='p-checkbox-box']`;
+  public transportManagementCheckBox = `//label[contains(text(),'Transport Management System')]/preceding-sibling::div//div[@class='p-checkbox-box']`;
+  public orderManagementCheckBox = `//label[contains(text(),'Order Management System')]/preceding-sibling::div//div[@class='p-checkbox-box']`;
   public continueButton = `//button[text()=' Continue ']`;
   public successMessageAfterAddingModule = `//div[text()='Modules added successfully.']`;
   public monthlyTab=`//a[span[text()='MONTHLY']]`;
@@ -43,6 +44,9 @@ export class CreateAccountPage extends BasePage {
   }
   public async enterEmailAddress(email: string) {
     await this.page.locator(this.emailAddressField).fill(email);
+  }
+  public async enterdomainName(domain: string) {
+    await this.page.locator(this.domainNameField).fill(domain);
   }
   public async enterPhoneNumber(phoneNumber: string) {
     await this.page.locator(this.phoneNumberField).fill(phoneNumber);

@@ -28,9 +28,10 @@ test.afterEach(async () => {
 test('TC001 Verify that user should be able to create an account', async () => {
   await createAccountPage.enterFullName('Test User');
   await createAccountPage.enterCompanyName('Test Company');
-  await createAccountPage.enterEmailAddress('Test@gmail.com');
+  await createAccountPage.enterEmailAddress('test@gmail.com');
   await createAccountPage.enterPhoneNumber('1234567890');
-  await createAccountPage.enterPassword('test@123');
+  await createAccountPage.enterdomainName('testABC')
+  await createAccountPage.enterPassword('Test@123');
   await createAccountPage.enterConfirmPassword('Test@123');
   await createAccountPage.clickSignUpButton();
   await browserActions.waitForTimeout(5000);
@@ -38,10 +39,11 @@ test('TC001 Verify that user should be able to create an account', async () => {
 
 });
 test('TC002 Verify that user should be able to select warehouse management module', async () => {
-  await createAccountPage.enterFullName('Test User');
-  await createAccountPage.enterCompanyName('Test Company');
-  await createAccountPage.enterEmailAddress('test@gmail.com');
-  await createAccountPage.enterPhoneNumber('1234567890');
+  await createAccountPage.enterFullName('UserA');
+  await createAccountPage.enterCompanyName('Comp');
+  await createAccountPage.enterEmailAddress('supriya@mailinator.com');
+  await createAccountPage.enterPhoneNumber('6985458525');
+  await createAccountPage.enterdomainName('testABC')
   await createAccountPage.enterPassword('Test@123');
   await createAccountPage.enterConfirmPassword('Test@123');
   await createAccountPage.clickSignUpButton();
@@ -51,13 +53,13 @@ test('TC002 Verify that user should be able to select warehouse management modul
   await createAccountPage.clickTransportManagementCheckBox();
   await createAccountPage.clickOrderManagementCheckBox();
   await createAccountPage.clickContinueButton();
-  await browserActions.waitForTimeout(5000);
   await expect(await browserActions.isElementDisplayed(createAccountPage.successMessageAfterAddingModule)).toBe(true);
 });
 test('TC003 Verify that user should be able to select a plan', async () => {
   await createAccountPage.enterFullName('Test User');
   await createAccountPage.enterCompanyName('Test Company');
   await createAccountPage.enterEmailAddress('test@gmail.com');
+  await createAccountPage.enterdomainName('testABC')
   await createAccountPage.enterPhoneNumber('1234567890');
   await createAccountPage.enterPassword('Test@123');
   await createAccountPage.enterConfirmPassword('Test@123');
@@ -82,6 +84,7 @@ test('TC004 Verify that user should redirect to the login page after creating an
   await createAccountPage.enterCompanyName('Test Company');
   await createAccountPage.enterEmailAddress('test@gmail.com');
   await createAccountPage.enterPhoneNumber('1234567890');
+  await createAccountPage.enterdomainName('testABC')
   await createAccountPage.enterPassword('Test@123');
   await createAccountPage.enterConfirmPassword('Test@123');
   await createAccountPage.clickSignUpButton();
@@ -108,6 +111,7 @@ test('TC005 Verify that user can not create an account with an existing email id
   await createAccountPage.enterCompanyName('Test Company');
   await createAccountPage.enterEmailAddress('test@gmail.com');
   await createAccountPage.enterPhoneNumber('1234567890');
+  await createAccountPage.enterdomainName('testABC')
   await createAccountPage.enterPassword('Test@123');
   await createAccountPage.enterConfirmPassword('Test@123');
   await createAccountPage.clickSignUpButton();
