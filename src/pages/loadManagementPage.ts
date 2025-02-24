@@ -68,6 +68,11 @@ export class LoadManagementPage extends BasePage {
     public pickupAddressdata = `(//span[normalize-space(text())='123 Test Address , Test City, Test State, AE, 12345'])[1]`;
     public deliveryAddrressdata = `(//span[normalize-space(text())='123 Test Address , Test City, Test State, AE, 12345'])[2]`;
     public statusData = `(//td//span[normalize-space(text())='Draft'])[1]`;
+    public assignVehicleIcon= `(//button[i[contains(@class, 'pi pi-truck')]])[1]`;
+    public assignVehicle= `//p-dropdown[@formcontrolname='vehicle_id']//div[contains(@class, 'p-dropdown-trigger')]`;
+    public assignDate= `//p-calendar[@formcontrolname='assigned_on']//input`;
+    public assignVehicleButton= `//button[contains(@class, 'button_assignvehicle') and contains(text(), 'Assign Vehicle')]`;
+
 
     //methods
     public async clickOnLoadManagementSubMenu() {
@@ -300,6 +305,24 @@ export class LoadManagementPage extends BasePage {
     }
     public async enterOnSearchBar(value: string) {
         await this.browserActions.inputText(this.searchBar, value);
+    }
+    public async clickOnAssignVehicleIcon() {
+        await this.browserActions.click(this.assignVehicleIcon);
+    }
+    public async selectAssignVehicle(value: string) {
+        await this.browserActions.click(this.assignVehicle);
+        await this.browserActions.waitForTimeout(500);
+        const assignVehicleOption = `//span[text()='${value}']`;
+        await this.browserActions.click(assignVehicleOption);
+    }
+    public async selectAssignDate(value: string) {
+        await this.browserActions.click(this.assignDate);
+        await this.browserActions.waitForTimeout(500);
+        const assignDateOption = `//span[text()='${value}']`;
+        await this.browserActions.click(assignDateOption);
+    }
+    public async clickOnAssignButton() {
+        await this.browserActions.click(this.assignVehicleButton);
     }
 
 

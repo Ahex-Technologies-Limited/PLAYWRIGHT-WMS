@@ -136,6 +136,17 @@ test('TC006 Verify that user is able to filter the load', async () => {
     await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
     await expect(await loadManagementPage.isStatusDataDisplayed('Draft')).toBeTruthy();
 });
+test('TC007 Verify that user is able to assign load to vehicle', async () => {
+    await loadManagementPage.clickOnLoadManagementSubMenu();
+    await browserActions.waitForTimeout(5000);
+    await loadManagementPage.clickOnAssignVehicleIcon();
+    await loadManagementPage.selectAssignVehicle('KA-01A2345');
+    await loadManagementPage.selectAssignDate('25');
+    await loadManagementPage.clickOnAssignButton();
+    await browserActions.waitForTimeout(5000);
+    await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
+
+});
 
 
 
