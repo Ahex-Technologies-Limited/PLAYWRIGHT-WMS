@@ -37,7 +37,7 @@ test.beforeEach(async () => {
 test.afterEach(async () => {
   await driver.closeBrowser();
 });
-test.only('Verify that user is able to create work order', async () => {
+test('Verify that user is able to create work order', async () => {
     await workOrderPage.clickOnAddWorkOrderButton();
     await workOrderPage.selectVehicle('TS79776556');
     await workOrderPage.selectServiceType('Oil Change');
@@ -55,7 +55,7 @@ test.only('Verify that user is able to create work order', async () => {
     
 });
 
-test('Verify that user is able to search for a work order', async () => {
+test.only('Verify that user is able to search for a work order', async () => {
     await workOrderPage.searchWorkOrder('Test Work Order');
     await browserActions.waitForTimeout(5000);
     await expect(await workOrderPage.isWorkOrderListPageDisplayed()).toBeTruthy();

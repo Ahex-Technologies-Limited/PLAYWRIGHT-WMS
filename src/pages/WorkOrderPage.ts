@@ -16,7 +16,7 @@ export class WorkOrderPage extends BasePage {
   public VehicleManagementSubMenu = `//span[text()='Vehicle Management']`;
   public workOrderListPage = `//span[text()='Work Order List']`;
  public  workOrderSideBar =`//span[contains(@class, 'p-menuitem-text') and contains(text(), 'Work Order')]`;
- public searchField = `//input[@placeholder='Search']`;
+ public searchField = `//input[@placeholder='Search...']`;
  public addWorkOrderButton = `//button[.//span[text()='Add']]`;
  public vehicle = `//p-dropdown[@formcontrolname='vehicle_id']`;
  public serviceType = `//p-dropdown[@formcontrolname='service_type']`;
