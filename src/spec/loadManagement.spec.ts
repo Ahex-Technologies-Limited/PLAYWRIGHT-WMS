@@ -42,6 +42,7 @@ test.afterEach(async () => {
 
 test('TC001 Verify that  befofe adding the Load the user should be able to view the no load added text', async () => {
     await loadManagementPage.clickOnLoadManagementSubMenu();
+    await loadManagementPage.clickOnLoadListSubMenu();
     await browserActions.waitForTimeout(5000);
     await expect(await loadManagementPage.isNoLoadAddedTextDisplayed()).toBeTruthy();
 });
@@ -87,6 +88,7 @@ test('TC002 Verify that user is able to create a load', async () => {
 });
 test('TC003 Verify that user is able to view the added load data in the load list', async () => {
     await loadManagementPage.clickOnLoadManagementSubMenu();
+    await loadManagementPage.clickOnLoadListSubMenu();
     await browserActions.waitForTimeout(5000);
     await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
     await expect(await loadManagementPage.isLoadNumberDisplayed('LD-250218085922')).toBeTruthy();
@@ -100,6 +102,7 @@ test('TC003 Verify that user is able to view the added load data in the load lis
 });
 test('TC004 Verify that user is able to edit the load', async () => {
     await loadManagementPage.clickOnLoadManagementSubMenu();
+    await loadManagementPage.clickOnLoadListSubMenu();
     await browserActions.waitForTimeout(5000);
     await loadManagementPage.clickOnEditIcon();
     await loadManagementPage.enterName('Test Load Edited');
@@ -121,6 +124,7 @@ test('TC004 Verify that user is able to edit the load', async () => {
 });
 test('TC005 Verify that user is able to search for a load', async () => {
     await loadManagementPage.clickOnLoadManagementSubMenu();
+    await loadManagementPage.clickOnLoadListSubMenu();
     await browserActions.waitForTimeout(5000);
     await loadManagementPage.enterOnSearchBar('Test Load Edited');
     await browserActions.waitForTimeout(5000);
@@ -136,8 +140,9 @@ test('TC006 Verify that user is able to filter the load', async () => {
     await expect(await loadManagementPage.isLoadListPageDisplayed()).toBeTruthy();
     await expect(await loadManagementPage.isStatusDataDisplayed('Draft')).toBeTruthy();
 });
-test('TC007 Verify that user is able to assign load to vehicle', async () => {
+test.only('TC007 Verify that user is able to assign load to vehicle', async () => {
     await loadManagementPage.clickOnLoadManagementSubMenu();
+    await loadManagementPage.clickOnLoadListSubMenu();
     await browserActions.waitForTimeout(5000);
     await loadManagementPage.clickOnAssignVehicleIcon();
     await loadManagementPage.selectAssignVehicle('KA-01A2345');

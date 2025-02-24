@@ -9,6 +9,7 @@ export class LoadManagementPage extends BasePage {
     }
     // Selectors
     public loadManagementSideBar = `//a[span[contains(text(), 'Load Management')]]`;
+    public loadListSideBar = `//a[contains(@class, 'p-menuitem-link') and contains(@href, '#/admin/load/list')]`;
     public noLoadAddedText = `//h2[@class='text-center mb-3' and text()='No Load Added']`;
     public loadListPage = `//a[@href='#/admin/load' and contains(@class, 'bredcrumb-text')]`;
     public searchBar = `//input[contains(@class, 'search-input')]`;
@@ -77,6 +78,9 @@ export class LoadManagementPage extends BasePage {
     //methods
     public async clickOnLoadManagementSubMenu() {
         await this.browserActions.click(this.loadManagementSideBar);
+    }
+    public async clickOnLoadListSubMenu() {
+        await this.browserActions.click(this.loadListSideBar);
     }
     public async clickOnAddButton() {
         await this.browserActions.click(this.addButton);
