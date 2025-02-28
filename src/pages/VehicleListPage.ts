@@ -47,6 +47,8 @@ export class VehicleListPage extends BasePage {
     public detailsPage = `//span[text()='vehicle Details']`;
     public updateButtonInVehicleMaintainanceService = `//button[normalize-space(text())='Update']`;
     public successMessageForUpdate= `//div[contains(@class, 'p-toast-detail') and text()='Vehicle updated successfully']`;
+    public serviceHistoryInVehicleDetailsPage = `//a[@role="button" and contains(@class, "p-accordion-header-link") and span[contains(text(), "Service History")]]`;
+    public workorderDetails = `//table[contains(@class, "custom-table")]/thead/tr/th[text()="Work Order Number"]`;
     //methods
     public async clickOnVehicleManagementSubMenu() {
         await this.browserActions.click(this.vehicleManagementSidebar);
@@ -186,7 +188,12 @@ export class VehicleListPage extends BasePage {
     public async isSuccessMessageForUpdateDisplayed(): Promise<boolean> {
         return await this.browserActions.isElementDisplayed(this.successMessageForUpdate);
     }
-
+    public async isWorkOrderDetailsDisplayed(): Promise<boolean> {
+        return await this.browserActions.isElementDisplayed(this.workorderDetails);
+    }
+    public async clickOnServiceHistoryInVehicleDetailsPage() {
+        await this.browserActions.click(this.serviceHistoryInVehicleDetailsPage);
+    }
 
 
 }

@@ -255,6 +255,9 @@ export class AddWarehousePage extends BasePage {
   public async isAddButtonEnabled(): Promise<boolean> {
     return this.browserActions.isElementEnabled(this.addButton);
   }
+  
+
+
 
 
 
