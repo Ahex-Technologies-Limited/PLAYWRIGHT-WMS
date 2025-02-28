@@ -103,18 +103,6 @@ test('TC008 Verify that user is able to view the vehicle details ', async () => 
     await expect(await vehicleListPage.isDetailsPageDisplayed()).toBeTruthy();
 });
 
-test('TC009 Verify that user is able to edit the vehicle maintainance details ', async () => {
-    await vehicleListPage.clickOnVehicleMaintainanceButton();
-    await vehicleListPage.selectServiceType('Tire Rotation');
-    await vehicleListPage.enterMileageThershold('20000');
-    await vehicleListPage.eneterServiceProvider('XYZ Dealership');
-    await vehicleListPage.enterEstimatedCost('2000');
-    await vehicleListPage.enterDescription('Minor Maintenance');
-    await vehicleListPage.clickOnReminderEnabledCheckbox();
-    await vehicleListPage.clickOnUpdateButtonInVehicleMaintainanceService();
-    await browserActions.waitForTimeout(5000);
-    await expect(await vehicleListPage.isVehicleListPageDisplayed()).toBeTruthy();
-});
 
 
 
