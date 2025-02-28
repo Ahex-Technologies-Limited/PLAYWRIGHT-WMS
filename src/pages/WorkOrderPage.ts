@@ -29,6 +29,10 @@ export class WorkOrderPage extends BasePage {
  public partsRequired = `//*[@formcontrolname='work_description']`;
  public attachmentsUpload= `(//input[@type='file'])[1]`;
  public submitButton = `//button[@type='submit']`;
+ public editIcon = `(//button[i[contains(@class, 'pi-pencil')]])[1]`;
+ public viewIcon = `(//button[contains(@class, 'dropdown-item') and contains(@class, 'p-element')])[1]`;
+ public updateButton = `//button[@pbutton and @type='submit' and contains(@class, 'button_add')]`;   
+ public viewDetailsPage = `//span[text()='View Work Order Details']`;
  //methods
  public async clickOnVehicleManagementSubMenu() {
    await this.browserActions.click(this.VehicleManagementSubMenu);
@@ -95,6 +99,20 @@ export class WorkOrderPage extends BasePage {
     }
     public async searchWorkOrder(workOrderNumber: string) {
         await this.browserActions.inputText(this.searchField, workOrderNumber);
+    }
+  
+  
+    public async clickOnEditIcon() {
+        await this.browserActions.click(this.editIcon);
+    }
+    public async clickOnViewIcon() {
+        await this.browserActions.click(this.viewIcon);
+    }
+    public async clickOnUpdateButton() {
+        await this.browserActions.click(this.updateButton);
+    }
+    public async isViewDetailsPageDisplayed(): Promise<boolean> {
+        return await this.browserActions.isElementDisplayed(this.viewDetailsPage);
     }
     
     

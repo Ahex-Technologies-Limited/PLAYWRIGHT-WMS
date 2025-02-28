@@ -37,7 +37,7 @@ test.beforeEach(async () => {
 test.afterEach(async () => {
   await driver.closeBrowser();
 });
-test('Verify that user is able to create work order', async () => {
+test('TC001 Verify that user is able to create work order', async () => {
     await workOrderPage.clickOnAddWorkOrderButton();
     await workOrderPage.selectVehicle('TS79776556');
     await workOrderPage.selectServiceType('Oil Change');
@@ -55,10 +55,55 @@ test('Verify that user is able to create work order', async () => {
     
 });
 
-test.only('Verify that user is able to search for a work order', async () => {
+test('TC002 Verify that user is able to search for a work order', async () => {
     await workOrderPage.searchWorkOrder('Test Work Order');
     await browserActions.waitForTimeout(5000);
     await expect(await workOrderPage.isWorkOrderListPageDisplayed()).toBeTruthy();
     
 });
+test('TC003 Verify that user is able to edit work order', async () => {
+    await workOrderPage.clickOnEditIcon();
+    await workOrderPage.selectServiceType('Oil Change');
+    await workOrderPage.selectPriorityLevel('Low');
+    await workOrderPage.enterAssignedMechanic('Test Work Order Type');
+    await workOrderPage.enterEstimatedCost('100');
+    await workOrderPage.selectEstimatedCompletetionDate('22');
+    await workOrderPage.enterIssueDescription('Test Work Order');
+    await workOrderPage.enterAdditionalNotes('Test Additional Notes');
+    await workOrderPage.enterPartsRequired('Test Parts Required');
+    await workOrderPage.clickOnUpdateButton();
+    await browserActions.waitForTimeout(5000);
+    await expect(await workOrderPage.isWorkOrderListPageDisplayed()).toBeTruthy();
+
+});
+test('TC004 Verify that user is able to view the details of work order', async () => {
+    await workOrderPage.clickOnViewIcon();
+    await browserActions.waitForTimeout(5000);
+    await expect(await workOrderPage.isViewDetailsPageDisplayed()).toBeTruthy();
+
+});
+test.only('TC005 Verify that user is able to  see the maintenance history of a vehicle', async () => {
+  await workOrderPage.clickOnAddWorkOrderButton();
+  await workOrderPage.selectVehicle('TS79776556');
+  await workOrderPage.selectServiceType('Oil Change');
+  await workOrderPage.selectPriorityLevel('Low');
+  await workOrderPage.enterAssignedMechanic('Test Work Order Type');
+  await workOrderPage.enterEstimatedCost('100');
+  await workOrderPage.selectEstimatedCompletetionDate('22');
+  await workOrderPage.enterIssueDescription('Test Work Order');
+  await workOrderPage.enterAdditionalNotes('Test Additional Notes');
+  await workOrderPage.enterPartsRequired('Test Parts Required');
+  await workOrderPage.uploadAttachments('download (1).jpg');
+  await workOrderPage.clickOnSubmitButton();
+  await browserActions.waitForTimeout(5000);
+  await vehicleListPage.clickOnVehicleManagementSubMenu();
+  await vehicleListPage.clickOnVehicleManagementSubMenu();
+  await vehicleListPage.clickOnVehicleListSideBar();
+  await vehicleListPage.clickOnSearchBar('TS79776556');
+  await vehicleListPage.clickOnViewButton();
+  await vehicleListPage.clickOnServiceHistoryInVehicleDetailsPage();
+  await browserActions.waitForTimeout(5000);
+  await expect(await vehicleListPage.isWorkOrderDetailsDisplayed()).toBeTruthy();
+});
+
 
