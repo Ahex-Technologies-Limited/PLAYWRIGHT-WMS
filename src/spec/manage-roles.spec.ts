@@ -33,8 +33,12 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await manageRolesListPage.clickUserManagementSideBar();
   await manageRolesListPage.clickManageRolesSideBar();
   await manageRolesListPage.clickAddRoleButton();
-  await manageRolesListPage.enterRoleName('New Role');
+  await manageRolesListPage.enterRoleName('Security chief');
   await manageRolesListPage.enterRoleDescription('Test description');
+  await manageRolesListPage.isPermissionSelected('Warehouse');
+  await manageRolesListPage.isPermissionSelected('Zone');
+  await manageRolesListPage.isPermissionSelected('Sub Inventory');
+  await manageRolesListPage.isPermissionSelected('Locator');
   await manageRolesListPage.clickRoleAddButton();
   await browserActions.waitForTimeout(5000);
   await expect(await manageRolesListPage.isRoleListDisplayed()).toBeTruthy();
