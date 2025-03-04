@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import path from 'path';
 
 export class IncomingShipmentsListPage extends BasePage {
   private page: Page;
@@ -17,7 +18,7 @@ export class IncomingShipmentsListPage extends BasePage {
   public addIncomingShipmentButton = '//div[contains(@class, "zone") and contains(@class, "align-items-center")]//button[@label="Add"]';
   public expectedArrivalDate = '//input[@type="text" and @role="combobox" and @placeholder="Select date"]';
   public carrierName = '//input[@name="name" and @formcontrolname="carrier_name"]';
-  public assignTo = '(//span[@role="combobox" and text()="Select"])[1]';
+  public assignTo = `//p-dropdown[@formcontrolname='assigned_to']`;
   public countryCode = `(//span[@role="combobox" and @aria-label="Select"])[1]`;
   public carrierContactNumber = '//*[@formcontrolname="carrier_contact_number"]';
   public dockDoor = '(//span[@role="combobox" and text()="Select"])[1]';
@@ -25,10 +26,10 @@ export class IncomingShipmentsListPage extends BasePage {
   public supplier = '(//span[@role="combobox" and text()="Select"])[1]';
   public nextButtonInShipmentDetails = '//app-shipment-detail-form//form//button[contains(@class, "button_add") and normalize-space(text())="Next"]';
   public BackButtonInShipmentDetails = '//div[@class="block md:flex justify-content-center items-center"]/div[1]/button';
-  public nextButtonInItems = ``;
+  public nextButtonInItems = `(//button[contains(@class, 'button_add')])[2]`;
   public sku = `(//span[@role="combobox" and @aria-label="Select"])[1]`;
   public orderQuantity = `//input[@formcontrolname="quantity" and contains(@class, 'p-inputtext') and @type="number" and @placeholder="Enter"]`;
-  public billOfLandingUploadButton = `(//span[normalize-space(text())="Upload"])[1]`;
+  public billOfLandingUploadButton = `(//input[@type='file' and @accept='.pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg'])[1]`;
   public viewButton = `//button[@type="button" and contains(@class, 'dropdown-item')]//i[@class="pi pi-eye"]`;
   public addButtonInDocumentations = `//button[@type="submit" and contains(@class, 'button_add') and text()=" Add "]`;
   public searchbar = `//input[@type="text" and @placeholder="Search"]`;
@@ -36,6 +37,12 @@ export class IncomingShipmentsListPage extends BasePage {
   public status = `//span[@aria-label='Scheduled' and text()='Scheduled']`;
   public startTime = `//input[@role='combobox' and @placeholder='Select start time']`;
   public endTime = `//input[@role='combobox' and @placeholder='Select end time']`;
+  public inspectionRequired = `//p-dropdown[@formcontrolname='inspection_required']`;
+  private async ensurePageIsOpen() {
+    if (this.page.isClosed()) {
+      throw new Error('Page is closed');
+    }
+  }
   // Methods
   public async clickOnShipmentsSideBar() {
     await this.browserActions.click(this.shipmentsSideBar);
@@ -82,6 +89,7 @@ export class IncomingShipmentsListPage extends BasePage {
 
   public async selectDockDoor(dockDoor: string) {
     await this.browserActions.click(this.dockDoor);
+    await this.browserActions.waitForTimeout(200);
     const dockDoorOption = `//li[@aria-label="${dockDoor}"]`;
     console.log(dockDoorOption);
     await this.browserActions.click(dockDoorOption);
@@ -121,9 +129,13 @@ export class IncomingShipmentsListPage extends BasePage {
     await this.browserActions.click(this.nextButtonInItems);
 
   }
-  public async clickBillOfLandigUploadButton() {
-    await this.browserActions.click(this.billOfLandingUploadButton);
-  }
+ public async uploadBillOfLading(fileName: string): Promise<void> {
+    await this.ensurePageIsOpen();
+    const locator = await this.browserActions.getLocator(this.billOfLandingUploadButton);
+    const filePath = path.join(__dirname, fileName);
+    await locator.setInputFiles(filePath);
+    await this.browserActions.waitForTimeout(5000);
+ }
   public async clickAddButtonInDocumentations() {
     await this.browserActions.click(this.addButtonInDocumentations);
   }
@@ -143,14 +155,17 @@ export class IncomingShipmentsListPage extends BasePage {
     await this.browserActions.click(statusOption);
   }
   public async selectStartTime(value:string){
-    await this.browserActions.click(this.startTime);
-    await this.page.keyboard.press('ArrowDown');
-    await this.page.keyboard.press('Enter');
+    await this.browserActions.inputNumber(this.startTime,value);
   }
   public async selectendTime(value:string){
-    await this.browserActions.click(this.endTime);
-    await this.page.keyboard.press('ArrowDown');
-    await this.page.keyboard.press('Enter');
+    await this.browserActions.inputNumber(this.endTime,value);
   }
+  public async selectInspectionRequired(inspectionRequired: string) {
+    await this.browserActions.click(this.inspectionRequired);
+    await this.browserActions.waitForTimeout(200);
+    const inspectionRequiredOption = `//li[@aria-label='${inspectionRequired}']`;
+    console.log(inspectionRequiredOption);
+    await this.browserActions.click(inspectionRequiredOption);
+  
 }
-
+}
