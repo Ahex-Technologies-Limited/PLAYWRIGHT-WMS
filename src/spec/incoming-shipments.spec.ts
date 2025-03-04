@@ -47,11 +47,12 @@ test.only('TC001 Verify adding a new incoming shipment', async () => {
     await incomingShipmentsListPage.selectDockDoor('Dock Door 1');
     await incomingShipmentsListPage.enterTrackingNumber('1234');
     await incomingShipmentsListPage.selectSupplier('SupplierA');
+    await incomingShipmentsListPage.selectInspectionRequired('No');
     await incomingShipmentsListPage.clickNextButtonInShipmentDetails();
     await incomingShipmentsListPage.selectSku('hns2zvloF1');
     await incomingShipmentsListPage.enterOrderQuantity('1');
     await incomingShipmentsListPage.clickNextButtonInItems();
-    await incomingShipmentsListPage.clickBillOfLandigUploadButton();
+    await incomingShipmentsListPage.uploadBillOfLading('download.jpg');
     await incomingShipmentsListPage.clickAddButtonInDocumentations();
     await browserActions.waitForTimeout(2000);
     await expect(await incomingShipmentsListPage.isIncomingShipmentsListPageDisplayed()).toBeTruthy();
