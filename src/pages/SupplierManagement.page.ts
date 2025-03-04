@@ -62,7 +62,7 @@ export class SupplierManagementPage extends BasePage {
     public backButtonInSupplierFinancialInfo = `(//button[contains(@class, 'button_back ')])[3]`;
     public deleteIconInFinancialInfo = `(//div[contains(@class, 'remove-icon')]//i[contains(@class, 'pi-trash')])[2]`;
     public startDate = `(//input[@placeholder='Select date' and @role='combobox'])[1]`;
-    public endDate = `(//input[@placeholder='Select date' and @role='combobox'])[1]`;
+    public endDate = `(//input[@placeholder='Select date' and @role='combobox'])[2]`;
     public description = `//textarea[@formcontrolname='description']`;
     public sku = `(//span[@role='combobox' and @aria-label='Select' and @aria-haspopup='listbox'])[2]`;
     public name = `//input[@formcontrolname='name' and @readonly and @placeholder='Enter']`;
@@ -179,6 +179,7 @@ export class SupplierManagementPage extends BasePage {
 
     public async selectCountry(country: string) {
         await this.page.click(this.country);
+        await this.browserActions.waitForTimeout(200);
         const countryElement = `//li[@aria-label='${country}']`;
         await this.page.click(countryElement);
     }
@@ -209,6 +210,7 @@ export class SupplierManagementPage extends BasePage {
 
     public async selectMailingCountry(MailingCountry: string) {
         await this.page.click(this.MailingCountry);
+        await this.browserActions.waitForTimeout(200);
         const MailingCountryElement = `//li[@aria-label='${MailingCountry}']`;
         await this.page.click(MailingCountryElement);
     }
@@ -297,6 +299,7 @@ export class SupplierManagementPage extends BasePage {
 
     public async selectEndDate(endDate: string) {
         await this.page.click(this.endDate);
+        await this.browserActions.waitForTimeout(200);
         const endDateElement = `//span[@data-date='${endDate}']`;
         await this.page.click(endDateElement);
     }
