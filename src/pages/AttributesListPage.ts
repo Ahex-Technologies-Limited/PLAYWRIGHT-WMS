@@ -14,8 +14,8 @@ export class AttributesListPage extends BasePage {
   public operationSideBar = '//span[contains(@class, "p-menuitem-text") and text()="Operations"]';
   public attributesSideBar = '//a[contains(@class, "p-menuitem-link") and @href="#/admin/operations/attributes/list" and .//span[text()="Attributes"]]';
   public addAttributesButton = '//div[@class="zone flex justify-content-end px-3 py-3 align-items-center"]//button[@label="Add" and @icon="pi pi-plus"]';
-  public attributeName = '//input[@type="text" and @formcontrolname="name" and @placeholder="Enter attribute name"]';
-  public attributeDescription = '//textarea[@type="text" and @rows="6" and @formcontrolname="description" and @placeholder="Enter description"]';
+  public attributeName = `//input[@formcontrolname='name']`;
+  public attributeDescription = `//textarea[@formcontrolname='description']`;
   public addAttribute = '//button[@type="submit" and contains(@class, "button_add") and text()[normalize-space()="Add"]]';
   public backButton = '//button[@type="button" and contains(@class, "button_back") and text()[normalize-space()="Back"]]';
   public editButton = `(//button[i[contains(@class, 'pi-pencil') and contains(@class, 'text-success')]])[1]`;
