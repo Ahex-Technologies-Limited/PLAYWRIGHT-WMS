@@ -22,16 +22,16 @@ public orderAddButton = `//span[@class='p-button-label' and text()='Add']`;
 public orderEditButton = `(//button[.//i[contains(@class, 'pi-pencil') and contains(@class, 'text-success')]])[1]`;
 public orderDetailsIcon= `(//button[.//i[contains(@class, 'pi-eye')]])[1]`;
 public status =`(//span[@role='combobox' and contains(text(), 'Processing')])[1]`;
-public orderDate =`//input[@type='text' and @placeholder='Select order date ']`;
+public orderDate =`//p-calendar[@formcontrolname='order_date']//input`;
 public contactNumber =`//input[@formcontrolname='contact']`;
-public customerName =`(//input[@placeholder='Enter name'])[1]`;
+public customerName =`(//input[@id='name' and @formcontrolname='name' and @type='text'])[1]`;
 public email =`//input[@formcontrolname='email']`;
-public paymentMethod =`//span[contains(@class, 'p-dropdown-label') and text()='Select payment method']`;
-public orderType =`//span[contains(@class, 'p-dropdown-label') and text()='Select order type']`;
-public orderPriority =`//span[contains(@class, 'p-dropdown-label') and text()='Select priority']`;
+public paymentMethod =`(//span[contains(@class, 'p-element p-dropdown-label') and text()='Select'])[1]`;
+public orderType =`(//span[contains(@class, 'p-element p-dropdown-label') and text()='Select'])[1]`;
+public orderPriority =`(//span[contains(@class, 'p-element p-dropdown-label') and text()='Select'])[1]`;
 public nextButtonInOrderDetailsPage =`(//button[@type='submit' and normalize-space( text())='Next'])[1]`;
-public address = `(//input[@formcontrolname='address_line_one' and @type='text' and @placeholder='Enter address' and @id='name'])[1]`;
-public country = `(//span[@role='combobox' and text()='Select Country'])[1]`;
+public address = `(//input[@formcontrolname='address_line_one'])[1]`;
+public country = `(//span[@role='combobox' and text()='Select'])[1]`;
 public city = `(//input[@formcontrolname='city'])[1]`;
 public state = `(//input[@formcontrolname='state'])[1]`;
 public pincode = `(//input[@formcontrolname='pincode'])[1]`;
@@ -43,7 +43,8 @@ public discount =`//input[@formcontrolname='discount']`;
 public taxAmount = `//input[@formcontrolname='taxes']`;
 public addButon = `//button[@pbutton='' and normalize-space(text())='Add']`;
 public UpdateButton = ``;
-
+public verifyButton = `//button[@class='verified-icon-button']//i[contains(@class, 'pi-verified')]`;
+public orderDetailsPage = `//span[contains(@class, 'ml-2') and contains(text(), 'Order Details')]`;
 
 //methods
 public async clickOnOrderManagementSubMenu() {
@@ -63,7 +64,7 @@ public async clickOnFilterButton() {
 
 public async selectStatusFilter(status: string) {
   await this.browserActions.click(this.statusFilter);
-  const statusOption = `//label[contains(@class, 'p-checkbox-label') and normalize-space(text())='${status}']`;
+  const statusOption = `//label[normalize-space(text())='${status}']`;
   await this.page.click(statusOption);
 }
 public async clickOnFilterApplyButton() {
@@ -95,9 +96,11 @@ public async enterContactNumber(value: string) {
   await this.browserActions.inputText(this.contactNumber, value);
 }
 public async enterCustomerName(value: string) {
+  await this.browserActions.click(this.customerName);
   await this.browserActions.inputText(this.customerName, value);
 }
 public async enterEmail(value: string) {
+  await this.browserActions.click(this.email);
   await this.browserActions.inputText(this.email, value);
 }
 public async selectPaymentMethod (paymentMethod: string) {
@@ -172,7 +175,10 @@ public async isOrderListPageDisplayed() {
   return await this.browserActions.isElementDisplayed(this.orderListPage);
 }
 public async isOrderDetailsPageDisplayed() {
-  return await this.browserActions.isElementDisplayed(this.orderDetailsIcon);
+  return await this.browserActions.isElementDisplayed(this.orderDetailsPage);
+}
+public async clickOnVerifyButton() {
+  return await this.browserActions.click(this.verifyButton);
 }
 
 }

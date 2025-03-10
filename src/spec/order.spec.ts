@@ -38,7 +38,7 @@ test('TC001 Verify that Order List page is displayed', async ({ page }) => {
     await page.waitForTimeout(5000);
     await expect(await orderListPage.isOrderListPageDisplayed()).toBeTruthy();
 });
-test.only('TC002 Verify that after clicking on the Add button the user should be able to add a new order', async ({ page }) => {
+test('TC002 Verify that after clicking on the Add button the user should be able to add a new order', async ({ page }) => {
     await orderListPage.clickOnOrderManagementSubMenu();
     await orderListPage.clickOnOrderSideBar();
     await orderListPage.clickOnOrderAddButton();
@@ -62,6 +62,7 @@ test.only('TC002 Verify that after clicking on the Add button the user should be
     await page.waitForTimeout(3000);
     await orderListPage.selectSku('cK3tCOYuLp');
     await orderListPage.enterQuantity('1');
+    await orderListPage.clickOnVerifyButton();
     await orderListPage.enterDiscount('10');
     await orderListPage.enterTaxAmount('10');
     await orderListPage.clickAddButon();
@@ -82,7 +83,7 @@ test('TC004 Verify that the user should be able to view the order details', asyn
     await page.waitForTimeout(3000);
     await expect(await orderListPage.isOrderDetailsPageDisplayed()).toBeTruthy();
 });
-test ('TC005 Verify that the user should be able to edit an order', async ({ page }) => {
+test('TC005 Verify that the user should be able to edit an order', async ({ page }) => {
     await orderListPage.clickOnOrderManagementSubMenu();
     await orderListPage.clickOnOrderSideBar();
     await orderListPage.clickOnOrderEditButton();
@@ -93,11 +94,11 @@ test ('TC005 Verify that the user should be able to edit an order', async ({ pag
     await expect(await orderListPage.isOrderListPageDisplayed()).toBeTruthy();
 });
 
-test ('TC006 Verify that the user should be able to filter an order based on the orderStatus', async ({ page }) => {
+test('TC006 Verify that the user should be able to filter an order based on the orderStatus', async ({ page }) => {
     await orderListPage.clickOnOrderManagementSubMenu();
     await orderListPage.clickOnOrderSideBar();
     await orderListPage.clickOnFilterButton();
-    await orderListPage.selectStatusFilter('Active');
+    await orderListPage.selectStatusFilter('Processing');
     await orderListPage.clickOnFilterApplyButton();
     await page.waitForTimeout(3000);
     await expect(await orderListPage.isOrderListPageDisplayed()).toBeTruthy();
