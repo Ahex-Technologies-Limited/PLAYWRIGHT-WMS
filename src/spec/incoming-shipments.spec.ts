@@ -31,7 +31,7 @@ test.afterEach(async ({ page }) => {
     await page.context().clearCookies();
 });
 
-test.only('TC001 Verify adding a new incoming shipment', async () => {
+test('TC001 Verify adding a new incoming shipment', async () => {
     await warehouseListPage.warehouseCard('Test Warehouse');
     await browserActions.waitForTimeout(2000);
     await incomingShipmentsListPage.clickOnShipmentsSideBar();
@@ -44,7 +44,7 @@ test.only('TC001 Verify adding a new incoming shipment', async () => {
     await incomingShipmentsListPage.selectAssignTo('SupriyaTester');
     await incomingShipmentsListPage.selectCountryCode('India (+91)');
     await incomingShipmentsListPage.enterCarrierContactNumber('8976545567');
-    await incomingShipmentsListPage.selectDockDoor('Dock Door 1');
+    await incomingShipmentsListPage.selectDockDoor('Dock Door 2');
     await incomingShipmentsListPage.enterTrackingNumber('1234');
     await incomingShipmentsListPage.selectSupplier('SupplierA');
     await incomingShipmentsListPage.selectInspectionRequired('No');
@@ -84,16 +84,16 @@ test('TC004 Verify searching for an incoming shipment', async () => {
     await warehouseListPage.warehouseCard('Test Warehouse');
     await incomingShipmentsListPage.clickOnShipmentsSideBar();
     await incomingShipmentsListPage.clickOnIncomingShipmentsSideBar();
-    await incomingShipmentsListPage.clickOnsearchBar();
+    await incomingShipmentsListPage.enterOnsearchBar();
     await browserActions.waitForTimeout(2000);
     await expect(await incomingShipmentsListPage.isIncomingShipmentsListPageDisplayed()).toBeTruthy();
 });
 
-test('TC005 Verify changing the status of an incoming shipment', async () => {
+test.only('TC005 Verify changing the status of an incoming shipment', async () => {
     await warehouseListPage.warehouseCard('Test Warehouse');
     await incomingShipmentsListPage.clickOnShipmentsSideBar();
     await incomingShipmentsListPage.clickOnIncomingShipmentsSideBar();
-    await incomingShipmentsListPage.selectStatus('In Transit');
+    await incomingShipmentsListPage.selectStatus('Received');
     await browserActions.waitForTimeout(2000);
     await expect(await incomingShipmentsListPage.isIncomingShipmentsListPageDisplayed()).toBeTruthy();
 });

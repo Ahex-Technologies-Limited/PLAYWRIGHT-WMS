@@ -30,11 +30,11 @@ export class IncomingShipmentsListPage extends BasePage {
   public sku = `(//span[@role="combobox" and @aria-label="Select"])[1]`;
   public orderQuantity = `//input[@formcontrolname="quantity" and contains(@class, 'p-inputtext') and @type="number" and @placeholder="Enter"]`;
   public billOfLandingUploadButton = `(//input[@type='file' and @accept='.pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg'])[1]`;
-  public viewButton = `//button[@type="button" and contains(@class, 'dropdown-item')]//i[@class="pi pi-eye"]`;
+  public viewButton = `(//button[@type="button" and contains(@class, 'dropdown-item')]//i[@class="pi pi-eye"])[1]`;
   public addButtonInDocumentations = `//button[@type="submit" and contains(@class, 'button_add') and text()=" Add "]`;
-  public searchbar = `//input[@type="text" and @placeholder="Search"]`;
+  public searchbar = `//input[@placeholder='Search...']`;
   public detailsPage = `//span[@class='ml-2' and text()='View Incoming Shipments']`;
-  public status = `//span[@aria-label='Scheduled' and text()='Scheduled']`;
+  public status = `(//span[@aria-label='Scheduled' and text()='Scheduled'])[1]`;
   public startTime = `//input[@role='combobox' and @placeholder='Select start time']`;
   public endTime = `//input[@role='combobox' and @placeholder='Select end time']`;
   public inspectionRequired = `//p-dropdown[@formcontrolname='inspection_required']`;
@@ -142,8 +142,9 @@ export class IncomingShipmentsListPage extends BasePage {
   public async clickViewButton() {
     await this.browserActions.click(this.viewButton);
   }
-  public async clickOnsearchBar() {
-    await this.browserActions.click(this.searchbar);
+  public async enterOnsearchBar() {
+    await this.browserActions.inputText(this.searchbar, 'test');
+
   }
   public async isDetailsPageDispalyed(): Promise<boolean> {
     return await this.browserActions.isElementDisplayed(this.detailsPage);
@@ -153,6 +154,8 @@ export class IncomingShipmentsListPage extends BasePage {
     const statusOption = `//li[@role="option" and @aria-label="${status}"]`;
     console.log(statusOption);
     await this.browserActions.click(statusOption);
+    const yesButton = `//button[contains(@class, 'button_yes') and normalize-space(.)='Yes']`;
+    await this.browserActions.click(yesButton);
   }
   public async selectStartTime(value:string){
     await this.browserActions.inputNumber(this.startTime,value);
