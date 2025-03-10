@@ -43,8 +43,10 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await carriersListPage.selectInsuranceType('Cargo Insurance');
   await carriersListPage.selectSafetyRating('Unsatisfactory');
   await carriersListPage.selectEquipmentType('Bulk Trailers');
+  await carriersListPage.selectCapacityUnit('Tons');
   await carriersListPage.enterCapacity('10');
   await carriersListPage.clickNextButton();
+  await carriersListPage.clickCreateButton();
   await browserActions.waitForTimeout(5000);
   await expect(await carriersListPage.isCarrierListDisplayed()).toBeTruthy();
 });
@@ -126,4 +128,5 @@ test('TC008 Verify that the user should be able to update the carrier details in
   await carriersListPage.clickNextButtonInUpdateCarrier();
   await browserActions.waitForTimeout(5000);
   await expect(await carriersListPage.isCarrierListDisplayed()).toBeTruthy();
+
 });
