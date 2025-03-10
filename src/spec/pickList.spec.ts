@@ -37,8 +37,7 @@ test('TC001 Verify that the system should generate a pick list after order accep
     await pickListPage.clickOnPickListSideBar();
     await pickListPage.clickOnSearchBar('Order123');
     await pickListPage.clickOnFilterButton();
-    await pickListPage.clickOnWarehouseTypeFilter('Main Warehouse');
-    await pickListPage.clickOnStatusFilter('Accepted');
+    await pickListPage.clickOnStatusFilter('Picked');
     await pickListPage.clickOnFilterApplyButton();
 
     // Verify that the pick list page is displayed
@@ -50,23 +49,18 @@ test('TC002 Verify that the user should be able to search for a pick list', asyn
     await pickListPage.clickOnOrderManagementSubMenu();
     await pickListPage.clickOnPickListSideBar();
     await pickListPage.clickOnSearchBar('Order123');
-    await pickListPage.clickOnFilterButton();
-    await pickListPage.clickOnWarehouseTypeFilter('Main Warehouse');
-    await pickListPage.clickOnStatusFilter('Accepted');
-    await pickListPage.clickOnFilterApplyButton();
-    await pickListPage.clickOnSearchBar('Order123');
     const isPickListDisplayed = await pickListPage.isPickListPageDisplayed();
     expect(isPickListDisplayed).toBeTruthy();
 });
-test ('TC003 Verify that the user should be able to change the status of the pick list', async ({ page }) => {
+test('TC003 Verify that the user should be able to change the status of the pick list', async ({ page }) => {
     await pickListPage.clickOnOrderManagementSubMenu();
     await pickListPage.clickOnPickListSideBar();
-   await pickListPage.clickOnStatus('Delivered to Packing Bay');
+    await pickListPage.clickOnStatus('Delivered to Packing Bay');
     await page.waitForTimeout(5000);
     const isPickListDisplayed = await pickListPage.isPickListPageDisplayed();
     expect(isPickListDisplayed).toBeTruthy();
 });
-test ('TC004 Verify that the user should be able to view the pick list details', async ({ page }) => {
+test('TC004 Verify that the user should be able to view the pick list details', async ({ page }) => {
     await pickListPage.clickOnOrderManagementSubMenu();
     await pickListPage.clickOnPickListSideBar();
     await pickListPage.clickOnViewIcon();

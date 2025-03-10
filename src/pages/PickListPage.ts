@@ -18,10 +18,11 @@ export class PickListPage extends BasePage {
     public filterApplyButton = `//span[@class='p-button-label' and text()='Apply']`;
     public filterClearButton = `//span[@class='p-button-label' and text()='Clear']`;
     public pickListPage = `//span[@class='ml-2' and text()='Pick List']`;
-    public status = `//span[contains(@class, 'p-dropdown-label') and @aria-label='Picked' and normalize-space(text())='Picked']`;
-public viewIcon = `//button[contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-eye')]]`;
-public pickListDetailsPage = `//span[@class='ml-2' and text()='Items Details']`;
-//methods
+    public filterstatus = `//tr[td//span[contains(text(), '$')]]//span[@role='combobox' and text()='Processing']`;
+    public viewIcon = `//button[contains(@class, 'dropdown-item') and .//i[contains(@class, 'pi-eye')]]`;
+    public pickListDetailsPage = `//span[@class='ml-2' and text()='Items Details']`;
+    public status = `(//span[@role='combobox' and contains(text(), 'Pending')])[1]`;
+    //methods
     public async clickOnOrderManagementSubMenu() {
         await this.browserActions.click(this.orderManagementSideBar);
     }
@@ -55,13 +56,15 @@ public pickListDetailsPage = `//span[@class='ml-2' and text()='Items Details']`;
     }
     public async clickOnStatus(status: string) {
         await this.browserActions.click(this.status);
-        const statusOption = `//span[contains(@class, 'ng-star-inserted') and normalize-space(text())='${status}']`;
+        const statusOption = `//p-dropdownitem//span[text()='${status}']`;
         await this.browserActions.click(statusOption);
+        const yesButton = `//button[contains(@class, 'button_yes') and normalize-space(.)='Yes']`;
+        await this.browserActions.click(yesButton);
     }
     public async clickOnViewIcon() {
         await this.browserActions.click(this.viewIcon);
     }
-public async isPickListDetailsPageDisplayed() {
-    return await this.page.waitForSelector(this.pickListDetailsPage, { state: 'visible' });
-}
+    public async isPickListDetailsPageDisplayed() {
+        return await this.page.waitForSelector(this.pickListDetailsPage, { state: 'visible' });
+    }
 }
