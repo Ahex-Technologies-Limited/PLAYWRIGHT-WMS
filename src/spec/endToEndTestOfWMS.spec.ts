@@ -475,7 +475,7 @@ test('Add new products ', async () => {
     await browserActions.waitForTimeout(5000);
     await expect(await productListPage.isProductListPageDisplayed()).toBeTruthy();
 });
-test.only('Process orders based on warehouse stock ', async () => {
+test('Process orders based on warehouse stock ', async () => {
     await loginPage.login('tester@gmail.com', 'Supriya@12');
     await browserActions.openUrl('http://143.244.132.143:8200/#/admin/warehouse/list');
     await warehouseListPage.warehouseCard('Test Warehouse');
@@ -500,14 +500,94 @@ test.only('Process orders based on warehouse stock ', async () => {
     await orderListPage.clickSameAsShippingAddressLink();
     await orderListPage.clickNextButtonInAddress();
     await browserActions.waitForTimeout(3000);
-    await orderListPage.selectSku('cK3tCOYuLp');
+    await orderListPage.selectSku('HOME-REFR-NIKE-KL49');
     await orderListPage.enterQuantity('1');
+    await orderListPage.clickOnVerifyButton();
     await orderListPage.enterDiscount('10');
     await orderListPage.enterTaxAmount('10');
     await orderListPage.clickAddButon();
     await browserActions.waitForTimeout(3000);
     await expect(await orderListPage.isOrderListPageDisplayed()).toBeTruthy();
 });
+test.only('Automatic Replenishment Order Generation ', async () => {
+    await loginPage.login('tester@gmail.com', 'Supriya@12');
+    await browserActions.openUrl('http://143.244.132.143:8200/#/admin/warehouse/list');
+    await warehouseListPage.warehouseCard('Test Warehouse');
+    await productListPage.clickOnProductManagementSubMenu();
+    await productListPage.clickOnProductSideBar();
+    await productListPage.clickOnAddProductButton();
+    await productListPage.enterProductName('Product 5');
+    await productListPage.selectProductCategory('Fashion');
+    await productListPage.selectSubCategory('KIDS CLOTHING');
+    await productListPage.selectUOM('Meter');
+    await productListPage.enterDescription('Test description 2');
+    await productListPage.clickNextButtonInProductDetails();
+    await productListPage.selectAttributes('Attribute 7');
+    await productListPage.enterValues('red');
+    await productListPage.clickConfigureButton();
+    await productListPage.entersku('Brand-1234');
+    await productListPage.enterReorderLevel('12');
+    await productListPage.clickNextButtonInAttributes();
+    await productListPage.clickAddButtonInSupplier();
+    await browserActions.waitForTimeout(5000);
+    await expect(await productListPage.isProductListPageDisplayed()).toBeTruthy();
+      await inventoryListPage.clickOnInventoryListSideBar();
+      await inventoryListPage.clickOnAddInventoryButton();
+      await inventoryListPage.selectSku('MmRaTzXEqs');
+      await inventoryListPage.enterShipmentId('1234');
+      await inventoryListPage.enterQuantity('20');
+      await inventoryListPage.enterLotNumber('1234');
+      await inventoryListPage.enterCost('100');
+      await inventoryListPage.enterSellingPrice('100');
+      await inventoryListPage.selectExpiryDate('12/25/2024');
+      await inventoryListPage.clickAddButton();
+      await browserActions.waitForTimeout(5000);
+      await expect(inventoryListPage.isInventoryListPageDisplayed()).toBeTruthy();
+      await reorderingRulesPage.clickOnOperationsSideBar();
+      await reorderingRulesPage.clickOnReorderingRulesSideBar();
+      await reorderingRulesPage.clickOnAddButton();
+      await reorderingRulesPage.selectSKU('FASH-SHOE-NIKE-BB94');
+      await reorderingRulesPage.enterReorderQuantity('10');
+      await reorderingRulesPage.enterReorderPoint('10');
+      await reorderingRulesPage.enterSafetyStockLevel('10');
+      await reorderingRulesPage.enterMaxStockLevel('10');
+      await reorderingRulesPage.selectAutomaticOrderPlacement('Yes');
+      await reorderingRulesPage.clickOnAddButton();
+      await browserActions.waitForTimeout(5000);
+      await expect(await reorderingRulesPage.issuccessMessageAfterAddingReorderingRuleDisplayed()).toBeTruthy();
+      await orderListPage.clickOnOrderManagementSubMenu();
+      await orderListPage.clickOnOrderSideBar();
+      await orderListPage.clickOnOrderAddButton();
+      await browserActions.waitForTimeout(3000);
+      await orderListPage.selectOrderDate('2021-12-30');
+      await orderListPage.enterContactNumber('1234567890');
+      await orderListPage.enterCustomerName('Test Customer');
+      await orderListPage.enterEmail('3iC2o@example.com');
+      await orderListPage.selectPaymentMethod('Debit Card');
+      await orderListPage.selectOrderType('Mobile Orders');
+      await orderListPage.selectOrderPriority('Low');
+      await orderListPage.clickNextButtonInOrderDetailsPage();
+      await browserActions.waitForTimeout(3000);
+      await orderListPage.enterAddress('Test Address');
+      await orderListPage.selectCountry('India');
+      await orderListPage.enterCity('Test City');
+      await orderListPage.enterState('Test State');
+      await orderListPage.enterPincode('875656');
+      await orderListPage.clickSameAsShippingAddressLink();
+      await orderListPage.clickNextButtonInAddress();
+      await browserActions.waitForTimeout(3000);
+      await orderListPage.selectSku('HOME-REFR-NIKE-KL49');
+      await orderListPage.enterQuantity('1');
+      await orderListPage.clickOnVerifyButton();
+      await orderListPage.enterDiscount('10');
+      await orderListPage.enterTaxAmount('10');
+      await orderListPage.clickAddButon();
+      await browserActions.waitForTimeout(3000);
+      await expect(await orderListPage.isOrderListPageDisplayed()).toBeTruthy();
+
+
+    
+})
 
 
 
