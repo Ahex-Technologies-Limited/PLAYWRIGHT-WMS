@@ -45,8 +45,8 @@ test('TC001 verify that user can add an outgoing shipment', async () => {
     await outgoingshipmentListPage.clickOnShipmentsSideBar();
     await outgoingshipmentListPage.clickOnOutgoingShipmentsSideBar();
     await outgoingshipmentListPage.clickOnAddOutgoingShipmentButton();
-    await outgoingshipmentListPage.selectShippingDate('2025-2-12');
-    await outgoingshipmentListPage.selectExpectedDeliveryDate('2025-2-18');
+    await outgoingshipmentListPage.selectShippingDate('2025-3-26');
+    await outgoingshipmentListPage.selectExpectedDeliveryDate('2025-3-28');
     await outgoingshipmentListPage.selectLoadingStartTime('11:00');
     await outgoingshipmentListPage.selectLoadingEndTime('14:00');
     await outgoingshipmentListPage.selectOrderNo('ORD-250204054916');
