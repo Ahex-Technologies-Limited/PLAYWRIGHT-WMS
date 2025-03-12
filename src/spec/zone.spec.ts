@@ -57,13 +57,13 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await expect(await zoneListPage.isZoneListDisplayed()).toBeTruthy();
 });
 
-test('TC002 Verify that after clicking on the edit button the user should be able to edit the selected zone', async () => {
+test.only('TC002 Verify that after clicking on the edit button the user should be able to edit the selected zone', async () => {
   await warehouseListPage.warehouseCard('Test Warehouse');
   await warehouseListPage.clickWarehouseManagementSideBar();
   await zoneListPage.clickZoneSidebar();
   await zoneListPage.clickEditZoneIcon();
-  const nameInput = await page.locator('[formcontrolname="name"]');
-  const descriptionInput = await page.locator('[formcontrolname="description"]');
+  const nameInput = await page.locator('//*[@formcontrolname="name"]');
+  const descriptionInput = await page.locator('//*[@formcontrolname="description"]');
   await nameInput.fill('Zone5');
   await descriptionInput.fill('Updated Address');
   await zoneListPage.clickUpdateButton();

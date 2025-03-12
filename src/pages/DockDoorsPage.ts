@@ -6,6 +6,7 @@ export class DockDoorsPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
+
     this.page = page;
     }
     //selectors

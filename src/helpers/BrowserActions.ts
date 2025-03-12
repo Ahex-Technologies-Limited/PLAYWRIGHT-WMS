@@ -18,7 +18,13 @@ export class BrowserActions  {
 
   async inputText(selector: string, text: string): Promise<void> {
     await this.helper.inputText(selector, text);
+    
   }
+  async inputNumber(selector: string, text: string): Promise<void> {
+    await this.helper.inputNumber(selector, text);
+    
+  }
+
 
   async pressEnter(selector: string): Promise<void> {
     await this.helper.pressEnter(selector);

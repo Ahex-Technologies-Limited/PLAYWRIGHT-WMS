@@ -41,6 +41,8 @@ export class CarriersListPage extends BasePage {
   public status = `(//p-dropdown[@placeholder='Select Status']//div[@class='p-dropdown-trigger'])[1]`;
   public viewCarriers = '//span[contains(@class, "ml-2") and text()="View Carriers"]';
   public editButtonInViewPage = '//button[contains(@class, "p-button") and contains(@class, "p-button-contrast") and contains(@class, "p-button-rounded")]';
+  public capacityUnit = `//p-dropdown[@formcontrolname='capacity_unit']`;
+  public createButton = `//button[contains(text(), 'Create')]`;
 
   // Methods
   public async clickCarriersList(): Promise<void> {
@@ -75,6 +77,10 @@ export class CarriersListPage extends BasePage {
   }
 
   public async enterContactPhoneNumber(contactPhoneNumber: string): Promise<void> {
+    const countryCode = `//*[@formcontrolname="contact_country_code"]`;
+    await this.browserActions.click(countryCode);
+    const countryCodeOption = `//span[contains(@class, 'ng-star-inserted') and text()='+91']`;
+    await this.browserActions.click(countryCodeOption);
     await this.browserActions.inputText(this.contactPhoneNumber, contactPhoneNumber);
   }
 
@@ -106,7 +112,17 @@ export class CarriersListPage extends BasePage {
     await this.browserActions.click(this.equipmentType);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
+    const closeButtonIcon = `//button[@aria-label='Close']`;
+    await this.browserActions.click(closeButtonIcon);
   }
+public async selectCapacityUnit(capacityUnit: string): Promise<void> {
+   await this.browserActions.click(this.capacityUnit);
+   await this.browserActions.waitForTimeout(200);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+  }
+
+  
 
   public async enterCapacity(capacity: string): Promise<void> {
     await this.browserActions.inputText(this.capacity, capacity);
@@ -192,6 +208,9 @@ export class CarriersListPage extends BasePage {
 
   public async clickEditButtonInViewPage(): Promise<void> {
     await this.browserActions.click(this.editButtonInViewPage);
+  }
+  public async clickCreateButton(): Promise<void> {
+    await this.browserActions.click(this.createButton);
   }
 }
 

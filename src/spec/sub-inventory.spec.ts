@@ -49,12 +49,12 @@ test('TC001 Verify that after clicking on the add button the user should be able
   await expect(await subInventoryListPage.isSubInventoryListDisplayed()).toBeTruthy();
 });
 
-test('TC002 Verify that after clicking on the edit button the user should be able to edit the selected sub-inventory', async () => {
+test.only('TC002 Verify that after clicking on the edit button the user should be able to edit the selected sub-inventory', async () => {
   await warehouseListPage.warehouseCard('Test Warehouse');
   await warehouseListPage.clickWarehouseManagementSideBar();
   await subInventoryListPage.clickSubInventorySidebar();
   await subInventoryListPage.clickEditSubInventoryButton();
-  const nameInput = await page.locator(`//input[@placeholder='Enter sub-inventory name']`);
+  const nameInput = await page.locator(`//input[@formcontrolname='name']`);
   const descriptionInput = await page.locator(`#inventoryDetails`);
   await nameInput.fill('SubInventory');
   await descriptionInput.fill('Updated Address');

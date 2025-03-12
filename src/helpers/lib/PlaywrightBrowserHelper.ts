@@ -37,6 +37,11 @@ export class PlaywrightBrowserHelper {
     const element = await this.getLocator(selectorOrElement);
     await element.fill(text);
   }
+  async inputNumber(selectorOrElement: string | Locator, text:string): Promise<void> {
+    if (!this.page) throw new Error('Page is not initialized!');
+    const element = await this.getLocator(selectorOrElement);
+    await element.type(text);
+  }
 
   async getText(selectorOrElement: string | Locator): Promise<any> {
     if (!this.page) throw new Error('Page is not initialized!');

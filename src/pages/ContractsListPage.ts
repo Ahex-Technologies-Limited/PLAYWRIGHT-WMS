@@ -3,6 +3,7 @@ import { BasePage } from './BasePage';
 
 export class ContractsListPage extends BasePage {
   private page: Page;
+  
 
   constructor(page: Page) {
     super(page);

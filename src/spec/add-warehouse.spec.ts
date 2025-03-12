@@ -46,36 +46,32 @@ test('TC003 Verify that it should display the sidebar when "Add Later" link is c
   await expect(addWarehousePage.isSideBarDisplayed()).toBeTruthy();
 });
 
-test('TC004 Verify that it should successfully add a warehouse', async () => {
+test.only('TC004 Verify that it should successfully add a warehouse', async () => {
   await logInPage.login('supriyasahoo@gmail.com', 'Supriya@12');
   await addWarehousePage.clickAddWarehouseButton();
-  await addWarehousePage.addWarehouse(
-    'Test Warehouse A',
-    'Storage',
-    'Active',
-    'This is a test warehouse',
-    '123 Test Street',
-    'Test City',
-    'Test State',
-    'India',
-    '12345',
-    'NameA',
-    '1234567890',
-    'supriyasahoo1399@gmail.com',
-    '18:38',
-    '18:50',
-    '(UTC-05:00) Eastern Time (US & Canada)',
-    'Square Feet (sq.ft)',
-    '100',
-    'Test Equipment',
-    'No',
-    '5',
-    'Test Security',
-    'Box',
-    'FIFO',
-
-  );
-
+  await addWarehousePage.enterWarehouseName('Test Warehouse');
+  await addWarehousePage.selectWarehouseType('Storage');
+  await addWarehousePage.selectStatus('Active');
+  await addWarehousePage.enterDescription('Test Description');
+  await addWarehousePage.enterWarehouseAddress('Test Warehouse');
+  await addWarehousePage.selectCountry('India');
+  await addWarehousePage.enterCity('Test City');
+  await addWarehousePage.enterState('Test State');
+  await addWarehousePage.enterPostalCode('123456');
+  await addWarehousePage.selectWarehouseManager('Supriya Sahoo');
+  await addWarehousePage.enterPhoneNumber('1234567890');
+  await addWarehousePage.enterEmail('supriyasahoo@gmail.com');
+  await addWarehousePage.enterCapacity('100');
+  await addWarehousePage.selectMeasurementUnitsOfCapacity('Cubic Feet (cu.ft)');
+  await addWarehousePage.selectTimeZone('(UTC-05:00) Eastern Time (US & Canada)');
+  await addWarehousePage.selectStartTime('09:00');
+  await addWarehousePage.selectEndTime('18:00');
+  await addWarehousePage.selectPickTaskType('FIFO');
+  await addWarehousePage.selectUnitOfMeasurement('Box');
+  await addWarehousePage.enterDockCount('2');
+  await addWarehousePage.selectTemperatureControl('No');
+  await addWarehousePage.enterSecurityFeatures('Test Security Features');
+  await addWarehousePage.enterSpecialEquipment('Test Special Equipment');
   await addWarehousePage.clickAddButton();
   await browserActions.waitForTimeout(3000);
   await expect(addWarehousePage.isWarehouseListDisplayed()).toBeTruthy();

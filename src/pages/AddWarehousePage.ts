@@ -19,14 +19,14 @@ export class AddWarehousePage extends BasePage {
 
   // Warehouse Form Inputs
   public warehouseNameInput = '#name';
-  public warehouseTypeSelect = `//div[contains(@class, 'p-dropdown') and .//span[@aria-label='Select warehouse type']]`;
+  public warehouseTypeSelect = `//*[@formcontrolname='type']`;
   public descriptionInput = `//*[@formcontrolname='description']`;
-  public warehouseAddressInput = '#warehouseAddress';
-  public cityInput = '//*[@id="firstname2"][@placeholder="Enter City"]';
-  public stateInput = 'input[formcontrolname="state"]';
-  public countryInput = `//span[@aria-label='Select Country']`;
+  public warehouseAddressInput = `//*[@formcontrolname='address']`;
+  public cityInput = `//*[@formcontrolname="city"]`;
+  public stateInput = `//*[@formcontrolname='state']`;
+  public countryInput = `//*[@formcontrolname='country']`;
   public postalCodeInput = '#postalCode';
-  public warehouseManagerSelect = `//span[@aria-label='Select manager']`;
+  public warehouseManagerSelect = `//*[@formcontrolname='manager_id']`;
   public phoneNumberInput = '#contactPhone';
   public emailInput = '#email';
 
@@ -37,16 +37,16 @@ export class AddWarehousePage extends BasePage {
 
   // Dropdowns
   public selectMeasurementUnits = "//p-dropdown[@formcontrolname='measurement_unit']";
-  public unitOfMeasurementSelect = "//p-multiselect[@optionlabel='name' and @optionvalue='id' and @formcontrolname='unit_of_measure_ids' and @placeholder='Select a unit of measurement' and @name='uom']";
-  public pickTaskTypeSelect = 'p-dropdown[placeholder="Select pick task type"]';
-  public statusTypeSelect = 'p-dropdown[placeholder="Select Status"]';
-  public MeasurementUnitsOfCapacity = `//ul[contains(@class, 'p-dropdown-items')]//li[@role='option' and @aria-label='Square Feet (sq.ft)']`;
+  public unitOfMeasurementSelect = "//*[@formcontrolname='unit_of_measure_ids']";
+  public pickTaskTypeSelect = `//*[@formcontrolname='default_pick_type']`;
+  public statusTypeSelect = `//*[@formcontrolname='status']`;
+  public MeasurementUnitsOfCapacity = `//*[@formcontrolname='measurement_unit']`;
   // Other inputs
-  public capacityInput = '//*[@id="firstname2"][@placeholder="Enter capacity"]';
-  public specialEquipmentInput = '#specialEquipment > div > ul > li > input';
-  public temperatureControlSelect = `//span[@aria-label='Select temperature control']`;
-  public dockCountInput = '#dockingStations';
-  public securityFeaturesInput = "//*[@type='text'][@placeholder='Enter security features']";
+  public capacityInput = `//*[@formcontrolname='capacity']`;
+  public specialEquipmentInput = `(//div[@data-pc-name='chips']//input[@placeholder='Enter'])[2]`;
+  public temperatureControlSelect = `//*[@formcontrolname='temperature_controlled']`;
+  public dockCountInput = `//*[@formcontrolname='dock_count']`;
+  public securityFeaturesInput = `(//div[@data-pc-name='chips']//input[@placeholder='Enter'])[1]`;
 
   // Buttons
   public addButton = "//button[@type='submit' and contains(text(),'Add')]";
@@ -65,13 +65,13 @@ export class AddWarehousePage extends BasePage {
   }
 
 
-  public async clickAddWarehouseButton(): Promise<void> {
+  public async clickAddWarehouseButton(){
     await this.browserActions.waitForElement(this.addWarehouseButton, 20000);
     await this.browserActions.click(this.addWarehouseButton);
   }
 
 
-  public async clickAddLaterLink(): Promise<void> {
+  public async clickAddLaterLink() {
     await this.browserActions.click(this.addLaterLink);
   }
 
@@ -90,15 +90,14 @@ export class AddWarehousePage extends BasePage {
     await this.browserActions.inputText(this.warehouseNameInput, name);
   }
 
-  public async selectWarehouseType(type: string): Promise<void> {
+  public async selectWarehouseType(type: string){
 
     await this.browserActions.click(this.warehouseTypeSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
     // await this.warehouseTypeSelect.selectByVisibleText(type);
   }
-  public async selectStatus(status: string): Promise<void> {
-
+  public async selectStatus(status: string) {
     await this.browserActions.click(this.statusTypeSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
@@ -109,11 +108,11 @@ export class AddWarehousePage extends BasePage {
 
   }
 
-  public async enterDescription(description: string): Promise<void> {
+  public async enterDescription(description: string) {
     await this.browserActions.inputText(this.descriptionInput, description);
   }
 
-  public async enterWarehouseAddress(address: string): Promise<void> {
+  public async enterWarehouseAddress(address: string) {
     await this.browserActions.inputText(this.warehouseAddressInput, address);
   }
 
@@ -121,21 +120,21 @@ export class AddWarehousePage extends BasePage {
     await this.browserActions.inputText(this.cityInput, city);
   }
 
-  public async enterState(state: string): Promise<void> {
+  public async enterState(state: string){
     await this.browserActions.inputText(this.stateInput, state);
   }
 
-  public async selectCountry(country: string): Promise<void> {
+  public async selectCountry(country: string) {
     await this.browserActions.click(this.countryInput);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
   }
 
-  public async enterPostalCode(postalCode: string): Promise<void> {
+  public async enterPostalCode(postalCode: string) {
     await this.browserActions.inputText(this.postalCodeInput, postalCode);
   }
 
-  public async selectWarehouseManager(manager: string): Promise<void> {
+  public async selectWarehouseManager(manager: string) {
     await this.browserActions.click(this.warehouseManagerSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
@@ -144,21 +143,24 @@ export class AddWarehousePage extends BasePage {
     //await this.warehouseManagerSelect.selectByVisibleText(manager);
 
   }
-  public async enterPhoneNumber(phoneNumber: string): Promise<void> {
+  public async enterPhoneNumber(phoneNumber: string) {
     await this.browserActions.inputText(this.phoneNumberInput, phoneNumber);
   }
 
-  public async enterEmail(email: string): Promise<void> {
+  public async enterEmail(email: string) {
     await this.browserActions.inputText(this.emailInput, email);
   }
 
-  public async selectStartTime(startTime: string): Promise<void> {
+  public async selectStartTime(startTime: string) {
     await this.browserActions.click(this.startTimeSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
+
+
+
   }
 
-  public async selectEndTime(endTime: string): Promise<void> {
+  public async selectEndTime(endTime: string) {
     await this.browserActions.click(this.endTimeSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
@@ -167,7 +169,7 @@ export class AddWarehousePage extends BasePage {
   }
 
 
-  public async selectTimeZone(timeZone: string): Promise<void> {
+  public async selectTimeZone(timeZone: string) {
     await this.browserActions.click(this.timeZoneSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
@@ -175,56 +177,56 @@ export class AddWarehousePage extends BasePage {
     // await this.browserActions.click(timeZoneOption);
   }
 
-  public async selectMeasurementUnit(measurementUnit: string): Promise<void> {
+  public async selectMeasurementUnit(measurementUnit: string) {
     await this.browserActions.scrollToElement(this.selectMeasurementUnits);
     await this.browserActions.click(this.selectMeasurementUnits);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
   }
 
-  public async enterCapacity(capacity: string): Promise<void> {
+  public async enterCapacity(capacity: string) {
     await this.browserActions.inputText(this.capacityInput, capacity);
   }
-  public async selectMeasurementUnitsOfCapacity(MeasurementUnitsOfCapacity: string): Promise<void> {
+  public async selectMeasurementUnitsOfCapacity(MeasurementUnitsOfCapacity: string) {
     await this.browserActions.scrollToElement(this.selectMeasurementUnits);
     await this.browserActions.click(this.selectMeasurementUnits);
-    const MeasurementUnitsOfCapacityOption = `//ul[@role='listbox']//li[@aria-label='${MeasurementUnitsOfCapacity}']`;
+    const MeasurementUnitsOfCapacityOption = `//span[text()='${MeasurementUnitsOfCapacity}']`;
     await this.browserActions.click(MeasurementUnitsOfCapacityOption);
 
   }
 
-  public async enterSpecialEquipment(equipment: string): Promise<void> {
+  public async enterSpecialEquipment(equipment: string) {
     await this.browserActions.inputText(this.specialEquipmentInput, equipment);
   }
 
-  public async selectTemperatureControl(option: string): Promise<void> {
+  public async selectTemperatureControl(option: string){
     await this.browserActions.click(this.temperatureControlSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
   }
 
-  public async enterDockCount(dockCount: string): Promise<void> {
-    await this.browserActions.inputText(this.dockCountInput, dockCount);
+  public async enterDockCount(dockCount: string) {
+    await this.browserActions.inputNumber(this.dockCountInput, dockCount);
   }
 
-  public async enterSecurityFeatures(features: string): Promise<void> {
+  public async enterSecurityFeatures(features: string) {
     await this.browserActions.inputText(this.securityFeaturesInput, features);
   }
 
-  public async selectUnitOfMeasurement(unit: string): Promise<void> {
+  public async selectUnitOfMeasurement(unit: string) {
     await this.browserActions.click(this.unitOfMeasurementSelect);
     const unitOption = `//li[@aria-label='${unit}']`;
     await this.browserActions.click(unitOption);
   }
 
-  public async selectPickTaskType(taskType: string): Promise<void> {
+  public async selectPickTaskType(taskType: string) {
     await this.browserActions.click(this.pickTaskTypeSelect);
     const taskTypeOption = `//ul[@role='listbox']//li[@aria-label='${taskType}']`;
     await this.browserActions.click(taskTypeOption);
     //await this.browserActions.selectOption(taskType);  // Similar to above
   }
 
-  public async selectStatusType(statusType: string): Promise<void> {
+  public async selectStatusType(statusType: string) {
     await this.browserActions.click(this.statusTypeSelect);
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('ArrowUp');
@@ -233,11 +235,11 @@ export class AddWarehousePage extends BasePage {
     //await this.browserActions.selectOption(statusType);  // Same as above
   }
 
-  public async clickAddButton(): Promise<void> {
+  public async clickAddButton(){
     await this.browserActions.click(this.addButton);
   }
 
-  public async clickBackButton(): Promise<void> {
+  public async clickBackButton() {
     await this.browserActions.click(this.backButton);
   }
 
@@ -253,59 +255,13 @@ export class AddWarehousePage extends BasePage {
   public async isAddButtonEnabled(): Promise<boolean> {
     return this.browserActions.isElementEnabled(this.addButton);
   }
+  
 
 
 
-  public async addWarehouse(
-    name: string,
-    type: string,
-    status: string,
-    description: string,
-    address: string,
-    city: string,
-    state: string,
-    country: string,
-    postalCode: string,
-    manager: string,
-    phoneNumber: string,
-    email: string,
-    startTime: string,
-    endTime: string,
-    timeZone: string,
-    MeasurementUnitsOfCapacity: string,
-    capacity: string,
-    equipment: string,
-    temperatureControl: string,
-    dockCount: string,
-    securityFeatures: string,
-    unitOfMeasurement: string,
-    pickTaskType: string
-  ): Promise<void> {
-    await this.enterWarehouseName(name);
-    await this.selectWarehouseType(type);
-    await this.selectStatusType(status);
-    await this.enterDescription(description);
-    await this.enterWarehouseAddress(address);
-    await this.enterCity(city);
-    await this.enterState(state);
-    await this.selectCountry(country);
-    await this.enterPostalCode(postalCode);
-    await this.selectWarehouseManager(manager);
-    await this.enterPhoneNumber(phoneNumber);
-    await this.enterEmail(email);
-    await this.selectStartTime(startTime);
-    await this.selectEndTime(endTime);
-    await this.selectTimeZone(timeZone);
-    await this.selectMeasurementUnitsOfCapacity(MeasurementUnitsOfCapacity);
-    await this.enterCapacity(capacity);
-    await this.enterSpecialEquipment(equipment);
-    await this.selectTemperatureControl(temperatureControl);
-    await this.enterDockCount(dockCount);
-    await this.enterSecurityFeatures(securityFeatures);
-    await this.selectUnitOfMeasurement(unitOfMeasurement);
-    await this.selectPickTaskType(pickTaskType);
-    await this.clickAddButton();
-  }
+
+
+
 
 }
 

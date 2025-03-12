@@ -16,7 +16,7 @@ export class UserManagementListPage extends BasePage {
   public viewUserButton = `(//button[contains(@class, 'dropdown-item') and contains(@class, 'ng-star-inserted') and contains(@tooltipposition, 'top')])[1]`;
   public resendInviteButton = '(//button[@tooltipposition="top" and contains(@class, "p-element") and contains(@class, "dropdown-item") and contains(@class, "ng-star-inserted")]//i[@class="pi pi-refresh"])[1]';
   public searchUser = '//input[@type="text" and @placeholder="Search..." and contains(@class, "search-input")]';
-  public username = '//input[@type="text" and @placeholder="Enter name" and @formcontrolname="name" and contains(@class, "focus:border-none")]';
+  public username = `//input[@formcontrolname='name']`;
   public selectRole = '//*[@formcontrolname="roleId"]';
   public emailId = '//*[@formcontrolname="email"]';
   public inviteUser = '//button[contains(text(), "Invite User")]';
