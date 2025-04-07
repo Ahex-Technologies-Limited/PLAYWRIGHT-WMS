@@ -25,14 +25,21 @@ test.beforeEach(async ({ page }) => {
     await loginPage.login('tester@gmail.com', 'Supriya@12');
     await browserActions.openUrl('http://143.244.132.143:8200/#/admin/warehouse/list');
     await warehouseListPage.warehouseCard('Test Warehouse');
-    await quotationPage.clickOnQuotationSideBar();
+    await page.getByRole('link', { name: ' Quotation' }).click();
+    await page.getByRole('button', { name: ' Select' }).click();
+
+  });
 
 
-});
-test.afterEach(async () => {
+   
+  
+
+
+
+test.afterEach(async ({page}) => {
     await driver.closeBrowser();
 });
-test('TC001 Verify that the user can add new quotation by clicking on add button', async () => {
+test.only('TC001 Verify that the user can add new quotation by clicking on add button', async ({page}) => {
     await quotationPage.clickOnQuotationAddButton();
     await quotationPage.selectValidDate('12');
     await quotationPage.enterCustomerName('Customer 1');
@@ -55,7 +62,7 @@ test('TC001 Verify that the user can add new quotation by clicking on add button
     await quotationPage.selectTaxRate('5');
     await browserActions.waitForTimeout(200);
     await quotationPage.clickOnNextButtonInItemDetails();
-    await quotationPage.enterReferenceNumber('ref123');
+    await quotationPage.enterReferenceNumber('ref980');
     await quotationPage.selectCurrency('SAR');
     await quotationPage.enterSalesRepresentative('Sales Representative 1');
     await quotationPage.enterProjectName('Project 1');
@@ -69,7 +76,7 @@ test('TC001 Verify that the user can add new quotation by clicking on add button
     await expect (quotationPage.isQuotationListDisplayed()).toBeTruthy();
 });
 
-test('TC002 Verify that after clicking on the edit button the user should be able to edit the quotation details', async () => {
+test('TC002 Verify that after clicking on the edit button the user should be able to edit the quotation details', async ({page}) => {
     await quotationPage.clickOnEditButton();
     await browserActions.waitForTimeout(5000);
     await quotationPage.enterCustomerName('Updated Customer 1');
@@ -78,18 +85,18 @@ test('TC002 Verify that after clicking on the edit button the user should be abl
     await expect (quotationPage.isQuotationListDisplayed()).toBeTruthy();
 });
 
-test('TC003 Verify that after clicking on the downloadButton the user should be able to download the quotation details', async () => {
+test('TC003 Verify that after clicking on the downloadButton the user should be able to download the quotation details', async ({page}) => {
     await quotationPage.clickOnDownloadButton();
     await browserActions.waitForTimeout(5000);
     await expect (quotationPage.isSuccessfulDownloadMessageDisplayed()).toBeTruthy();
 });
-test('TC004 Verify that after clicking on the searchBar the user should be able to search for  the quotation details', async () => {
+test('TC004 Verify that after clicking on the searchBar the user should be able to search for  the quotation details', async ({page}) => {
     await quotationPage.clickOnQuotationSearchBar();
     await browserActions.waitForTimeout(5000);
     await expect (quotationPage.isQuotationListDisplayed()).toBeTruthy();
 });
 
-test('TC005 Verify that after clicking on the filter button the user should be able to filter the quotation details', async () => {
+test('TC005 Verify that after clicking on the filter button the user should be able to filter the quotation details', async ({page}) => {
     await quotationPage.clickOnFilterButton();
     await quotationPage.selectStatus('Pending');
     await browserActions.waitForTimeout(5000);
