@@ -11,10 +11,10 @@ export class TaskManagementPage extends BasePage {
   }
 
   // Selectors
-  public taskManagementSidebar = `//span[contains(text(), 'Task Management')]`;
-  public taskListPage = `//a[contains(@class, 'bredcrumb-text') and span[text()='Task List']]`;
-  public addTaskButton = `//button[@class='btn btn-primary']`;
-  public titleInput = `//input[@placeholder='Title']`;
+  public taskManagementSidebar = `//span[@class='p-menuitem-text ng-tns-c147418153-4 ng-star-inserted'][normalize-space()='Task Management']`;
+  public taskListPage = `//span[@class='ml-2'][normalize-space()='Task Management']`;
+  public addTaskButton = `//button[normalize-space()='Add']`;
+  public titleInput = `//input[@id='name']`;
   public descriptionInput = `//textarea[@placeholder='Description']`;
   public taskTypeSelect = `//select[@placeholder='Task Type']`;
   public statusSelect = `//select[@placeholder='Status']`;
@@ -93,7 +93,7 @@ export class TaskManagementPage extends BasePage {
   }
   public async clickEditTaskButton(): Promise<void> {
     await this.browserActions.click(this.editTaskButton);
-  } 
+  }
   public async clickUpdateButton(): Promise<void> {
     await this.browserActions.click(this.updateButton);
   }

@@ -30,7 +30,7 @@ test.afterEach(async ({ page }) => {
     await page.context().clearCookies();
 }
 );
-test('TC001 Verify that Task Management page is displayed', async ({ page }) => {
+test.only('TC001 Verify that Task Management page is displayed', async ({ page }) => {
     await taskManagementPage.clickTaskManagementSidebar();
     await page.waitForTimeout(5000);
     expect(await taskManagementPage.isTaskListPageDisplayed()).toBeTruthy();
